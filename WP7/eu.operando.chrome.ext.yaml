@@ -1,0 +1,347 @@
+swagger: '2.0'
+info:
+  title: Browser Extension API
+  description: Browser Extension  API
+  version: 0.0.1
+  contact: 
+    email: raf@rms.ro
+  license:
+    name: MIT
+    url: 'http://opensource.org/licenses/MIT'
+schemes:
+  - https
+  - http
+host: 'localhost:8080'
+produces:
+  - application/json
+paths:
+  /getCurrentBrowserIdentity: 
+    get:
+      summary: Ask for current used identity 
+      parameters:
+        - name: user_id
+          in: query
+          description: User's unique identifier
+          type: string
+          required: true
+          format: uuid
+      tags:
+        - Browser Identity
+        - GET      
+      responses:
+        200:
+          description: An object containing current identity
+          schema:
+            $ref: '#/definitions/Identity'
+        500:
+          description: Unexpected error
+          schema: 
+            $ref: '#/definitions/Error'      
+  /getRegisteredSocialNetworks:
+    get:
+      summary: Ask for all user's social networks  
+      parameters :
+        - name: user_id
+          in: query
+          description: User's unique identifier
+          type: string
+          required: true
+          format: uuid
+      tags:
+        - Browser Extension
+        - Social Networks
+        - GET 
+      responses:
+        200:
+          description: An object containing current identity
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SocialNetwork'
+        500:
+          description: Unexpected error
+          schema: 
+            $ref: '#/definitions/Error'  
+  /getSocialNetworkPrivacySettings:
+    get:
+      summary: Ask for all user's social networks  
+      parameters :
+        - name: user_id
+          in: query
+          description: User's unique identifier
+          type: string
+          required: true
+          format: uuid
+        - name: social_network
+          in: query
+          description: Social Network Name
+          type: string
+          required: true
+        - name: url
+          in: query
+          description: Social Network URL
+          type: string
+          required: true
+      tags:
+        - Browser Extension
+        - Social Networks
+        - GET 
+      responses:
+        200:
+          description: An object containing current identity
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PrivacySetting'
+        500:
+          description: Unexpected error
+          schema: 
+            $ref: '#/definitions/Error'
+  /secureSocialNetwork:
+    post: 
+      summary: Apply secure settings for the social network
+      parameters :
+        - name: user_id
+          in: query
+          description: User's unique identifier
+          type: string
+          required: true
+          format: uuid
+        - name: social_network
+          in: query
+          description: Social Network Name
+          type: string
+          required: true
+        - name: url
+          in: query
+          description: Social Network URL
+          type: string
+          required: true
+        - name: privacy_settings
+          in: body
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PrivacySetting'
+          description: An array containing Privacy settings
+      tags:
+        - Browser Extension
+        - Social Networks
+        - POST     
+      responses:
+        200: 
+          description: An object containing a successfully status
+          schema:
+            $ref: '#/definitions/Status'
+        500:
+          description: Unexpected error
+          schema: 
+            $ref: '#/definitions/Error'
+  /getInstalledApps:
+    get:
+      summary: Get all installed apps, extension and themes
+      parameters: 
+        - name: user_id
+          in: query
+          description: User's unique identifier
+          type: string
+          required: true
+          format: uuid
+        - name: type
+          in: query
+          description: App type (extension, application, theme)
+          type: string
+      tags:
+        - Browser Extension
+        - Apps & Extensions
+        - GET 
+      responses:
+        200: 
+          description: An array containing all installed apps, extensions and themes
+          schema:
+            type: array
+            items: 
+              $ref: '#/definitions/Application'
+  /disableApp:
+    post:
+      summary: Suggest to extension to disable an application presenting the reason for the action
+      parameters:
+        - name: user_id
+          in: query
+          description: User's unique identifier
+          type: string
+          required: true
+          format: uuid
+        - name: application_id
+          in: query
+          description: Application unique identifier
+          type: string
+          required: true
+        - name: reason
+          in: body
+          required: true
+          description: Reason for this action
+          schema:
+            $ref: '#/definitions/Reason'
+      tags:
+        - Browser Extension
+        - Apps & Extensions
+        - POST 
+      responses: 
+        200:
+          description: Successfully request
+          schema:
+            $ref: '#/definitions/Status'
+        500:
+          description: Unexpected error
+          schema: 
+            $ref: '#/definitions/Error'    
+  /uninstallApp:
+    post:
+      summary: Suggest to extension to uninstall an application presenting the reason for the action
+      parameters:
+        - name: user_id
+          in: query
+          description: User's unique identifier
+          type: string
+          required: true
+          format: uuid
+        - name: application_id
+          in: query
+          description: Application unique identifier
+          type: string
+          required: true
+        - name: reason
+          in: body
+          required: true
+          description: Reason for this action
+          schema:
+            $ref: '#/definitions/Reason'
+      tags:
+        - Browser Extension
+        - Apps & Extensions
+        - POST 
+      responses: 
+        200:
+          description: Successfully request
+          schema:
+            $ref: '#/definitions/Status'
+        500:
+          description: Unexpected error
+          schema: 
+            $ref: '#/definitions/Error'            
+
+definitions:
+  Identity:
+    type: object
+    properties:
+      identityId:
+        type: string
+        description: This is a generated field
+      username:
+        type: string
+        description: Generated username
+      email:
+        type: string
+        description: Generated email
+      password:
+        type: string
+        description: Generated password
+  SocialNetwork:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Social Network name (e.g Twitter, Facebook)
+      url:
+        type: string
+        description: Social Network url (e.g twitter.com, facebook.com)
+      privacy_settings:
+        type: array
+        items:
+          $ref: '#/definitions/PrivacySetting'
+  PrivacySetting:
+    type: object
+    properties:
+      name:
+        type: string
+        description: name of the setting (e.g post_visibility)
+      post_address: 
+        type: string
+        description: url of the setting that changes it
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Data'
+  Data:
+    type: object
+    properties:
+      key:
+        type: string
+        description: data key
+      value:
+        type: string
+        description: data value
+  Application:
+    type: object
+    properties:
+      application_id:
+        type: string
+        description:  app unique identifier 
+      name:
+        type: string
+        description:  app name
+      version:
+        type: string
+        description: installed version
+      installation_date:
+        type: string
+        description: Date when app was installed
+      type:
+        type: string
+        description: App type (application, extension, theme)
+      permisions:
+        type: array
+        items:
+          $ref: '#/definitions/Permision' 
+        description: An array containing all required permissions    
+  Permision:
+    type: object
+    properties:
+      name: 
+        type: string
+        description: Permission name
+      config.name:
+        type: string
+        description: configuration needed key value
+      config.value:
+        type: string
+        description: configuration needed value  
+  Reason: 
+    type: object
+    properties: 
+      message:
+        type: string
+        description: Reason description
+      severity:  
+        type: string
+        description: Severity description
+  Status:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Request status success or error
+      message:
+        type: string
+        description: Status message
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
