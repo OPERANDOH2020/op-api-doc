@@ -33,13 +33,6 @@
                         "description": "ID of the website giving the offers.",
                         "required": true,
                         "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "userId",
-                        "description": "ID of the user to whom make the offers.",
-                        "required": true,
-                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -170,7 +163,7 @@
                 }
             }
         },
-        "/registerOSP": {
+        "/osp": {
             "post": {
                 "summary": "Registers a new OSP.",
                 "description": "Request from Administration Console to register a new Online Service Provider.",
@@ -195,6 +188,141 @@
                 "responses": {
                     "200": {
                         "description": "Successful operation (security token)",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Updates an existing OSP.",
+                "description": "Request from Administration Console to updates an existing OSP.",
+                "operationId": "updateOSP",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "osp",
+                        "in": "body",
+                        "description": "The OSP data in JSON format.",
+                        "schema": {
+                            "$ref": "#/definitions/OSP"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation (security token)",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Finds the osps matching the filter criteria.",
+                "description": "Finds the osps matching the filter criteria.",
+                "operationId": "getOSPs",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "osp",
+                        "in": "body",
+                        "description": "The OSP data in JSON format.",
+                        "schema": {
+                            "$ref": "#/definitions/OSP"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/OSP"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/osp/{ospId}": {
+            "get": {
+                "summary": "Finds an osp by ID.",
+                "description": "Finds an osp unit by ID.",
+                "operationId": "getOSP",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "ospId",
+                        "in": "path",
+                        "description": "ID of the osp that needs to be fetched.",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OSP"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletes an existing osp.",
+                "description": "Deletes an existing osp.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "ospId",
+                        "in": "path",
+                        "description": "ID of the osp that needs to be deleted",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
                         "schema": {
                             "type": "string"
                         }
@@ -377,6 +505,13 @@
                     },
                     {
                         "in": "query",
+                        "name": "userId",
+                        "description": "User Id.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
                         "name": "token",
                         "description": "Security token.",
                         "required": true,
@@ -399,7 +534,7 @@
                 }
             }
         },
-        "/createOffer": {
+        "/offer": {
             "post": {
                 "summary": "Creates a new offer for an OSP .",
                 "description": "Request from Administration Console to create a new offer for an OSP.",
@@ -435,11 +570,9 @@
                         }
                     }
                 }
-            }
-        },
-        "/updateOffer": {
+            },
             "put": {
-                "summary": "Update an offer for an OSP .",
+                "summary": "Updates an offer for an OSP .",
                 "description": "Request from Administration Console to update existing offer. (limited to specific fields - TBD).",
                 "operationId": "updateOffer",
                 "consumes": [
@@ -475,26 +608,91 @@
                 }
             }
         },
-        "/cancelDeal": {
-            "delete": {
-                "summary": "Cancel a deal.",
-                "description": "Request from Privacy Dashboard to cancel a deal.",
-                "operationId": "cancelDeal",
-                "consumes": [
-                    "application/json"
-                ],
+        "/offer/{offerId}": {
+            "get": {
+                "summary": "Finds an offer by ID.",
+                "description": "Finds an ooffer by ID.",
+                "operationId": "getOffer",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "name": "offerUser",
-                        "in": "body",
-                        "description": "The deal associated to an user data in JSON format.",
-                        "schema": {
-                            "$ref": "#/definitions/OfferUser"
-                        },
+                        "name": "offerId",
+                        "in": "path",
+                        "description": "ID of the offer that needs to be fetched.",
+                        "type": "string",
                         "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletes an existing offer.",
+                "description": "Deletes an existing offer.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "offerId",
+                        "in": "path",
+                        "description": "ID of the offer that needs to be deleted",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/cancelDeal": {
+            "delete": {
+                "summary": "Cancel a deal.",
+                "description": "Request from Privacy Dashboard to cancel a deal.",
+                "operationId": "cancelDeal",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "userId",
+                        "description": "User Id.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offerId",
+                        "description": "Offer Id.",
+                        "required": true,
+                        "type": "string"
                     }
                 ],
                 "responses": {
