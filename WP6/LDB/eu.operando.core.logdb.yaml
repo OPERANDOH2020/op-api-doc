@@ -1,0 +1,96 @@
+swagger: '2.0'
+info:
+  title: eu.operando.core.logdb
+  description: Operando LogDB module.
+  version: "1.0.0"
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+host: localhost:8080
+schemes:
+- http
+basePath: /operando/core/logdb
+produces:
+- application/json
+paths:
+  /log:
+    post:
+      summary: Inserts received data to the database.
+      description: Inserts received data to the database by using Log4j.
+      operationId: lodDB
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: request
+        in: body
+        description: The request data in JSON format to be inserted in the database by using Log4j
+        schema:
+          $ref: '#/definitions/Request'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Request:
+    type: object
+    properties:
+      requestComponentId:
+        type: string
+        description: Id of the called component.
+      requestId:
+        type: string
+        description: Request id.
+      iPAddress:
+        type: string
+        description: IP Address from which comes the call.
+      mACAddress:
+          type: string
+          description: MAC Address from which comes the call.
+      proxyId:
+        type: string
+        description: Proxy Id from which comes the call (could be google.com for example)
+      requesterId:
+        type: string
+        description: Id of the requester (typically the id of an OSP).
+      requestedURL:
+        type: string
+        description: Requested URL.
+      postedData:
+        type: string
+        description: Posted data wanted to be stored in the data base.
+      accessGranted:
+        type: boolean
+        description: Value indicating if the access is granted or not.
+      navigatorUserAgent:
+        type: string
+        description: Data describing the characteristics of the navigator from which is made the request.
+      isMobile:
+        type: boolean
+        description: Value indicating if the request comes from a mobile device or not.
+      mobileType:
+        type: string
+        description: If the request comes from a mobile device, the description of that device.
+      hashLogRM:
+        type: string
+        description: Hash value in order to provide a security plus.
+      hashLogDB:
+        type: string
+        description: Hash value in order to provide a security plus.
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
