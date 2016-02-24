@@ -12,10 +12,44 @@ info:
     
     3) Compute and manage the UPP of a user. Where a new user subscribes to the service, create the new UPP; where an existing user subscribes to a new service, or updates their privacy preferences recompute the UPP.
     
+    
+  termsOfService: http://www.operando.eu/terms/
+  contact:
+    name: IT Innovation
+    url: http://www.operando.eu/support
+    email: support@operando.eu
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+    
 schemes:
   - http
-host: mazimi-prod.apigee.net
+  - https
+  
+host: operando.eu
+
 basePath: /policycomputation
+
+################################################################################
+#                                   Tags                                       #
+################################################################################
+
+tags:
+  - name: Policy Evaluation
+    description: |
+      Evaluation of OSP behaviour against UPP policies.
+  - name: Policy Compliance
+    description: |
+      Evaluation of OSP behaviour against privacy regulations.
+  - name: Policy Compute
+    description: Methods related to the computation of UPPs of a user.
+  - name: Privacy Legislation
+    description: |
+      Management of privacy legislation.
+      
+################################################################################
+#                                   Paths                                      #
+################################################################################
 paths:
   /evaluateOSPRequest:
     post:
@@ -43,7 +77,7 @@ paths:
                 $ref: '#/definitions/OSPRequest'
             required: true
         tags:
-        -   PolicyEvaluation
+        -   Policy Evaluation
         -   POST
         responses:
           '200':
@@ -55,7 +89,7 @@ paths:
     post:
         summary: Evaluate a set of OSP requests against the legislation
         description: |
-                     Called by the Regulations API when a new OSP registers with OPERANDO; or a legislation changes.
+                     Method to run a new OSP registers with OPERANDO; or a legislation changes.
         parameters:
           - name: osp_id
             in: query
@@ -71,17 +105,9 @@ paths:
               items:
                 $ref: '#/definitions/OSPRequest'
             required: true
-            
-          - name: legislation
-            in: body
-            description: The set of legislation rules that the OSP will carry out on a user's private data
-            schema:
-              type: array
-              items:
-                $ref: '#/definitions/legislationRule'
-            required: true
+
         tags:
-        -   PolicyCompliance
+        -   Policy Compliance
         -   POST
         responses:
           '200':
@@ -98,13 +124,13 @@ paths:
         parameters:
           - name: osp_id
             in: query
-            description: OSP unique identifier
+            description: OSP unique identifier of the OSP to compute and add to the UPP
             type: string
             required: true
             
           - name: user_id
             in: query
-            description: user unique identifier
+            description: user unique identifier of the UPP to compute
             type: string
             required: true
             
@@ -118,7 +144,7 @@ paths:
             required: false
             
         tags:
-        -   PolicyCompute
+        -   Policy Compute
         -   POST
         responses:
           '200':
@@ -149,7 +175,7 @@ paths:
             required: true
             
         tags:
-        -   PolicyCompute
+        -   Policy Compute
         -   POST
         responses:
           '200':
@@ -157,6 +183,78 @@ paths:
             schema:
               $ref: '#/definitions/Report'
               
+              
+  /Regulations/{reg_id}/: 
+    post:
+        description: |
+          Called by the Regulator API. A New regulation is entered into OPERANDO. The regulation is stored in the policy DB. Existing UPPs are then evaluated to see if they comply with the regulation. 
+      
+        tags:
+          - Privacy Legislation
+          
+        parameters:
+          -
+            name: reg_id
+            in: path
+            description: The unqiue regulation ID for the new regulation created.
+            required: true
+            type: number
+            format: integer32
+            
+          -
+            name: regulation
+            in: body
+            description: The description of the new regulation.
+            required: true
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/PrivacyRegulation'
+              
+        responses:
+              # Response code
+            200:
+              description: Successful response. The regulation has been added.
+            409:
+              description: Error occured. The resource already exists, so a new resource cannot be created.
+              
+    put:
+    
+        description: |
+          Called by the Regulator API. An updated regulation is entered into OPERANDO. The regulation is stored in the policy DB. Existing UPPs are then evaluated to see if they comply with the regulation.
+          
+          Pre-condition -- The regulation must have been written to the system.
+          
+        tags:
+          - Privacy Legislation
+          - PUT
+          
+        parameters:
+          -
+            name: reg_id
+            in: path
+            description: The unqiue regulation ID for the changed regulation.
+            required: true
+            type: number
+            format: integer32
+            
+          -
+            name: regulation
+            in: body
+            description: The description of the changed regulation.
+            required: true
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/PrivacyRegulation'
+              
+          # Expected responses for this operation:
+        responses:
+              # Response code
+            200:
+              description: Successful response. The regulation has been added.
+            404:
+              description: Error. The resource does not exist to be updated.
 definitions:
   OSPRequest:
     type: object
@@ -174,34 +272,6 @@ definitions:
         type: string
         description: Role of the person requesting the request
 
-  OSP:
-    type: object
-    properties:
-      id:
-        type: string
-        description: OSP Unique Identifier
-      description:
-        type: string
-        description: Description of the OSP
-      name:
-        type: string
-        description: Short name of the OSP
-  legislationRule:
-    type: object
-    properties:
-      legislation_id:
-        type: integer
-        format: int32
-        description: legislation rule unique identifier
-      sector:
-        type: string
-        description: The domain that the legislation applies to
-      legislation:
-        type: string
-        description: The legislation  description
-      legislation_value:
-        type: string
-        description: The value that must be complied with#
         
   UserPreference:
     type: object
@@ -229,14 +299,16 @@ definitions:
       message:
         type: string
         description: Message stating the reasons any request failed e.g. breaks the user's privacy preferences.
-  Error:
+
+  PrivacyRegulation:
     type: object
     properties:
-      code:
-        type: integer
-        format: int32
-      message:
+      sector:
         type: string
-      fields:
+        description: The domain that the legislation applies to
+      legislation:
         type: string
-        
+        description: The legislation description
+      legislation_value:
+        type: string
+        description: The value that must be complied with
