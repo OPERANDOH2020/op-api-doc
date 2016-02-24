@@ -1,0 +1,242 @@
+---
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Policy Computation
+  description: |
+    Provides a set of functions that provide analysis and computation of privacy policies. The following describe the overall behaviours of the component
+    
+    1) Evaluate if a particular data request, or sequence of data requests from an OSP complies with the user's privacy policy; 
+    
+    2) Evaluate if the behaviour of an OSP complies with the appropriate privacy regulations;
+    
+    3) Compute and manage the UPP of a user. Where a new user subscribes to the service, create the new UPP; where an existing user subscribes to a new service, or updates their privacy preferences recompute the UPP.
+    
+schemes:
+  - http
+host: mazimi-prod.apigee.net
+basePath: /policycomputation
+paths:
+  /evaluateOSPRequest:
+    post:
+        summary: Evaluate a set of OSP requests against the User Privacy Policy
+        description: |
+                     Called by the Rights Management Component when evaluating if an OSP request or set of requests matches the user preferences stored in the user's UPP.
+        parameters:
+          - name: user_id
+            in: query
+            description: Unique identifier representing a specific user
+            type: string
+            required: true
+            format: uuid
+          - name: osp_id
+            in: query
+            description: OSP unique identifier
+            type: string
+            required: true
+          - name: osp_request
+            in: body
+            description: The set of requests that the OSP wants to on a user's private data
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/OSPRequest'
+            required: true
+        tags:
+        -   PolicyEvaluation
+        -   POST
+        responses:
+          '200':
+            description: Evaluation was successful and a report is produced. The report indicates if the request(s) is allowed. Where not allowed, the report indicates 
+            schema:
+              $ref: '#/definitions/Report'
+              
+  /evaluateOSPCompliance:
+    post:
+        summary: Evaluate a set of OSP requests against the legislation
+        description: |
+                     Called by the Regulations API when a new OSP registers with OPERANDO; or a legislation changes.
+        parameters:
+          - name: osp_id
+            in: query
+            description: OSP unique identifier
+            type: string
+            required: true
+            
+          - name: osp_request
+            in: body
+            description: The set of requests that the OSP will carry out on a user's private data
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/OSPRequest'
+            required: true
+            
+          - name: legislation
+            in: body
+            description: The set of legislation rules that the OSP will carry out on a user's private data
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/legislationRule'
+            required: true
+        tags:
+        -   PolicyCompliance
+        -   POST
+        responses:
+          '200':
+            description: Compliance was successful and a report is produced. The report indicates if the request(s) complies with legislation. Where there is a breach, the report indicates the reason for the breach.
+            schema:
+              $ref: '#/definitions/Report'    
+          
+          
+  /computeUPP:
+    post:
+        summary: Creates or changes the UPP based on a user subscribing to a new service.
+        description: |
+              Called by the management console when a user subscribes to a new OSP.
+        parameters:
+          - name: osp_id
+            in: query
+            description: OSP unique identifier
+            type: string
+            required: true
+            
+          - name: user_id
+            in: query
+            description: user unique identifier
+            type: string
+            required: true
+            
+          - name: osp_request
+            in: body
+            description: The set of requests that the OSP will carry out on a user's private data. This will likely be stored in the DB, so not needed to pass each time.
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/OSPRequest'
+            required: false
+            
+        tags:
+        -   PolicyCompute
+        -   POST
+        responses:
+          '200':
+            description: UPP update was successful and a report is produced. The report indicates if the request(s) complies matches the subscription. Where there is a mismatch, the report indicates the reason for the mismatch.
+            schema:
+              $ref: '#/definitions/Report'
+              
+  /computeUPPPreferences:
+    post:
+        summary: Creates or changes the UPP based on a newly input privacy preferences by the user.
+        description: |
+              Called by the management console when a user enters their information into questionnaire.
+        parameters:
+            
+          - name: user_id
+            in: query
+            description: user unique identifier
+            type: string
+            required: true
+            
+          - name: user_preferences
+            in: body
+            description: The array of preference values.
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/UserPreference'
+            required: true
+            
+        tags:
+        -   PolicyCompute
+        -   POST
+        responses:
+          '200':
+            description: UPP update was successful and a report is produced. The report indicates if the request(s) complies matches the subscription. Where there is a mismatch, the report indicates the reason for the mismatch.
+            schema:
+              $ref: '#/definitions/Report'
+              
+definitions:
+  OSPRequest:
+    type: object
+    properties:
+      id:
+        type: string
+        description: OSP identifier
+      data_requested:
+        type: string
+        description: Description of the data/fields that the request concerns
+      operation:
+        type: string
+        description: Action to be performed on the data
+      Role:
+        type: string
+        description: Role of the person requesting the request
+
+  OSP:
+    type: object
+    properties:
+      id:
+        type: string
+        description: OSP Unique Identifier
+      description:
+        type: string
+        description: Description of the OSP
+      name:
+        type: string
+        description: Short name of the OSP
+  legislationRule:
+    type: object
+    properties:
+      legislation_id:
+        type: integer
+        format: int32
+        description: legislation rule unique identifier
+      sector:
+        type: string
+        description: The domain that the legislation applies to
+      legislation:
+        type: string
+        description: The legislation  description
+      legislation_value:
+        type: string
+        description: The value that must be complied with#
+        
+  UserPreference:
+    type: object
+    properties:
+      preference_id:
+        type: integer
+        format: int32
+        description: the identifier of the preference
+      sector:
+        type: string
+        description: The domain that the preference applies in
+      privacy_target:
+        type: string
+        description: The private data the preference describes
+      privacy_value:
+        type: integer
+        format: int32
+        description: The user's rating of the importance of the privacy targt.
+  Report:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Request status success or error
+      message:
+        type: string
+        description: Message stating the reasons any request failed e.g. breaks the user's privacy preferences.
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+        

@@ -1,0 +1,378 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "0.0.1"
+  title: OSP Enforcement
+
+  description: |
+    Provides a set of functions that manage the interaction of OSP behaviour with the user's private data.
+    
+    1) Check that an OSP conforms with a change in regulation;
+    
+    2) Check that an OSP conforms to a change in the user's UPP;
+    
+    3) Manage the update of the user's UPP and the user's privacy settings where the OSP has changed either its privacy policy or its own privacy settings.
+    
+    4) Manages the registration and checking of a newly registered OSP (for compliance with regulations and UPPs).
+    
+    
+schemes:
+  - http
+host: operando.eu
+basePath: /ospenforcement
+
+# Describe your paths here
+paths:
+  # This is a path endpoint. Change it.
+  /PrivacySettings/{user_id}/{osp_id}:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+        Gets a user's OSP privacy settings.
+        Called by watchdog when it requests the settings last applied by the OSE component.
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: user_id
+          in: path
+          description: The unqiue OPERANDO ID for the individual user.
+          required: true
+          type: number
+          format: integer32
+        -
+          name: osp_id
+          in: path
+          description: The unqiue OPERANDO ID for the individual user.
+          required: true
+          type: number
+          format: integer32
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        200:
+          description: Successful response
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPrivacySettings
+            type: array
+            items:
+              title: PrivacySetting
+              type: object
+              properties:
+                name:
+                  type: string
+                value:
+                  type: object
+
+    # This is a HTTP operation
+    post:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+        Called by watchdog when it detects change in user’s privacy settings. OSE computes the required new settings and ensures that they are enforced at the OSP and the new settings stored in the policy DB.
+      # This is array of POST operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: user_id
+          in: path
+          description: The unqiue OPERANDO ID for the individual user.
+          required: true
+          type: number
+          format: integer32
+        -
+          name: osp_id
+          in: path
+          description: The unqiue OPERANDO ID for the individual user.
+          required: true
+          type: number
+          format: integer32
+          
+        -
+          name: osp_settings
+          in: body
+          description: The set of settings that have now changed. This is the complete OSP list to be compared with the existing stored settings for this OSP
+          schema:
+            type: array
+            items:
+              title: PrivacySetting
+              type: object
+              properties:
+                name:
+                  type: string
+                value:
+                  type: object
+          required: true
+          
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        200:
+          description: Successful response
+
+  /PrivacyPolicy/{osp_id}/policy/:         
+      post:
+        # Describe this verb here. Note: you can use markdown
+        description: |
+          Called by watchdog when it detects change in an OSP’s privacy policy. OSE computes whether the OSP complies with regulations; complies with UPP. It updates UPP where appropriate and notifies users and OSP if there are issues with the updated privacy policy.
+        # This is array of POST operation parameters:
+        parameters:
+          # An example parameter that is in query and is required
+          -
+            name: osp_id
+            in: path
+            description: The unqiue OPERANDO ID for the individual user.
+            required: true
+            type: number
+            format: integer32
+            
+          -
+            name: osp_policy
+            in: body
+            description: The set of settings that have now changed. This is the complete OSP list to be compared with the existing stored settings for this OSP
+            schema:
+              type: array
+              items:
+                title: PrivacyPolicy
+                type: object
+                properties:
+                  name:
+                    type: string
+                  sector:
+                    type: string
+                  role:
+                    type: string
+                  action:
+                    type: string
+                  data:
+                    type: object
+                  rule:
+                    type: string
+            required: true
+            
+        # Expected responses for this operation:
+        responses:
+          # Response code
+          200:
+            description: Successful response
+    
+      put:
+       # Describe this verb here. Note: you can use markdown
+        description: |
+          Called by the management console when a new G2C OSP registers with OPERANDO. Tells the system its policies, privacy setting and/or requests for data (Workflow). Note G2C will be policy and data requests; B2C will be settings
+        # This is array of POST operation parameters:
+        parameters:
+          # An example parameter that is in query and is required
+          -
+            name: osp_id
+            in: path
+            description: The unqiue OPERANDO ID for the individual user.
+            required: true
+            type: number
+            format: integer32
+            
+          -
+            name: osp_policy
+            in: body
+            description: The initial policy entered when the OSP registers with OPERANDO
+            schema:
+              type: array
+              items:
+                title: PrivacyPolicy
+                type: object
+                properties:
+                  name:
+                    type: string
+                  sector:
+                    type: string
+                  role:
+                    type: string
+                  action:
+                    type: string
+                  data:
+                    type: object
+                  rule:
+                    type: string
+            required: true
+          
+            
+          # Expected responses for this operation:
+        responses:
+              # Response code
+            200:
+              description: Successful response
+              
+              
+  /PrivacyPolicy/{osp_id}/settings/:         
+    
+      put:
+       # Describe this verb here. Note: you can use markdown
+        description: |
+          Called by the management console when a new B2C OSP registers with OPERANDO. Tells the system its privacy setting.
+        # This is array of POST operation parameters:
+        parameters:
+          # An example parameter that is in query and is required
+          -
+            name: osp_id
+            in: path
+            description: The unqiue OPERANDO ID for the individual user.
+            required: true
+            type: number
+            format: integer32
+            
+          -
+            name: osp_settings
+            in: body
+            description: The set of settings that have now changed. This is the complete OSP list to be compared with the existing stored settings for this OSP
+            required: true
+            schema:
+              type: array
+              items:
+                title: PrivacySetting
+                type: object
+                properties:
+                  name:
+                    type: string
+                  value:
+                    type: object
+          
+          # Expected responses for this operation:
+        responses:
+              # Response code
+            200:
+              description: Successful response
+              
+  /PrivacyPolicy/{osp_id}/workflow/:         
+      
+      put:
+       # Describe this verb here. Note: you can use markdown
+        description: |
+          Called by the management console when a new G2C OSP registers with OPERANDO. Tells the system its requests for data (Workflow). Note G2C will be policy and data requests; B2C will be settings.
+        # This is array of POST operation parameters:
+        parameters:
+          # An example parameter that is in query and is required
+          -
+            name: osp_id
+            in: path
+            description: The unqiue OPERANDO ID for the individual user.
+            required: true
+            type: number
+            format: integer32
+            
+          -
+            name: osp_requests
+            in: body
+            description: The set of data requests that this service will make. Any requests not in this list, will be rejected by the OSP enforcement component of OPERANDO. G2C services must follow the information they provide here.
+            required: true
+            schema:
+              type: array
+              items:
+                title: DataRequests
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: OSP identifier
+                  data_requested:
+                    type: string
+                    description: Description of the data/fields that the request concerns
+                  operation:
+                    type: string
+                    description: Action to be performed on the data
+                  Role:
+                    type: string
+                    description: Role of the person requesting the request
+              
+          
+            
+          # Expected responses for this operation:
+        responses:
+              # Response code
+            200:
+              description: Successful response
+              
+              
+  /PrivacyPolicy/{reg_id}/: 
+    put:
+       # Describe this verb here. Note: you can use markdown
+        description: |
+          Called by the Regulator API. New regulation is entered into OPERANDO
+        # This is array of POST operation parameters:
+        parameters:
+          # An example parameter that is in query and is required
+          -
+            name: reg_id
+            in: path
+            description: The unqiue regulation ID for the new regulation created.
+            required: true
+            type: number
+            format: integer32
+            
+          -
+            name: regulation
+            in: body
+            description: The description of the new regulation.
+            required: true
+            schema:
+              type: Object
+              properties:
+                sector:
+                  type: string
+                  description: The domain that the legislation applies to
+                legislation:
+                  type: string
+                  description: The legislation description
+                legislation_value:
+                  type: string
+                  description: The value that must be complied with
+              
+          # Expected responses for this operation:
+        responses:
+              # Response code
+            200:
+              description: Successful response
+              
+    post:
+       # Describe this verb here. Note: you can use markdown
+        description: |
+          Called by the Regulator API. A change to a regulation is entered into OPERANDO
+        # This is array of POST operation parameters:
+        parameters:
+          # An example parameter that is in query and is required
+          -
+            name: reg_id
+            in: path
+            description: The unqiue regulation ID for the changed regulation.
+            required: true
+            type: number
+            format: integer32
+            
+          -
+            name: regulation
+            in: body
+            description: The description of the changed regulation.
+            required: true
+            schema:
+              type: Object
+              properties:
+                sector:
+                  type: string
+                  description: The domain that the legislation applies to
+                legislation:
+                  type: string
+                  description: The legislation description
+                legislation_value:
+                  type: string
+                  description: The value that must be complied with
+              
+          # Expected responses for this operation:
+        responses:
+              # Response code
+            200:
+              description: Successful response
