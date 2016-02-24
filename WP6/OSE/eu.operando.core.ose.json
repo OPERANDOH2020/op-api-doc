@@ -1,0 +1,435 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.7",
+        "title": "OSP Enforcement (OSE)",
+        "description": "\nThe OSP enforcement component provides a set of functions that manage the interaction of OSP behaviour with the user's private data. The OSE component is largely in charge of ensuring that an OSP follows both privacy regulations and policies put in place by the user (i.e. in the OPERANDO UPPs). There are a set of events that trigger the usage of this API.\n\n1) When a new OSP registers with OPERANDO via the OPERANDO console. The management console informs the OSE, which then checks that an OSP conforms with existing privacy regulations; if it breaches the regulations, the OSE returns via the management console a report describing the breaches.\n\n2) When a change of OSP privacy policy or of the OSP's privacy settings are detected by the watchdog component. The OSE is notified and then managess the update of the user's UPP and the user's privacy settings where the OSP has changed either its privacy policy or its own privacy settings.\n\n3) When a privacy legislation is entered (or changed) via the Regulator API. The OSE checks registered OSPs for compliance with the new regulations; where there is a breach the OSP is notified either by e-mail or the console.\n",
+        "termsOfService": "http://www.operando.eu/terms/",
+        "contact": {
+            "name": "IT Innovation",
+            "url": "http://www.operando.eu/support",
+            "email": "support@operando.eu"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+        }
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "host": "operando.eu",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Privacy Settings",
+            "description": "API related to the management of a user's OSP privacy settings\n"
+        },
+        {
+            "name": "Privacy Legislation",
+            "description": "Management of privacy legislation.\n"
+        },
+        {
+            "name": "Privacy Policy",
+            "description": "APIs related to management of OSP privacy policies and behaviour."
+        }
+    ],
+    "paths": {
+        "/PrivacySettings/{user_id}/{osp_id}/": {
+            "get": {
+                "description": "Simple retrieval of an OPERANDO registered user's OSP privacy settings.\nThis method is called by the watchdog component when it requests the settings last applied by the OSE component.\n\nPre condition -- An OPERANDO user must have registered with the OPERANDO platform and subscribed to the OSP service in question.\n\nPre condition --The user's UPP must be stored in the Policy DB component and contain the privacy settings for the OSP service in question.\n",
+                "tags": [
+                    "Privacy Settings"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "The unqiue OPERANDO ID for the individual user. This corresponds to the unqiue ID of the user record stored in the User Account DB. This corresponds to the identifier of the UPP of the user stored in the Policy DB.",
+                        "required": true,
+                        "type": "number",
+                        "format": "integer32"
+                    },
+                    {
+                        "name": "osp_id",
+                        "in": "path",
+                        "description": "The unqiue OPERANDO ID for a given OSP service. Identifies an OSP within OPERANDO.",
+                        "required": true,
+                        "type": "number",
+                        "format": "integer32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response. The privacy settings information for this user at the given OSP is returned.",
+                        "schema": {
+                            "title": "ArrayOfPrivacySettings",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PrivacySetting"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error response. The user does not exist. Or the OSP does not exist. Or the user is not subscribed to the OSP in OPERANDO."
+                    }
+                }
+            },
+            "put": {
+                "description": "Called by the watchdog component when it detects a change in the user’s privacy settings at the given OSP. OSE computes the required new settings and ensures that they are enforced at the OSP and the new settings stored in the policy DB.\n",
+                "tags": [
+                    "Privacy Settings"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "The unqiue OPERANDO ID for the individual user. This corresponds to the unqiue ID of the user record stored in the User Account DB. This corresponds to the identifier of the UPP of the user stored in the Policy DB.",
+                        "required": true,
+                        "type": "number",
+                        "format": "integer32"
+                    },
+                    {
+                        "name": "osp_id",
+                        "in": "path",
+                        "description": "The unqiue OPERANDO ID for a given OSP service. Identifies an OSP within OPERANDO.",
+                        "required": true,
+                        "type": "number",
+                        "format": "integer32"
+                    },
+                    {
+                        "name": "osp_settings",
+                        "in": "body",
+                        "description": "The set of settings that have now changed. This is the complete OSP settings list to be compared with the existing stored settings for this OSP for the user.",
+                        "schema": {
+                            "title": "ArrayOfPrivacySettings",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PrivacySetting"
+                            }
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response. The privacy settings have been agreed and applied via the OSE and the browser extension software. Note, the response here only needs to indicate that the method worked not whether the settings have been applied in practice."
+                    },
+                    "404": {
+                        "description": "Error response. The user does not exist. Or the OSP does not exist. Or the user is not subscribed to the OSP in OPERANDO."
+                    }
+                }
+            }
+        },
+        "/PrivacyPolicy/{osp_id}/policy/": {
+            "put": {
+                "description": "Called by watchdog when it detects change in an OSP’s privacy policy. OSE computes whether the OSP policy complies with regulations; complies with UPP. It updates UPP where appropriate and notifies users and OSP if there are issues with the updated privacy policy.\n\nPre-condition -- The OSP must be registered with OPERANDO and it must have an existing policy stored in the policy DB.\n",
+                "tags": [
+                    "Privacy Policy"
+                ],
+                "parameters": [
+                    {
+                        "name": "osp_id",
+                        "in": "path",
+                        "description": "The unqiue OPERANDO ID for the OSP.",
+                        "required": true,
+                        "type": "number",
+                        "format": "integer32"
+                    },
+                    {
+                        "name": "osp_policy",
+                        "in": "body",
+                        "description": "The set of individual policies that have now compose the OSP's new privacy policy. This is the complete OSP list of the policies to be compared with the existing stored policy for this OSP.",
+                        "schema": {
+                            "title": "ArrayOfPrivacyPolicy",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PrivacyPolicy"
+                            }
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response. The privacy policy has been updated."
+                    },
+                    "404": {
+                        "description": "Error response. The OSP does not exist. It has not been registered with OPERANDO."
+                    }
+                }
+            },
+            "post": {
+                "description": "Called by the management console when a new G2C OSP registers with OPERANDO. The new OSP tells the system its policies. Note G2C will be policy and data requests - hence when a new OSP registers it calls this method and the similar workflow method.\n",
+                "tags": [
+                    "Privacy Policy"
+                ],
+                "parameters": [
+                    {
+                        "name": "osp_id",
+                        "in": "path",
+                        "description": "The unqiue OPERANDO ID for the new OSP being registered.",
+                        "required": true,
+                        "type": "number",
+                        "format": "integer32"
+                    },
+                    {
+                        "name": "osp_policy",
+                        "in": "body",
+                        "description": "The initial policy entered when the OSP registers with OPERANDO",
+                        "schema": {
+                            "title": "ArrayOfPrivacySettings",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PrivacyPolicy"
+                            }
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response. The new policy is registered with the OSP in the policy DB."
+                    },
+                    "409": {
+                        "description": "Error. The policy is already in place and cannot be created."
+                    }
+                }
+            }
+        },
+        "/PrivacyPolicy/{osp_id}/settings/": {
+            "post": {
+                "description": "Called by the management console when a new B2C OSP registers with OPERANDO. The OSP provides to OPERANDO its privacy settings. These are stored and used in later computations.\n",
+                "tags": [
+                    "Privacy Settings"
+                ],
+                "parameters": [
+                    {
+                        "name": "osp_id",
+                        "in": "path",
+                        "description": "The unqiue OPERANDO ID for the registered OSP service.",
+                        "required": true,
+                        "type": "number",
+                        "format": "integer32"
+                    },
+                    {
+                        "name": "osp_settings",
+                        "in": "body",
+                        "description": "The OSPs set of privacy settings.",
+                        "required": true,
+                        "schema": {
+                            "title": "ArrayOfPrivacySettings",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PrivacySetting"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response. The settings have been stored when the OSP is registered."
+                    },
+                    "409": {
+                        "description": "Error occured. The resource already exists, so a new resource cannot be created."
+                    }
+                }
+            }
+        },
+        "/PrivacyPolicy/{osp_id}/workflow/": {
+            "post": {
+                "description": "Called by the management console when a new G2C OSP registers with OPERANDO. Tells the system its requests for data (Workflow). Note G2C will be policy and data requests; B2C will be settings.\n",
+                "tags": [
+                    "Privacy Policy"
+                ],
+                "parameters": [
+                    {
+                        "name": "osp_id",
+                        "in": "path",
+                        "description": "The unqiue OPERANDO ID for the registered OSP service.",
+                        "required": true,
+                        "type": "number",
+                        "format": "integer32"
+                    },
+                    {
+                        "name": "osp_requests",
+                        "in": "body",
+                        "description": "The set of data requests that this service will make. Any requests not in this list, will be rejected by the OSP enforcement component of OPERANDO. G2C services must follow the information they provide here.",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/OSPRequest"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response, The workflow of data requests have been stored with the registered OSP."
+                    },
+                    "409": {
+                        "description": "Error occured. The resource already exists, so a new resource cannot be created."
+                    }
+                }
+            }
+        },
+        "/PrivacyPolicy/{reg_id}/": {
+            "post": {
+                "description": "Called by the Regulator API. A New regulation is entered into OPERANDO. Existing OSPs are then evaluated to see if they comply with the regulation. If not they are sent a report about how to comply.\n",
+                "tags": [
+                    "Privacy Legislation"
+                ],
+                "parameters": [
+                    {
+                        "name": "reg_id",
+                        "in": "path",
+                        "description": "The unqiue regulation ID for the new regulation created.",
+                        "required": true,
+                        "type": "number",
+                        "format": "integer32"
+                    },
+                    {
+                        "name": "regulation",
+                        "in": "body",
+                        "description": "The description of the new regulation.",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PrivacyRegulation"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response. The regulation has been added."
+                    },
+                    "409": {
+                        "description": "Error occured. The resource already exists, so a new resource cannot be created."
+                    }
+                }
+            },
+            "put": {
+                "description": "Called by the Regulator API. A change to a regulation is entered into OPERANDO. Existing OSPs are then evaluated to see if they comply with the regulation. If not they are sent a report about how to comply.\n\nPre-condition -- The regulation must have been written to the system.\n",
+                "tags": [
+                    "Privacy Legislation"
+                ],
+                "parameters": [
+                    {
+                        "name": "reg_id",
+                        "in": "path",
+                        "description": "The unqiue regulation ID for the changed regulation.",
+                        "required": true,
+                        "type": "number",
+                        "format": "integer32"
+                    },
+                    {
+                        "name": "regulation",
+                        "in": "body",
+                        "description": "The description of the changed regulation.",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PrivacyRegulation"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response. The regulation has been added."
+                    },
+                    "404": {
+                        "description": "Error. The resource does not exist to be updated."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "PrivacySetting": {
+            "type": "object",
+            "properties": {
+                "setting_name": {
+                    "type": "string",
+                    "description": "The description of the privacy setting e.g Facebook.birthday"
+                },
+                "setting_value": {
+                    "type": "string",
+                    "description": "The value of the setting e.g. private, friends, friend of friends, etc."
+                }
+            }
+        },
+        "PrivacyPolicy": {
+            "type": "object",
+            "properties": {
+                "policy_description": {
+                    "type": "string",
+                    "description": "The description of the privacy policy e.g Doctor access to medical record"
+                },
+                "policy_category": {
+                    "type": "string",
+                    "description": "The sector the policy applies to e.g. healthcare"
+                },
+                "recipient_role": {
+                    "type": "string",
+                    "description": "The role(s) of persons involved in the policy that receives the private data e.g. doctor, admin"
+                },
+                "action": {
+                    "type": "string",
+                    "description": "The action performed on the data e.g. read, write, store, publish, etc."
+                },
+                "policy_data": {
+                    "type": "string",
+                    "description": "The reference to the data object the policy applies to."
+                },
+                "policy_purpose": {
+                    "type": "string",
+                    "description": "The purpose of the this action on the stated private data."
+                }
+            }
+        },
+        "OSPRequest": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "OSP identifier"
+                },
+                "data_requested": {
+                    "type": "string",
+                    "description": "Description of the data/fields that the request concerns"
+                },
+                "operation": {
+                    "type": "string",
+                    "description": "Action to be performed on the data"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "Role of the person making the request"
+                }
+            }
+        },
+        "PrivacyRegulation": {
+            "type": "object",
+            "properties": {
+                "sector": {
+                    "type": "string",
+                    "description": "The domain that the legislation applies to"
+                },
+                "legislation": {
+                    "type": "string",
+                    "description": "The legislation description"
+                },
+                "legislation_value": {
+                    "type": "string",
+                    "description": "The value that must be complied with"
+                }
+            }
+        }
+    }
+}
