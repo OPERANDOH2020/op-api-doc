@@ -7,216 +7,245 @@ info:
     name: MIT
     url: http://opensource.org/licenses/MIT
 host: localhost:8080
+basePath: /operando/core/pfb
 schemes:
 - http
-basePath: /operando/core/pfb
+- https
 produces:
 - application/json
+################################################################################
+#                                   Tags                                       #
+################################################################################
+tags:
+  - name: Deals
+    description: |
+      Privacy for benefit products that have been accepted by a user
+  - name: Offers
+    description: |
+      Privacy for benefit product, offered by an OSP to consumers
+  - name: OSPs
+    description: APIs related to management of Online Service Providers PfB accounts.
+  - name: Users
+    description: End users of the Privacy Service Provider.
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  offer-id:
+    name: offer-id
+    in: path
+    description: The offer identifier number
+    type: string
+    required: true
+  deal-id:
+    name: deal-id
+    in: path
+    description: The unique identifier number of a deal.
+    type: string
+    required: true
+  user-id:
+    name: user-id
+    in: path
+    description: The offer identifier number
+    type: string
+    required: true
+  osp-id:
+    name: osp-id
+    in: path
+    description: The identifier number of an OSP
+    type: string
+    required: true
+################################################################################
+#                                   PATHs                                      #
+################################################################################
 paths:
-  /getOffers:
+  /offers/search:
     get:      
-      summary: Gets offers related to a website.
-      description: Extension sends request to PfB service to get a list of offers for the website when signup page is detected.
+      summary: Search offers in databse
+      description: Extension or management console send request to PfB service to get a list of offers by specific search terms (e.g Gets offers related to a website  when signup page is detected)
+      tags:
+        - Offers
       operationId: getOffers
-      produces:
-        - application/json        
       parameters:
-        - in: query
-          name: websiteId
-          description: ID of the website giving the offers.
-          required: true
+        - name: website_url
+          in: query
+          description: URL of the website to get offers related to specific URL
+          type: string
+        - name: website_id
+          in: query
+          description: ID of the website to get offers related to specific website ID
+          type: string
+        - name: osp_id
+          in: query
+          description: ID of the OSP to list of all offers created by specific OSP..
+          type: string
+        - name: user_id
+          in: query
+          description: ID of the user to limit offers to those apllicable to specific user.
           type: string
       responses:
         "200":
           description: Successful operation
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Offer'
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Offer'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /requestOffer:
-    put:
-      summary: Indicates the user's acceptance for an offer.
-      description: Triggered by the extension to PfB service to indicate that the user has chosen to accept the offer (i.e. initiated login with Social Network button)
-      operationId: requestOffer
+    post:
+      summary: Creates a new offer for an OSP .
+      description: Request from Administration Console to create a new offer for an OSP.
+      operationId: createOffer
+      tags:
+        - Offers
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
-        - in: query
-          name: userId
-          description: User Id.
+        - name: offer
+          in: body
+          description: The offer data in JSON format.
+          schema:
+            $ref: '#/definitions/Offer'
           required: true
-          type: string
-        - in: query
-          name: offerId
-          description: Offer Id.
-          required: true
-          type: string
       responses:
         "200":
           description: Successful operation
           schema:
-            type: string
+            type: object
+            properties:
+              data:
+                type: object
+                items:
+                  $ref: '#/definitions/OfferStatus'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /getPendingDeals:
-    get:      
-      summary: Gets the list of all pending deal requests for a user.
-      description: Extension requests from PfB service the list of all pending deal requests for a user.
-      operationId: getPendingDeals
-      produces:
-        - application/json        
-      parameters:
-        - in: query
-          name: userId
-          description: ID of the user.
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Successful operation (an array containing the codes of pending deals for the user)
-          schema:
-            type: array
-            items:
-              type: string
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /getOfferStatus:
+  /offers/{offer-id}:
+    parameters:
+      - $ref: '#/parameters/offer-id'
     get:      
       summary: Gets the status of a given offer.
       description: Get the status of a given offer.
+      tags:
+        - Offers
       operationId: getOfferStatus
       produces:
         - application/json        
-      parameters:
-        - in: query
-          name: offerId
-          description: Offer Id.
-          required: true
-          type: string
       responses:
         "200":
           description: Successful operation (the offer status)
           schema:
-            $ref: '#/definitions/OfferStatus'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /osp:
-    post:
-      summary: Registers a new OSP.
-      description: Request from Administration Console to register a new Online Service Provider.
-      operationId: registerOSP
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-      - name: osp
-        in: body
-        description: The OSP data in JSON format.
-        schema:
-          $ref: '#/definitions/OSP'
-        required: true
-      responses:
-        "200":
-          description: Successful operation (security token)
-          schema:
-            type: string
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/OfferStatus'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
     put:
-      summary: Updates an existing OSP.
-      description: Request from Administration Console to updates an existing OSP.
-      operationId: updateOSP
+      summary: Update an offer for an OSP .
+      description: Request from Administration Console to update existing offer. (limited to specific fields - TBD).
+      tags:
+        - Offers
+      operationId: updateOffer
       consumes:
         - application/json
       produces:
         - application/json
       parameters:
-      - name: osp
-        in: body
-        description: The OSP data in JSON format.
-        schema:
-          $ref: '#/definitions/OSP'
-        required: true
-      responses:
-        "200":
-          description: Successful operation (security token)
-          schema:
-            type: string
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-    get:
-      summary: Finds the osps matching the filter criteria.
-      description: Finds the osps matching the filter criteria.
-      operationId: getOSPs
-      produces:
-        - application/json
-      parameters:
-        - name: osp
+        - name: offer
           in: body
-          description: The OSP data in JSON format.
+          description: The offer data in JSON format.
           schema:
-            $ref: '#/definitions/OSP'
+            $ref: '#/definitions/Offer'
           required: true
       responses:
         "200":
-          description: Successful operation
+          description: Successful operation (the offer status)
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/OSP'
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/OfferStatus'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  
-  /osp/{ospId}:
-     get:
-      summary: Finds an osp by ID.
-      description: Finds an osp unit by ID.
-      operationId: getOSP
+  /deals:
+    post:
+      summary: Create a new deal. Indicates the user's acceptance for an offer.
+      description: Triggered by the extension to PfB service to indicate that the user has chosen to accept the offer (i.e. initiated login with Social Network button)
+      tags:
+        - Offers
+      operationId: requestOffer
       produces:
         - application/json
       parameters:
-        - name: ospId
-          in: path
-          description: ID of the osp that needs to be fetched.
-          type: string
+        - name: user_id
+          in: query
+          description: User Id.
           required: true
+          type: string
+        - name: offer_id
+          in: query
+          description: Offer ID.
+          required: true
+          type: string
       responses:
         "200":
           description: Successful operation
           schema:
-            $ref: '#/definitions/OSP'
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Deal'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-     delete:
-      summary: Deletes an existing osp.
-      description: Deletes an existing osp.
+  /deals/{deal-id}:
+    parameters:
+      - $ref: '#/parameters/deal-id'
+    get:      
+      summary: Gets the status of a given deal.
+      description: Get the status of a given deal.
+      tags:
+        - Deals
+      produces:
+        - application/json        
+      responses:
+        "200":
+          description: Successful operation (the offer status)
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Deal'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: Cancel a deal.
+      description: Request from Privacy Dashboard to cancel a deal.
+      tags:
+        - Deals
+        - Offers
+        - Users
+      operationId: cancelDeal
+      consumes:
+        - application/json
       produces:
         - application/json
-      parameters:
-        - name: ospId
-          in: path
-          description: ID of the osp that needs to be deleted
-          type: string
-          required: true
       responses:
         "200":
           description: Successful operation
@@ -225,107 +254,13 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
-  /user/listOffers:
-    get:      
-      summary: List of all offers applicable for a specific user.
-      description: Request from privacy dashboard to get a list of all offers applicable for a specific user.
-      operationId: getOfferListByUser
-      produces:
-        - application/json        
-      parameters:
-        - in: query
-          name: userId
-          description: User Id.
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Successful operation (list of offers applicable to the user).
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Offer'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /osp/listOffers:
-    get:      
-      summary: List of all offers created by specific OSP.
-      description: Request from administration console to get a list of all offers created by specific OSP.
-      operationId: getOfferListByOSP
-      produces:
-        - application/json        
-      parameters:
-        - in: query
-          name: ospId
-          description: Osp Id.
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Successful operation (list of offers created by the OSP).
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Offer'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /user/listAcceptedDeals:
-    get:      
-      summary: Returns list of offers accepted by user.
-      description: Request from privacy dashboard to get list of offers accepted by user (and acknowledged by OSP).
-      operationId: getAcceptedDealsByUser
-      produces:
-        - application/json        
-      parameters:
-        - in: query
-          name: userId
-          description: User Id.
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Successful operation (list of offers accepted by user).
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Offer'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /osp/listAcceptedDeals:
-    get:      
-      summary: List of all users and their active deals for the OSP.
-      description: Request from an OSP to get a list of all users and their active deals for specific OSP (could be also for report) .
-      operationId: getAcceptedDealsByOSP
-      produces:
-        - application/json        
-      parameters:
-        - in: query
-          name: ospId
-          description: Osp Id.
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Successful operation (list of offers' ids associated with users' ids).
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/OfferUser'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /offerAccepted:
-    put:
-      summary: Accepts the applicance of an offer to a user.
-      description: Request from an OSP to approve that offer was accepted and awarded to user.
+            $ref: '#/definitions/Error'   
+  /deals/{deal-id}/acknoledge:
+    parameters:
+      - $ref: '#/parameters/deal-id'
+    post:
+      summary: Acknoledge a deal by OSP.
+      description: This API call is used by the OSP to acknowledge a deal and approve that offer was awarded to user
       operationId: offerAccepted
       produces:
         - application/json
@@ -338,11 +273,6 @@ paths:
       - in: query
         name: offerId
         description: Offer Id.
-        required: true
-        type: string
-      - in: query
-        name: userId
-        description: User Id.
         required: true
         type: string
       - in: query
@@ -359,120 +289,92 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /offer:
+  /osp:
     post:
-      summary: Creates a new offer for an OSP .
-      description: Request from Administration Console to create a new offer for an OSP.
-      operationId: createOffer
+      summary: Registers a new OSP.
+      description: Request from Administration Console to register a new Online Service Provider.
+      tags:
+        - OSPs
+      operationId: registerOSP
       consumes:
         - application/json
       produces:
         - application/json
       parameters:
-      - in: body
-        name: offer
-        description: The offer data in JSON format.
-        schema:
-          $ref: '#/definitions/Offer'
-        required: true
-      responses:
-        "200":
-          description: Successful operation
+        - name: osp
+          in: body
+          description: The OSP data in JSON format.
           schema:
-            type: string
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-    put:
-      summary: Updates an offer for an OSP .
-      description: Request from Administration Console to update existing offer. (limited to specific fields - TBD).
-      operationId: updateOffer
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-      - in: body
-        name: offer
-        description: The offer data in JSON format.
-        schema:
-          $ref: '#/definitions/Offer'
-        required: true
-      responses:
-        "200":
-          description: Successful operation
-          schema:
-            type: string
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-  /offer/{offerId}:
-     get:
-      summary: Finds an offer by ID.
-      description: Finds an ooffer by ID.
-      operationId: getOffer
-      produces:
-        - application/json
-      parameters:
-        - name: offerId
-          in: path
-          description: ID of the offer that needs to be fetched.
-          type: string
+            $ref: '#/definitions/OSP'
           required: true
       responses:
         "200":
-          description: Successful operation
+          description: Successful operation (security token)
           schema:
             type: string
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-     delete:
-      summary: Deletes an existing offer.
-      description: Deletes an existing offer.
+  /osp/{osp-id}/deals:
+    parameters:
+      - $ref: '#/parameters/osp-id'
+    get:      
+      summary: List of all users and their active deals for the OSP.
+      description: Request from an OSP to get a list of all users and their active deals for specific OSP (could be also for report) .
+      tags:
+        - Deals
+        - OSPs
+      operationId: getAcceptedDealsByOSP
       produces:
         - application/json
-      parameters:
-        - name: offerId
-          in: path
-          description: ID of the offer that needs to be deleted
-          type: string
-          required: true
       responses:
         "200":
-          description: Successful operation
+          description: Successful operation (list of offers' ids associated with users' ids).
           schema:
-            type: string
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/OfferUser'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /cancelDeal:
-    delete:
-      summary: Cancel a deal.
-      description: Request from Privacy Dashboard to cancel a deal.
-      operationId: cancelDeal
+  /users/{user-id}/deals:
+    parameters:
+      - $ref: '#/parameters/user-id'
+    get:      
+      summary: Returns list of offers accepted by user.
+      description: Request from privacy dashboard to get list of offers accepted by user (and acknowledged by OSP).
+      tags:
+        - Users
+        - Deals
+      operationId: getAcceptedDealsByUser
       produces:
-        - application/json
+        - application/json        
       parameters:
-      - in: query
-        name: userId
-        description: User Id.
-        required: true
-        type: string
-      - in: query
-        name: offerId
-        description: Offer Id.
-        required: true
-        type: string
-      responses:
-        "200":
-          description: Successful operation
+        - name: status
+          in: body
+          description: filter deals by category / status
           schema:
             type: string
+            enum:
+              - all
+              - pending
+              - accepted
+              - rejected
+      responses:
+        "200":
+          description: Successful operation (list of offers accepted by user).
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Deal'
         default:
           description: Unexpected error
           schema:
@@ -493,19 +395,32 @@ definitions:
       description:
         type: string
         description: Description of the offer.
-      serviceWebsite:
+      service_website:
         type: string
         description: Website of the offering.
-      enabledDisabled:
+      is_enabled:
         type: boolean
         description: Indication whether the offer is enabled or not.
-      osdCallbackURL:
+      osp_callback_url:
         type: string
         description: Callback url.
-      expirationDate:
+      expiration_date:
         type: string
         format: date-time
         description: Date when the offer expires.
+  Deal:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique ID of the deal.
+      offer_id:
+        type: string
+        description: Unique ID of the offer.
+      created_at:
+        type: string
+        format: date-time
+        description: Date when the deal was created (accepted).
   Error:
     type: object
     properties:
@@ -537,15 +452,15 @@ definitions:
       description:
         type: string
         description: Description of the OSP.
-      ospWebsite:
+      osp_website:
         type: string
         description: Website of the OSP.
   OfferUser:
     type: object
     properties:
-      offerId:
+      offer_id:
         type: string
         description: Id of the Offer.
-      userId:
+      user_id:
         type: string
         description: Id of the User.

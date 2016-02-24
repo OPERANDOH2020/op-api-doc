@@ -7,16 +7,30 @@ info:
     name: MIT
     url: http://opensource.org/licenses/MIT
 host: localhost:8080
+basePath: /operando/core/logdb
 schemes:
 - http
-basePath: /operando/core/logdb
+- https
 produces:
 - application/json
+################################################################################
+#                                   Tags                                       #
+################################################################################
+tags:
+  - name: Log
+    description: Inserts received data to the database by using Log4j.
+  
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+
 paths:
   /log:
     post:
       summary: Inserts received data to the database.
       description: Inserts received data to the database by using Log4j.
+      tags:
+        - Log
       operationId: lodDB
       consumes:
         - application/json

@@ -1,0 +1,144 @@
+swagger: '2.0'
+info:
+  title: eu.operando.core.anonymization
+  description: Operando PfB module.
+  version: "1.0.0"
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+host: localhost:8080
+schemes:
+- http
+basePath: /operando/core/anonymization
+produces:
+- application/json
+paths:
+  /dataUnit:
+    post:      
+      summary: Creates a new data unit.
+      description: Creates a new data unit.
+      operationId: addDataUnit
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: dataUnit
+        in: body
+        description: The Data Unit data in JSON format.
+        schema:
+          $ref: '#/definitions/DataUnit'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:      
+      summary: Updates an existing data unit.
+      description: Updates an existing data unit.
+      operationId: updateDataUnit
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: dataUnit
+        in: body
+        description: The Data Unit data in JSON format.
+        schema:
+          $ref: '#/definitions/DataUnit'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    get:      
+      summary: Updates an existing data unit.
+      description: Updates an existing data unit.
+      operationId: getDataUnits
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/DataUnit'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /dataUnit/{dataUnitId}:
+     get:
+      summary: Finds a data unit by ID.
+      description: Finds a data unit by ID.
+      operationId: getDataUnit
+      produces:
+        - application/json
+      parameters:
+        - name: dataUnitId
+          in: path
+          description: ID of the data unit that needs to be fetched.
+          type: string
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+     delete:
+      summary: Deletes an existing data unit.
+      description: Deletes an existing data unit.
+      produces:
+        - application/json
+      parameters:
+        - name: dataUnitId
+          in: path
+          description: ID of the data unit that needs to be deleted
+          type: string
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  AccessLevel:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Id of the access level.
+      description:
+        type: string
+        description: Description of the access level.
+  DataUnit:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Id of the data unit.
+      description:
+        type: string
+        description: Description of the data unit.
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
