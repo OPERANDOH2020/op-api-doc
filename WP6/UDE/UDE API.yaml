@@ -2,9 +2,11 @@ swagger: '2.0'
 info:
   title: USER DEVICE ENFORCEMENT API
   description: User Device Enformcement API
-  version: 0.0.1
+  version: 0.0.2
   contact:
     email: raf@rms.ro
+    name : RomSoft
+    url: http://www.operando.eu/
   license:
     name: MIT
     url: 'http://opensource.org/licenses/MIT'
@@ -12,10 +14,44 @@ schemes:
   - https
   - http
 host: 'localhost:8080'
+basePath: /operando
 produces:
   - application/json
+################################################################################
+#                                   Tags                                       #
+################################################################################
+tags:
+  - name: Privacy Settings
+    description: |
+      Privacy Settings intend to secure the user private data.
+  - name: OSE
+    description: APIs related to Online Service Provider Enforcement.
+
+################################################################################
+#                                   Parameters                                 #
+################################################################################        
+parameters:
+  user_id:
+    name: user_id
+    in: query
+    description: Unique identifier representing a specific user
+    type: string
+    format: uuid
+    required: true
+  osp_id:
+    name: osp_id
+    in: query
+    description: OSP unique identifier
+    type: string
+    required: true  
+################################################################################
+#                                   Paths                                      #    
+################################################################################
 paths:
-  /getPrivacySettings:
+  ################################################
+  #            User Device Enforcement           #
+  ################################################
+  /ude/getPrivacySettings:
     get:
       summary: Get Privacy Settings
       description: |
@@ -23,80 +59,72 @@ paths:
         networks. It is called by Watchdog when it requests to get current
         settings
       parameters:
-        - name: user_id
-          in: query
-          description: Unique identifier representing a specific user or service
-          type: string
-          required: true
-          format: uuid
+        - $ref: '#/parameters/user_id'
         - name: osp_list
           in: body
           description: OSP_list
           schema:
-            $ref: '#/definitions/OSP'
+            type: array
+            items:
+              $ref: '#/definitions/OSP'
       tags:
-        - PrivacySettings
-        - GET
-        - UDE
+        - Privacy Settings
       responses:
-        '200':
+        200:
           description: An array of privacy settings
           schema:
             type: array
             items:
               $ref: '#/definitions/PrivacySettings'
+        404: 
+          description: Not found or invalid
+          schema:
+            $ref: '#/definitions/Error'
         500:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /applyPrivacySettings:
-    post:
+  /ude/applyPrivacySettings:
+    put:
       summary: Apply Privacy Settings
       description: Called by OSE when it wants to update user’s settings
       parameters:
-        - name: user_id
-          in: query
-          description: Unique identifier representing a specific user or service
-          type: string
+        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/osp_id'
+        - name: settings  
+          in: body
           required: true
-          format: uuid
-        - name: osp_id
-          in: query
-          description: OSP unique identifier
-          type: string
-          required: true
+          description: An array containing the privacy settings that shoul be applied
+          schema:
+            type: array
+            items: 
+              $ref: '#/definitions/PrivacySettings'
       tags:
-        - PrivacySettings
-        - POST
-        - UDE
+        - Privacy Settings
       responses:
         200:
           description: Privacy Setting were successfully applied
           schema:
             $ref: '#/definitions/Status'
+        404:
+          description: Not found or invalid. (e.g. user_id, osp_id)
+          schema:
+            $ref: '#/definitions/Error'
         500:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-          
-  /getRequiredSettings:
+  
+  ################################################
+  #                OSP Enforcement               #
+  ################################################        
+  /ose/getRequiredSettings:
     get:
       summary: Called by watchdog when it requests the settings last applied by OSE
       parameters:
-        - name: user_id
-          in: query
-          description: Unique identifier representing a specific user
-          type: string
-          required: true
-          format: uuid
-        - name: osp_id
-          in: query
-          description: OSP unique identifier
-          type: string
-          required: true
+        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/osp_id'
       tags:
-        - PrivacySettings
-        - GET 
         - OSE
       responses:
         200:
@@ -105,26 +133,21 @@ paths:
             type: array
             items:
               $ref: '#/definitions/PrivacySettings'
+        404: 
+          description: Not found or invalid. (e.g. user_id, osp_id)
+          schema:
+            $ref: '#/definitions/Error'
         500:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
             
-  /changeDetectedSetting:
-    post:
+  /ose/changeDetectedSetting:
+    put:
       summary: Called by watchdog when it detects change in user’s privacy settings
       parameters:
-        - name: user_id
-          in: query
-          description: Unique identifier representing a specific user
-          type: string
-          required: true
-          format: uuid
-        - name: osp_id
-          in: query
-          description: OSP unique identifier
-          type: string
-          required: true
+        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/osp_id'
         - name: settings
           in: body
           required: true
@@ -133,22 +156,30 @@ paths:
             items: 
               $ref: '#/definitions/PrivacySettings'
       tags:
-        - PrivacySettings
-        - POST            
         - OSE
       responses:
         200:
           description: Current setting were successfully submitted
           schema:
             $ref: '#/definitions/Status'
+        404:
+          description: Not found or invalid. (e.g. user_id, osp_id)
+          schema:
+            $ref: '#/definitions/Error'    
         500:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /changeDetectedPolicy:
-    post:
+  /ose/changeDetectedPolicy/{osp_id}:
+    patch:
       summary: Called by watchdog when it detects change in OSP privacy policy(ies)
       parameters:
+        - name: osp_id
+          in: path
+          required: true
+          description: Unique identifier representing a specific user
+          type: string
+          format: uuid
         - name: policies
           in: body
           required: true
@@ -157,20 +188,25 @@ paths:
             items: 
               $ref: '#/definitions/PolicyChange'
       tags:
-        - PrivacySettings
-        - POST            
         - OSE
       responses:
         200:
           description: Request successfully sent
           schema:
             $ref: '#/definitions/Status'  
+        204:
+          description: No response object is required
+        404:
+          description: Not found or invalid. (e.g. user_id, osp_id)
+          schema:
+            $ref: '#/definitions/Error'     
         500:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'  
-      
-  
+################################################################################
+#                              Objects Definitions                             #
+################################################################################   
 definitions:
   PrivacySettings:
     type: object

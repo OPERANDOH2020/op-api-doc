@@ -183,9 +183,9 @@ font-style: italic;
   <body>
   <h1>USER DEVICE ENFORCEMENT API</h1>
     <div class="app-desc">User Device Enformcement API</div>
-    
+    <div class="app-desc">More information: <a href="http://www.operando.eu/">http://www.operando.eu/</a></div>
     <div class="app-desc">Contact Info: <a href="raf@rms.ro">raf@rms.ro</a></div>
-    <div class="app-desc">Version: 0.0.1</div>
+    <div class="app-desc">Version: 0.0.2</div>
     <div class="license-info">MIT</div>
     <div class="license-url">http://opensource.org/licenses/MIT</div>
   <h2>Access</h2>
@@ -202,15 +202,15 @@ font-style: italic;
   
   
   
-  <li><a href="#applyPrivacySettingsPost"><code><span class="http-method">post</span> /applyPrivacySettings</code></a></li>
+  <li><a href="#oseChangeDetectedPolicyOspIdPatch"><code><span class="http-method">patch</span> /ose/changeDetectedPolicy/{osp_id}</code></a></li>
   
-  <li><a href="#changeDetectedPolicyPost"><code><span class="http-method">post</span> /changeDetectedPolicy</code></a></li>
+  <li><a href="#oseChangeDetectedSettingPut"><code><span class="http-method">put</span> /ose/changeDetectedSetting</code></a></li>
   
-  <li><a href="#changeDetectedSettingPost"><code><span class="http-method">post</span> /changeDetectedSetting</code></a></li>
+  <li><a href="#oseGetRequiredSettingsGet"><code><span class="http-method">get</span> /ose/getRequiredSettings</code></a></li>
   
-  <li><a href="#getPrivacySettingsGet"><code><span class="http-method">get</span> /getPrivacySettings</code></a></li>
+  <li><a href="#udeApplyPrivacySettingsPut"><code><span class="http-method">put</span> /ude/applyPrivacySettings</code></a></li>
   
-  <li><a href="#getRequiredSettingsGet"><code><span class="http-method">get</span> /getRequiredSettings</code></a></li>
+  <li><a href="#udeGetPrivacySettingsGet"><code><span class="http-method">get</span> /ude/getPrivacySettings</code></a></li>
   
   
   
@@ -221,79 +221,21 @@ font-style: italic;
   
   
   
-  <div class="method"><a name="applyPrivacySettingsPost"/>
+  <div class="method"><a name="oseChangeDetectedPolicyOspIdPatch"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /applyPrivacySettings</code></pre></div>
-    <div class="method-summary">Apply Privacy Settings (<span class="nickname">applyPrivacySettingsPost</span>)</div>
-    
-    <div class="method-notes">Called by OSE when it wants to update user’s settings</div>
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Unique identifier representing a specific user or service </div><div class="param">osp_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; OSP unique identifier </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#Status">Status</a>
-      
-    </div>
-    
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    
-
-    
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
-    <ul>
-    
-      <li><code>application/json</code></li>
-    
-    </ul>
-    
-
-    <h3 class="field-label">Responses</h3>
-    
-    <h4 class="field-label">200</h4>
-    Privacy Setting were successfully applied
-    
-    
-    <h4 class="field-label">500</h4>
-    Unexpected error
-    
-    
-  </div> <!-- method -->
-  <hr/>
-  
-  <div class="method"><a name="changeDetectedPolicyPost"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /changeDetectedPolicy</code></pre></div>
-    <div class="method-summary">Called by watchdog when it detects change in OSP privacy policy(ies) (<span class="nickname">changeDetectedPolicyPost</span>)</div>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /ose/changeDetectedPolicy/{osp_id}</code></pre></div>
+    <div class="method-summary">Called by watchdog when it detects change in OSP privacy policy(ies) (<span class="nickname">oseChangeDetectedPolicyOspIdPatch</span>)</div>
     
     <div class="method-notes"></div>
 
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">osp_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div>
+    </div>  <!-- field-items -->
     
 
     
@@ -342,6 +284,14 @@ font-style: italic;
     Request successfully sent
     
     
+    <h4 class="field-label">204</h4>
+    No response object is required
+    
+    
+    <h4 class="field-label">404</h4>
+    Not found or invalid. (e.g. user_id, osp_id)
+    
+    
     <h4 class="field-label">500</h4>
     Unexpected error
     
@@ -349,11 +299,11 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="changeDetectedSettingPost"/>
+  <div class="method"><a name="oseChangeDetectedSettingPut"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /changeDetectedSetting</code></pre></div>
-    <div class="method-summary">Called by watchdog when it detects change in user’s privacy settings (<span class="nickname">changeDetectedSettingPost</span>)</div>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /ose/changeDetectedSetting</code></pre></div>
+    <div class="method-summary">Called by watchdog when it detects change in user’s privacy settings (<span class="nickname">oseChangeDetectedSettingPut</span>)</div>
     
     <div class="method-notes"></div>
 
@@ -414,74 +364,8 @@ font-style: italic;
     Current setting were successfully submitted
     
     
-    <h4 class="field-label">500</h4>
-    Unexpected error
-    
-    
-  </div> <!-- method -->
-  <hr/>
-  
-  <div class="method"><a name="getPrivacySettingsGet"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /getPrivacySettings</code></pre></div>
-    <div class="method-summary">Get Privacy Settings (<span class="nickname">getPrivacySettingsGet</span>)</div>
-    
-    <div class="method-notes">The UDE endpoint returns the current privacy settings for all social\nnetworks. It is called by Watchdog when it requests to get current\nsettings</div>
-
-    
-
-    
-
-    
-    <h3 class="field-label">Request body</h3>
-    <div class="field-items">
-      <div class="param">osp_list (optional)</div>
-
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; OSP_list </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Unique identifier representing a specific user or service </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      array[<a href="#PrivacySettings">PrivacySettings</a>]
-      
-    </div>
-    
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    
-
-    
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
-    <ul>
-    
-      <li><code>application/json</code></li>
-    
-    </ul>
-    
-
-    <h3 class="field-label">Responses</h3>
-    
-    <h4 class="field-label">200</h4>
-    An array of privacy settings
+    <h4 class="field-label">404</h4>
+    Not found or invalid. (e.g. user_id, osp_id)
     
     
     <h4 class="field-label">500</h4>
@@ -491,11 +375,11 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="getRequiredSettingsGet"/>
+  <div class="method"><a name="oseGetRequiredSettingsGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /getRequiredSettings</code></pre></div>
-    <div class="method-summary">Called by watchdog when it requests the settings last applied by OSE (<span class="nickname">getRequiredSettingsGet</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /ose/getRequiredSettings</code></pre></div>
+    <div class="method-summary">Called by watchdog when it requests the settings last applied by OSE (<span class="nickname">oseGetRequiredSettingsGet</span>)</div>
     
     <div class="method-notes"></div>
 
@@ -547,6 +431,160 @@ font-style: italic;
     
     <h4 class="field-label">200</h4>
     An array containing required settings
+    
+    
+    <h4 class="field-label">404</h4>
+    Not found or invalid. (e.g. user_id, osp_id)
+    
+    
+    <h4 class="field-label">500</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="udeApplyPrivacySettingsPut"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /ude/applyPrivacySettings</code></pre></div>
+    <div class="method-summary">Apply Privacy Settings (<span class="nickname">udeApplyPrivacySettingsPut</span>)</div>
+    
+    <div class="method-notes">Called by OSE when it wants to update user’s settings</div>
+
+    
+
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">settings (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; An array containing the privacy settings that shoul be applied </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Unique identifier representing a specific user </div><div class="param">osp_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; OSP unique identifier </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Status">Status</a>
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    Privacy Setting were successfully applied
+    
+    
+    <h4 class="field-label">404</h4>
+    Not found or invalid. (e.g. user_id, osp_id)
+    
+    
+    <h4 class="field-label">500</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="udeGetPrivacySettingsGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /ude/getPrivacySettings</code></pre></div>
+    <div class="method-summary">Get Privacy Settings (<span class="nickname">udeGetPrivacySettingsGet</span>)</div>
+    
+    <div class="method-notes">The UDE endpoint returns the current privacy settings for all social\nnetworks. It is called by Watchdog when it requests to get current\nsettings</div>
+
+    
+
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">osp_list (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; OSP_list </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Unique identifier representing a specific user </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#PrivacySettings">PrivacySettings</a>]
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    An array of privacy settings
+    
+    
+    <h4 class="field-label">404</h4>
+    Not found or invalid
     
     
     <h4 class="field-label">500</h4>
