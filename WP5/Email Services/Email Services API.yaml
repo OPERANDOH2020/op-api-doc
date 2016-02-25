@@ -3,8 +3,10 @@ info:
   title: EMAIL SERVICES API
   contact:
     email: raf@rms.ro
+    name : RomSoft
+    url: http://www.operando.eu/
   description: Email Services API
-  version: 0.0.1
+  version: 0.0.2
   license:
     name: MIT
     url: http://opensource.org/licenses/MIT
@@ -12,29 +14,63 @@ schemes:
   - https
   - http
 host: 'localhost:8080'
+basePath: /operando/core/email/services
 produces:
   - application/json
+
+################################################################################
+#                                   Tags                                       #
+################################################################################
+tags: 
+  - name: SendEmail
+    description: Send email APIs. Those APIs are used for email forwarding service.
+  - name: Identities Manager    
+    description: APIs related to Identiy Management.
+################################################################################
+#                                   Parameters                                 #
+################################################################################    
+
+parameters:
+  user_id:
+    name: user_id
+    in: path
+    description: Unique identifier representing a specific user
+    type: string
+    format: uuid
+    required: true
+  email:
+    name: email
+    in: body
+    description: Email Object that is forwareded by EmailService
+    required: true
+    schema:
+       $ref: '#/definitions/Email'
+  identity_id:
+    name: identity_id
+    in: path
+    description: Unique identifier representing a specific identity
+    type: string
+    format: uuid
+    required: true       
+
+################################################################################
+#                                   Paths                                      #
+################################################################################
+
 paths:
-  /sendEmail/{userId}:
-    put:
+  ################################################
+  #               Email Services                 #
+  ################################################
+  /sendEmail/{user_id}:
+    post:
       summary: Interface used to send an email
       parameters:
-        - name: userId
-          in: path
-          description: Unique identifier representing a specific user
-          type: string
-          format: uuid
-          required: true
-        - name: to
-          in: body
-          required: true
-          description: Recipient unique identifier
-          schema:
-              $ref: '#/definitions/Email'
+        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/email'
       tags:
-        - SendEmail Interface
+        - SendEmail
       responses:
-        250:
+        201:
           description: Request was successfully completed
           schema:
               $ref: '#/definitions/Status'
@@ -55,26 +91,16 @@ paths:
           description: The total size of your mailing exceeds the recipient server's limits.
           schema: 
             $ref: '#/definitions/Error'
-  /sendEmailWithAttachments/{userId}:
-    put:
+  /sendEmailWithAttachments/{user_id}:
+    post:
       summary: Interface used to send an email
       parameters:
-        - name: userId
-          in: path
-          description: Unique identifier representing a specific user
-          type: string
-          format: uuid
-          required: true
-        - name: to
-          in: body
-          required: true
-          description: Recipient unique identifier
-          schema:
-              $ref: '#/definitions/Email'
+        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/email'
       tags:
-        - SendEmail Interface
+        - SendEmail
       responses:
-        250:
+        201:
           description: Request was successfully completed
           schema:
               $ref: '#/definitions/Status'
@@ -95,21 +121,19 @@ paths:
           description: The total size of your mailing exceeds the recipient server's limits.
           schema: 
             $ref: '#/definitions/Error'
-  
-  /generateIdentity/{userId}:
-    put:
+            
+  ################################################
+  #               Identity Manager               #
+  ################################################ 
+  /generateIdentity/{user_id}:
+    post:
       summary: Generate a new identity for an user
       parameters:
-        - name: userId
-          in: path
-          description: Unique identifier representing a specific user
-          type: string
-          format: uuid
-          required: true
+        - $ref: '#/parameters/user_id'
       tags:
         - Identities Manager
       responses:
-        200:
+        201:
           description: Get the created identiy object
           schema:
             $ref: '#/definitions/Identity'
@@ -117,22 +141,12 @@ paths:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'
-  /removeIdentity/{userId}/{identityId}:
+  /removeIdentity/{user_id}/{identity_id}:
     delete:
       summary: Remove a certain identity
       parameters:
-        - name: userId
-          in: path
-          description: Unique identifier representing a specific user
-          type: string
-          format: uuid
-          required: true
-        - name: identityId
-          in: path
-          description: Unique identifier representing a specific identity
-          type: string
-          format: uuid
-          required: true
+        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/identity_id'
       tags:
         - Identities Manager    
       responses:
@@ -140,15 +154,19 @@ paths:
           description: Identity successfully removed from system
           schema: 
             $ref: '#/definitions/Status'
+        404:
+          description: Identity not found
+          schema: 
+            $ref: '#/definitions/Status'
         500:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'
-  /listIdentities/{userId}:
+  /listIdentities/{user_id}:
     get:
       summary: Get user identities
       parameters: 
-      - name: userId
+      - name: user_id
         in: path
         description: Unique identifier representing a specific user
         type: string
@@ -163,11 +181,19 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Identity'  
+        404:
+          description: Identites not found for this user
+          schema: 
+            $ref: '#/definitions/Status'
+          
         500:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'      
-        
+
+################################################################################
+#                              Objects Definitions                            #
+################################################################################        
 definitions:
   Email:
     type: object
@@ -235,6 +261,7 @@ definitions:
       password:
         type: string
         description: Generated password
+        format: password
   Status:
     type: object
     properties:

@@ -183,9 +183,9 @@ font-style: italic;
   <body>
   <h1>EMAIL SERVICES API</h1>
     <div class="app-desc">Email Services API</div>
-    
+    <div class="app-desc">More information: <a href="http://www.operando.eu/">http://www.operando.eu/</a></div>
     <div class="app-desc">Contact Info: <a href="raf@rms.ro">raf@rms.ro</a></div>
-    <div class="app-desc">Version: 0.0.1</div>
+    <div class="app-desc">Version: 0.0.2</div>
     <div class="license-info">MIT</div>
     <div class="license-url">http://opensource.org/licenses/MIT</div>
   <h2>Access</h2>
@@ -202,15 +202,15 @@ font-style: italic;
   
   
   
-  <li><a href="#generateIdentityUserIdPut"><code><span class="http-method">put</span> /generateIdentity/{userId}</code></a></li>
+  <li><a href="#generateIdentityUserIdPost"><code><span class="http-method">post</span> /generateIdentity/{user_id}</code></a></li>
   
-  <li><a href="#listIdentitiesUserIdGet"><code><span class="http-method">get</span> /listIdentities/{userId}</code></a></li>
+  <li><a href="#listIdentitiesUserIdGet"><code><span class="http-method">get</span> /listIdentities/{user_id}</code></a></li>
   
-  <li><a href="#removeIdentityUserIdIdentityIdDelete"><code><span class="http-method">delete</span> /removeIdentity/{userId}/{identityId}</code></a></li>
+  <li><a href="#removeIdentityUserIdIdentityIdDelete"><code><span class="http-method">delete</span> /removeIdentity/{user_id}/{identity_id}</code></a></li>
   
-  <li><a href="#sendEmailUserIdPut"><code><span class="http-method">put</span> /sendEmail/{userId}</code></a></li>
+  <li><a href="#sendEmailUserIdPost"><code><span class="http-method">post</span> /sendEmail/{user_id}</code></a></li>
   
-  <li><a href="#sendEmailWithAttachmentsUserIdPut"><code><span class="http-method">put</span> /sendEmailWithAttachments/{userId}</code></a></li>
+  <li><a href="#sendEmailWithAttachmentsUserIdPost"><code><span class="http-method">post</span> /sendEmailWithAttachments/{user_id}</code></a></li>
   
   
   
@@ -221,18 +221,18 @@ font-style: italic;
   
   
   
-  <div class="method"><a name="generateIdentityUserIdPut"/>
+  <div class="method"><a name="generateIdentityUserIdPost"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /generateIdentity/{userId}</code></pre></div>
-    <div class="method-summary">Generate a new identity for an user (<span class="nickname">generateIdentityUserIdPut</span>)</div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /generateIdentity/{user_id}</code></pre></div>
+    <div class="method-summary">Generate a new identity for an user (<span class="nickname">generateIdentityUserIdPost</span>)</div>
     
     <div class="method-notes"></div>
 
     
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">userId (required)</div>
+      <div class="param">user_id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div>
     </div>  <!-- field-items -->
@@ -273,7 +273,7 @@ font-style: italic;
 
     <h3 class="field-label">Responses</h3>
     
-    <h4 class="field-label">200</h4>
+    <h4 class="field-label">201</h4>
     Get the created identiy object
     
     
@@ -287,7 +287,7 @@ font-style: italic;
   <div class="method"><a name="listIdentitiesUserIdGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /listIdentities/{userId}</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /listIdentities/{user_id}</code></pre></div>
     <div class="method-summary">Get user identities (<span class="nickname">listIdentitiesUserIdGet</span>)</div>
     
     <div class="method-notes"></div>
@@ -295,7 +295,7 @@ font-style: italic;
     
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">userId (required)</div>
+      <div class="param">user_id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div>
     </div>  <!-- field-items -->
@@ -340,6 +340,10 @@ font-style: italic;
     Get all user identities
     
     
+    <h4 class="field-label">404</h4>
+    Identites not found for this user
+    
+    
     <h4 class="field-label">500</h4>
     Unexpected error
     
@@ -350,7 +354,7 @@ font-style: italic;
   <div class="method"><a name="removeIdentityUserIdIdentityIdDelete"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /removeIdentity/{userId}/{identityId}</code></pre></div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /removeIdentity/{user_id}/{identity_id}</code></pre></div>
     <div class="method-summary">Remove a certain identity (<span class="nickname">removeIdentityUserIdIdentityIdDelete</span>)</div>
     
     <div class="method-notes"></div>
@@ -358,9 +362,9 @@ font-style: italic;
     
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">userId (required)</div>
+      <div class="param">user_id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div><div class="param">identityId (required)</div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div><div class="param">identity_id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific identity </div>
     </div>  <!-- field-items -->
@@ -405,6 +409,10 @@ font-style: italic;
     Identity successfully removed from system
     
     
+    <h4 class="field-label">404</h4>
+    Identity not found
+    
+    
     <h4 class="field-label">500</h4>
     Unexpected error
     
@@ -412,18 +420,18 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="sendEmailUserIdPut"/>
+  <div class="method"><a name="sendEmailUserIdPost"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /sendEmail/{userId}</code></pre></div>
-    <div class="method-summary">Interface used to send an email (<span class="nickname">sendEmailUserIdPut</span>)</div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /sendEmail/{user_id}</code></pre></div>
+    <div class="method-summary">Interface used to send an email (<span class="nickname">sendEmailUserIdPost</span>)</div>
     
     <div class="method-notes"></div>
 
     
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">userId (required)</div>
+      <div class="param">user_id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div>
     </div>  <!-- field-items -->
@@ -434,9 +442,9 @@ font-style: italic;
     
     <h3 class="field-label">Request body</h3>
     <div class="field-items">
-      <div class="param">to (required)</div>
+      <div class="param">email (required)</div>
 
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Recipient unique identifier </div>
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Email Object that is forwareded by EmailService </div>
     </div>  <!-- field-items -->
     
 
@@ -471,7 +479,7 @@ font-style: italic;
 
     <h3 class="field-label">Responses</h3>
     
-    <h4 class="field-label">250</h4>
+    <h4 class="field-label">201</h4>
     Request was successfully completed
     
     
@@ -494,18 +502,18 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="sendEmailWithAttachmentsUserIdPut"/>
+  <div class="method"><a name="sendEmailWithAttachmentsUserIdPost"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /sendEmailWithAttachments/{userId}</code></pre></div>
-    <div class="method-summary">Interface used to send an email (<span class="nickname">sendEmailWithAttachmentsUserIdPut</span>)</div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /sendEmailWithAttachments/{user_id}</code></pre></div>
+    <div class="method-summary">Interface used to send an email (<span class="nickname">sendEmailWithAttachmentsUserIdPost</span>)</div>
     
     <div class="method-notes"></div>
 
     
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">userId (required)</div>
+      <div class="param">user_id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div>
     </div>  <!-- field-items -->
@@ -516,9 +524,9 @@ font-style: italic;
     
     <h3 class="field-label">Request body</h3>
     <div class="field-items">
-      <div class="param">to (required)</div>
+      <div class="param">email (required)</div>
 
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Recipient unique identifier </div>
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Email Object that is forwareded by EmailService </div>
     </div>  <!-- field-items -->
     
 
@@ -553,7 +561,7 @@ font-style: italic;
 
     <h3 class="field-label">Responses</h3>
     
-    <h4 class="field-label">250</h4>
+    <h4 class="field-label">201</h4>
     Request was successfully completed
     
     
