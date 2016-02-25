@@ -183,9 +183,9 @@ font-style: italic;
   <body>
   <h1>Browser Extension API</h1>
     <div class="app-desc">Browser Extension  API</div>
-    
+    <div class="app-desc">More information: <a href="http://www.operando.eu/">http://www.operando.eu/</a></div>
     <div class="app-desc">Contact Info: <a href="raf@rms.ro">raf@rms.ro</a></div>
-    <div class="app-desc">Version: 0.0.1</div>
+    <div class="app-desc">Version: 0.0.2</div>
     <div class="license-info">MIT</div>
     <div class="license-url">http://opensource.org/licenses/MIT</div>
   <h2>Access</h2>
@@ -202,19 +202,19 @@ font-style: italic;
   
   
   
-  <li><a href="#disableAppPost"><code><span class="http-method">post</span> /disableApp</code></a></li>
+  <li><a href="#disableAppUserIdApplicationIdPut"><code><span class="http-method">put</span> /disableApp/{user_id}/{application_id}</code></a></li>
   
-  <li><a href="#getCurrentBrowserIdentityGet"><code><span class="http-method">get</span> /getCurrentBrowserIdentity</code></a></li>
+  <li><a href="#getCurrentBrowserIdentityUserIdGet"><code><span class="http-method">get</span> /getCurrentBrowserIdentity/{user_id}</code></a></li>
   
-  <li><a href="#getInstalledAppsGet"><code><span class="http-method">get</span> /getInstalledApps</code></a></li>
+  <li><a href="#getInstalledAppsUserIdGet"><code><span class="http-method">get</span> /getInstalledApps/{user_id}</code></a></li>
   
-  <li><a href="#getRegisteredSocialNetworksGet"><code><span class="http-method">get</span> /getRegisteredSocialNetworks</code></a></li>
+  <li><a href="#getRegisteredSocialNetworksUserIdGet"><code><span class="http-method">get</span> /getRegisteredSocialNetworks/{user_id}</code></a></li>
   
-  <li><a href="#getSocialNetworkPrivacySettingsGet"><code><span class="http-method">get</span> /getSocialNetworkPrivacySettings</code></a></li>
+  <li><a href="#getSocialNetworkPrivacySettingsUserIdGet"><code><span class="http-method">get</span> /getSocialNetworkPrivacySettings/{user_id}</code></a></li>
   
-  <li><a href="#secureSocialNetworkPost"><code><span class="http-method">post</span> /secureSocialNetwork</code></a></li>
+  <li><a href="#secureSocialNetworkUserIdPatch"><code><span class="http-method">patch</span> /secureSocialNetwork/{user_id}</code></a></li>
   
-  <li><a href="#uninstallAppPost"><code><span class="http-method">post</span> /uninstallApp</code></a></li>
+  <li><a href="#uninstallAppUserIdApplicationIdDelete"><code><span class="http-method">delete</span> /uninstallApp/{user_id}/{application_id}</code></a></li>
   
   
   
@@ -225,14 +225,23 @@ font-style: italic;
   
   
   
-  <div class="method"><a name="disableAppPost"/>
+  <div class="method"><a name="disableAppUserIdApplicationIdPut"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /disableApp</code></pre></div>
-    <div class="method-summary">Suggest to extension to disable an application presenting the reason for the action (<span class="nickname">disableAppPost</span>)</div>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /disableApp/{user_id}/{application_id}</code></pre></div>
+    <div class="method-summary">Suggest to extension to disable an application presenting the reason for the action (<span class="nickname">disableAppUserIdApplicationIdPut</span>)</div>
     
     <div class="method-notes"></div>
 
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User&#39;s unique identifier </div><div class="param">application_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Application unique identifier </div>
+    </div>  <!-- field-items -->
     
 
     
@@ -248,15 +257,6 @@ font-style: italic;
 
     
 
-    
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User&#39;s unique identifier </div><div class="param">application_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Application unique identifier </div>
-    </div>  <!-- field-items -->
     
 
     
@@ -290,6 +290,10 @@ font-style: italic;
     Successfully request
     
     
+    <h4 class="field-label">404</h4>
+    User_id not found
+    
+    
     <h4 class="field-label">500</h4>
     Unexpected error
     
@@ -297,29 +301,29 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="getCurrentBrowserIdentityGet"/>
+  <div class="method"><a name="getCurrentBrowserIdentityUserIdGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /getCurrentBrowserIdentity</code></pre></div>
-    <div class="method-summary">Ask for current used identity (<span class="nickname">getCurrentBrowserIdentityGet</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /getCurrentBrowserIdentity/{user_id}</code></pre></div>
+    <div class="method-summary">Ask for current used user identity (<span class="nickname">getCurrentBrowserIdentityUserIdGet</span>)</div>
     
     <div class="method-notes"></div>
 
     
-
-    
-
-    
-
-    
-
-    
-    <h3 class="field-label">Query parameters</h3>
+    <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">user_id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User&#39;s unique identifier </div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User&#39;s unique identifier </div>
     </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -353,6 +357,10 @@ font-style: italic;
     An object containing current identity
     
     
+    <h4 class="field-label">404</h4>
+    Identity not found
+    
+    
     <h4 class="field-label">500</h4>
     Unexpected error
     
@@ -360,14 +368,21 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="getInstalledAppsGet"/>
+  <div class="method"><a name="getInstalledAppsUserIdGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /getInstalledApps</code></pre></div>
-    <div class="method-summary">Get all installed apps, extension and themes (<span class="nickname">getInstalledAppsGet</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /getInstalledApps/{user_id}</code></pre></div>
+    <div class="method-summary">Get all installed apps, extension and themes (<span class="nickname">getInstalledAppsUserIdGet</span>)</div>
     
     <div class="method-notes"></div>
 
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User&#39;s unique identifier </div>
+    </div>  <!-- field-items -->
     
 
     
@@ -379,9 +394,7 @@ font-style: italic;
     
     <h3 class="field-label">Query parameters</h3>
     <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User&#39;s unique identifier </div><div class="param">type (optional)</div>
+      <div class="param">type (optional)</div>
 
       <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; App type (extension, application, theme) </div>
     </div>  <!-- field-items -->
@@ -418,32 +431,40 @@ font-style: italic;
     An array containing all installed apps, extensions and themes
     
     
+    <h4 class="field-label">404</h4>
+    User_id not found
+    
+    
+    <h4 class="field-label">500</h4>
+    Unexpected error
+    
+    
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="getRegisteredSocialNetworksGet"/>
+  <div class="method"><a name="getRegisteredSocialNetworksUserIdGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /getRegisteredSocialNetworks</code></pre></div>
-    <div class="method-summary">Ask for all user&#39;s social networks (<span class="nickname">getRegisteredSocialNetworksGet</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /getRegisteredSocialNetworks/{user_id}</code></pre></div>
+    <div class="method-summary">Ask for all user&#39;s social networks (<span class="nickname">getRegisteredSocialNetworksUserIdGet</span>)</div>
     
     <div class="method-notes"></div>
 
     
-
-    
-
-    
-
-    
-
-    
-    <h3 class="field-label">Query parameters</h3>
+    <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">user_id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User&#39;s unique identifier </div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User&#39;s unique identifier </div>
     </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -477,6 +498,10 @@ font-style: italic;
     An object containing current identity
     
     
+    <h4 class="field-label">404</h4>
+    Identity not found
+    
+    
     <h4 class="field-label">500</h4>
     Unexpected error
     
@@ -484,14 +509,21 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="getSocialNetworkPrivacySettingsGet"/>
+  <div class="method"><a name="getSocialNetworkPrivacySettingsUserIdGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /getSocialNetworkPrivacySettings</code></pre></div>
-    <div class="method-summary">Ask for all user&#39;s social networks (<span class="nickname">getSocialNetworkPrivacySettingsGet</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /getSocialNetworkPrivacySettings/{user_id}</code></pre></div>
+    <div class="method-summary">Ask for all user&#39;s social networks (<span class="nickname">getSocialNetworkPrivacySettingsUserIdGet</span>)</div>
     
     <div class="method-notes"></div>
 
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User&#39;s unique identifier </div>
+    </div>  <!-- field-items -->
     
 
     
@@ -503,9 +535,7 @@ font-style: italic;
     
     <h3 class="field-label">Query parameters</h3>
     <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User&#39;s unique identifier </div><div class="param">social_network (required)</div>
+      <div class="param">social_network (required)</div>
 
       <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Social Network Name </div><div class="param">url (required)</div>
 
@@ -544,6 +574,10 @@ font-style: italic;
     An object containing current identity
     
     
+    <h4 class="field-label">404</h4>
+    User_id not found
+    
+    
     <h4 class="field-label">500</h4>
     Unexpected error
     
@@ -551,14 +585,21 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="secureSocialNetworkPost"/>
+  <div class="method"><a name="secureSocialNetworkUserIdPatch"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /secureSocialNetwork</code></pre></div>
-    <div class="method-summary">Apply secure settings for the social network (<span class="nickname">secureSocialNetworkPost</span>)</div>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /secureSocialNetwork/{user_id}</code></pre></div>
+    <div class="method-summary">Apply secure settings for the social network (<span class="nickname">secureSocialNetworkUserIdPatch</span>)</div>
     
     <div class="method-notes"></div>
 
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User&#39;s unique identifier </div>
+    </div>  <!-- field-items -->
     
 
     
@@ -577,9 +618,7 @@ font-style: italic;
     
     <h3 class="field-label">Query parameters</h3>
     <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User&#39;s unique identifier </div><div class="param">social_network (required)</div>
+      <div class="param">social_network (required)</div>
 
       <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Social Network Name </div><div class="param">url (required)</div>
 
@@ -618,6 +657,10 @@ font-style: italic;
     An object containing a successfully status
     
     
+    <h4 class="field-label">404</h4>
+    User_id not found
+    
+    
     <h4 class="field-label">500</h4>
     Unexpected error
     
@@ -625,14 +668,23 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="uninstallAppPost"/>
+  <div class="method"><a name="uninstallAppUserIdApplicationIdDelete"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /uninstallApp</code></pre></div>
-    <div class="method-summary">Suggest to extension to uninstall an application presenting the reason for the action (<span class="nickname">uninstallAppPost</span>)</div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /uninstallApp/{user_id}/{application_id}</code></pre></div>
+    <div class="method-summary">Suggest to extension to uninstall an application presenting the reason for the action (<span class="nickname">uninstallAppUserIdApplicationIdDelete</span>)</div>
     
     <div class="method-notes"></div>
 
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User&#39;s unique identifier </div><div class="param">application_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Application unique identifier </div>
+    </div>  <!-- field-items -->
     
 
     
@@ -648,15 +700,6 @@ font-style: italic;
 
     
 
-    
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; User&#39;s unique identifier </div><div class="param">application_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Application unique identifier </div>
-    </div>  <!-- field-items -->
     
 
     

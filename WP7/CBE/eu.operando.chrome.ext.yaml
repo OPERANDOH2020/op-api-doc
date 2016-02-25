@@ -2,55 +2,99 @@ swagger: '2.0'
 info:
   title: Browser Extension API
   description: Browser Extension  API
-  version: 0.0.1
-  contact: 
+  version: 0.0.2
+  contact:
     email: raf@rms.ro
+    name : RomSoft
+    url: http://www.operando.eu/
   license:
     name: MIT
     url: 'http://opensource.org/licenses/MIT'
 schemes:
   - https
   - http
+basePath: /operando/browser-extension  
 host: 'localhost:8080'
 produces:
   - application/json
+################################################################################
+#                                      Tags                                    #
+################################################################################  
+tags: 
+  - name: Browser Identity
+    description: Browser Identity APIs. 
+  - name: Social Networks
+    description: Social Networks Privacy & Security APIs
+  - name: Browser Apps & Extensions
+    description: Browser Apps & Extensions Privacy & Security APIs  
+
+################################################################################
+#                                   Parameters                                 #
+################################################################################ 
+parameters:
+  user_id:
+    name: user_id
+    in: path
+    description: User's unique identifier
+    type: string
+    required: true
+    format: uuid
+  social_network:
+    name: social_network
+    in: query
+    description: Social Network Name
+    type: string
+    required: true      
+  url:
+    name: url
+    in: query
+    description: Social Network URL
+    type: string
+    required: true     
+  application_id:  
+    name: application_id
+    in: path
+    description: Application unique identifier
+    type: string
+    required: true  
+  reason:
+    name: reason
+    in: body
+    required: true
+    description: Reason for this action
+    schema:
+      $ref: '#/definitions/Reason'
+################################################################################
+#                                     Paths                                    #
+################################################################################    
 paths:
-  /getCurrentBrowserIdentity: 
+  /getCurrentBrowserIdentity/{user_id}: 
     get:
-      summary: Ask for current used identity 
+      summary: Ask for current used user identity 
       parameters:
-        - name: user_id
-          in: query
-          description: User's unique identifier
-          type: string
-          required: true
-          format: uuid
+        - $ref: "#/parameters/user_id"
       tags:
         - Browser Identity
-        - GET      
       responses:
         200:
           description: An object containing current identity
           schema:
             $ref: '#/definitions/Identity'
+        404:
+          description: Identity not found
+          schema: 
+            $ref: '#/definitions/Status'
         500:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'      
-  /getRegisteredSocialNetworks:
+  /getRegisteredSocialNetworks/{user_id}:
     get:
       summary: Ask for all user's social networks  
       parameters :
-        - name: user_id
-          in: query
-          description: User's unique identifier
-          type: string
-          required: true
-          format: uuid
+        - $ref: "#/parameters/user_id"
       tags:
-        - Browser Extension
         - Social Networks
-        - GET 
       responses:
         200:
           description: An object containing current identity
@@ -58,34 +102,23 @@ paths:
             type: array
             items:
               $ref: '#/definitions/SocialNetwork'
+        404:
+          description: Identity not found
+          schema: 
+            $ref: '#/definitions/Status'
         500:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'  
-  /getSocialNetworkPrivacySettings:
+  /getSocialNetworkPrivacySettings/{user_id}:
     get:
       summary: Ask for all user's social networks  
       parameters :
-        - name: user_id
-          in: query
-          description: User's unique identifier
-          type: string
-          required: true
-          format: uuid
-        - name: social_network
-          in: query
-          description: Social Network Name
-          type: string
-          required: true
-        - name: url
-          in: query
-          description: Social Network URL
-          type: string
-          required: true
+        - $ref: "#/parameters/user_id"
+        - $ref: "#/parameters/social_network"
+        - $ref: "#/parameters/url"
       tags:
-        - Browser Extension
         - Social Networks
-        - GET 
       responses:
         200:
           description: An object containing current identity
@@ -93,30 +126,21 @@ paths:
             type: array
             items:
               $ref: '#/definitions/PrivacySetting'
+        404:
+          description: User_id not found
+          schema: 
+            $ref: '#/definitions/Status'        
         500:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'
-  /secureSocialNetwork:
-    post: 
+  /secureSocialNetwork/{user_id}:
+    patch: 
       summary: Apply secure settings for the social network
       parameters :
-        - name: user_id
-          in: query
-          description: User's unique identifier
-          type: string
-          required: true
-          format: uuid
-        - name: social_network
-          in: query
-          description: Social Network Name
-          type: string
-          required: true
-        - name: url
-          in: query
-          description: Social Network URL
-          type: string
-          required: true
+        - $ref: "#/parameters/user_id"
+        - $ref: "#/parameters/social_network"
+        - $ref: "#/parameters/url"
         - name: privacy_settings
           in: body
           schema:
@@ -125,36 +149,31 @@ paths:
               $ref: '#/definitions/PrivacySetting'
           description: An array containing Privacy settings
       tags:
-        - Browser Extension
         - Social Networks
-        - POST     
       responses:
         200: 
           description: An object containing a successfully status
           schema:
             $ref: '#/definitions/Status'
+        404:
+          description: User_id not found
+          schema: 
+            $ref: '#/definitions/Status'    
         500:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'
-  /getInstalledApps:
+  /getInstalledApps/{user_id}:
     get:
       summary: Get all installed apps, extension and themes
       parameters: 
-        - name: user_id
-          in: query
-          description: User's unique identifier
-          type: string
-          required: true
-          format: uuid
+        - $ref: "#/parameters/user_id"
         - name: type
           in: query
           description: App type (extension, application, theme)
           type: string
       tags:
-        - Browser Extension
-        - Apps & Extensions
-        - GET 
+        - Browser Apps & Extensions
       responses:
         200: 
           description: An array containing all installed apps, extensions and themes
@@ -162,65 +181,45 @@ paths:
             type: array
             items: 
               $ref: '#/definitions/Application'
-  /disableApp:
-    post:
+        404:
+          description: User_id not found
+          schema: 
+            $ref: '#/definitions/Status'    
+        500:
+          description: Unexpected error
+          schema: 
+            $ref: '#/definitions/Error'        
+  /disableApp/{user_id}/{application_id}:
+    put:
       summary: Suggest to extension to disable an application presenting the reason for the action
       parameters:
-        - name: user_id
-          in: query
-          description: User's unique identifier
-          type: string
-          required: true
-          format: uuid
-        - name: application_id
-          in: query
-          description: Application unique identifier
-          type: string
-          required: true
-        - name: reason
-          in: body
-          required: true
-          description: Reason for this action
-          schema:
-            $ref: '#/definitions/Reason'
+        - $ref: "#/parameters/user_id"
+        - $ref: "#/parameters/application_id"
+        - $ref: "#/parameters/reason"
       tags:
-        - Browser Extension
-        - Apps & Extensions
-        - POST 
+        - Browser Apps & Extensions
       responses: 
         200:
           description: Successfully request
           schema:
             $ref: '#/definitions/Status'
+        404:
+          description: User_id not found
+          schema: 
+            $ref: '#/definitions/Status'     
         500:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'    
-  /uninstallApp:
-    post:
+  /uninstallApp/{user_id}/{application_id}:
+    delete:
       summary: Suggest to extension to uninstall an application presenting the reason for the action
       parameters:
-        - name: user_id
-          in: query
-          description: User's unique identifier
-          type: string
-          required: true
-          format: uuid
-        - name: application_id
-          in: query
-          description: Application unique identifier
-          type: string
-          required: true
-        - name: reason
-          in: body
-          required: true
-          description: Reason for this action
-          schema:
-            $ref: '#/definitions/Reason'
+        - $ref: "#/parameters/user_id"
+        - $ref: "#/parameters/application_id"
+        - $ref: "#/parameters/reason"
       tags:
-        - Browser Extension
-        - Apps & Extensions
-        - POST 
+        - Browser Apps & Extensions
       responses: 
         200:
           description: Successfully request
