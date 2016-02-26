@@ -1,0 +1,170 @@
+<div class="main-content">
+  <h2><a name=""></a></h2>
+  <p>This is the  API</p>
+
+  
+  
+  <h2><a name="oSPGet"></a>oSPGet</h2>
+  <hr>
+  <p></p>
+  <p>The query contains a json object (names, values) and the request returns the list of documents (regulations) where the filter matches i.e. the document contains fields with those values.</p>
+  <h3 class="section">URL</h3>
+  <code>http://operando.eu/policyDB/OSP/</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>GET</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model="OSPRequest"><a href="">List</a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+  	
+	  <li class="parameter">
+      
+      <span class="param-in">Query: </span>
+      
+      
+      
+      <span class="param-name">filter</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">The query filter to be matched - \&quot;?filter=\&quot;{json description}\&quot;</p>
+	  </li>
+    
+  </ul>
+  
+  <h2><a name="oSPOspIdGet"></a>oSPOspIdGet</h2>
+  <hr>
+  <p></p>
+  <p>Get a specific OSP document via the id. This will return the full OSP document in json format.</p>
+  <h3 class="section">URL</h3>
+  <code>http://operando.eu/policyDB/OSP/{osp_id}/</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>GET</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model="OSPBehaviour"><a href="">OSPBehaviour</a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+  	
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">osp_id</span>
+      <span class="param-type">BigDecimal</span>
+      
+      <p class="param-description">Unique identifier representing a specific osp</p>
+	  </li>
+    
+  </ul>
+  
+  <h2><a name="regulationsGet"></a>regulationsGet</h2>
+  <hr>
+  <p></p>
+  <p>The query contains a json object (names, values) and the request returns the list of documents (regulations) where the filter matches i.e. the document contains fields with those values.</p>
+  <h3 class="section">URL</h3>
+  <code>http://operando.eu/policyDB/Regulations/</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>GET</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model="PrivacyRegulation"><a href="">List</a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+  	
+	  <li class="parameter">
+      
+      <span class="param-in">Query: </span>
+      
+      
+      
+      <span class="param-name">filter</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">The query filter to be matched - \&quot;?filter=\&quot;{json description}\&quot;</p>
+	  </li>
+    
+  </ul>
+  
+  <h2><a name="regulationsRegIdGet"></a>regulationsRegIdGet</h2>
+  <hr>
+  <p></p>
+  <p>Get a specific legislation document via the id. This will return the full legislation document in json format.</p>
+  <h3 class="section">URL</h3>
+  <code>http://operando.eu/policyDB/Regulations/{reg_id}/</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>GET</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model="UPP"><a href="">UPP</a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+  	
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">regulation_id</span>
+      <span class="param-type">BigDecimal</span>
+      
+      <p class="param-description">Unique identifier representing a specific user</p>
+	  </li>
+    
+  </ul>
+  
+  <h2><a name="userPrivacyPolicyGet"></a>userPrivacyPolicyGet</h2>
+  <hr>
+  <p></p>
+  <p>The query contains a json object (names, values) and the request returns the list of documents (UPPs) where the filter matches i.e. the document contains fields with those values.</p>
+  <h3 class="section">URL</h3>
+  <code>http://operando.eu/policyDB/UserPrivacyPolicy/</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>GET</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model="UPP"><a href="">List</a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+  	
+	  <li class="parameter">
+      
+      <span class="param-in">Query: </span>
+      
+      
+      
+      <span class="param-name">filter</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">The query filter to be matched - \&quot;?filter=\&quot;{json description}\&quot;</p>
+	  </li>
+    
+  </ul>
+  
+  <h2><a name="userPrivacyPolicyUserIdGet"></a>userPrivacyPolicyUserIdGet</h2>
+  <hr>
+  <p></p>
+  <p>Get a specific UPP document via the user&#39;s id. This will return the full user privacy policy document in json format.</p>
+  <h3 class="section">URL</h3>
+  <code>http://operando.eu/policyDB/UserPrivacyPolicy/{user_id}</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>GET</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model="UPP"><a href="">UPP</a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+  	
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">user_id</span>
+      <span class="param-type">BigDecimal</span>
+      
+      <p class="param-description">Unique identifier representing a specific user</p>
+	  </li>
+    
+  </ul>
+  
+  
+</div>

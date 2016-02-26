@@ -1,0 +1,544 @@
+---
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Policy DB
+  description: |
+    Database that stores three types of documents in dedicated collections
+    
+    1) User Privacy Policy. Each OPERANDO user has one UPP document describing their privacy policies for each of the OSP services they are subscribed to. The UPP contains the current B2C privacy settings for a subscribed to OSP. The UPP contains the users privacy preferences. The UPP contains the G2C access policies for the OSP with justification for access.
+
+    2) The legislation policies. The regulations entered into OPERANDO using the OPERANDO regulation API.
+    
+    
+    3) The OSP descriptions and data requests. For each OSP its privacy policy, its access control rules, and the data it requests (as a workflow). For B2C, the set of privacy settings is stored.
+    
+    
+  termsOfService: http://www.operando.eu/terms/
+  contact:
+    name: IT Innovation
+    url: http://www.operando.eu/support
+    email: support@operando.eu
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+    
+schemes:
+  - http
+  - https
+  
+host: operando.eu
+
+basePath: /policyDB
+
+################################################################################
+#                                   Tags                                       #
+################################################################################
+
+tags:
+  - name: UPP
+    description: |
+      Storage and management of UPP documents.
+  - name: OSP
+    description: Storage and management of OSP documents.
+  - name: Legislation
+    description: |
+      Storage and management of privacy regulations.
+      
+################################################################################
+#                                   Paths                                      #
+################################################################################
+
+paths:
+  /UserPrivacyPolicy/:
+    get:
+      summary: Perform a search query across the collection of UPPs.
+      
+      description: |
+        The query contains a json object (names, values) and the request returns the list of documents (UPPs) where the filter matches i.e. the document contains fields with those values. 
+      tags:
+        - UPP
+        - GET
+      parameters:
+        - name: filter
+          in: query
+          description: The query filter to be matched - "?filter="{json description}"
+          type: string
+          required: true
+      responses:
+          '200':
+            description: The list of UPP documents that match the query are returned in full. 
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/UPP'
+          '405':
+            description: Error in request. There is an invalid input in the query field. 
+
+  /UserPrivacyPolicy/{user_id}:
+    get:
+      summary: Read the user privacy policy for the given user id.
+      description: |
+        Get a specific UPP document via the user's id. This will return the full user privacy policy document in json format. 
+      tags:
+        - UPP
+        - GET
+      parameters:
+        - name: user_id
+          in: path
+          description: Unique identifier representing a specific user
+          type: number
+          required: true
+          format: integer32
+
+      responses:
+        '200':
+          description: The UPP document requested to be read is returned in full 
+          schema:
+            $ref: '#/definitions/UPP'
+        '404':
+          description: Error - the user does not exist. 
+  
+    post:
+        summary: Create a new UPP entry in the database for the user.
+        description: |
+                     Called when a new user is registered with operando. Their new privacy preferences are passed in the UPP document and stored in the policy DB.
+                     
+        tags:
+        - UPP
+        - POST
+        parameters:
+          - name: user_id
+            in: path
+            description: Unique identifier representing a specific user
+            type: number
+            required: true
+            format: integer32
+          - name: upp
+            in: body
+            description: The first instance of this user's UPP
+            type: object
+            required: true
+            schema:
+              $ref: '#/definitions/UPP'
+        responses:
+          '201':
+            description: The document (UPP) was successfully created in the database.
+          '405':
+            description: Error. The document (UPP) at this id has previously been created in the database.
+     
+    put:
+      summary: Update UPP entry in the database for the user.
+      description: |
+                     Called when a user makes a change to the UPP registered with operando. Their new privacy preferences are passed in the UPP document and stored in the policy DB.
+      tags:
+        - UPP
+        - PUT
+      parameters:
+        - name: user_id
+          in: path
+          description: Unique identifier representing a specific user
+          type: number
+          required: true
+          format: integer32
+        - name: upp
+          in: body
+          description: The changed instance of this user's UPP
+          type: object
+          required: true
+          schema:
+            $ref: '#/definitions/UPP'
+      responses:
+        '204':
+          description: The document (UPP) was successfully updated in the database.
+        '404':
+          description: Error. No document exists to be updated.
+     
+    delete:
+      summary: Remove the UPP entry in the database for the user.
+      description: |
+                   Called when a user leaves operando. Their privacy preferences and policies are deleted from the database.
+      tags:
+      - UPP
+      - DELETE
+      parameters:
+        - name: user_id
+          in: path
+          description: Unique identifier representing a specific user
+          type: number
+          required: true
+          format: integer32
+
+      responses:
+        '204':
+          description: The document (UPP) was successfully deleted from the database.
+        '404':
+          description: Error. No document exists to be deleted.                
+  
+  /Regulations/:
+    get:
+      summary: Perform a search query across the collection of regulation.
+      
+      description: |
+        The query contains a json object (names, values) and the request returns the list of documents (regulations) where the filter matches i.e. the document contains fields with those values. 
+      tags:
+        - Legislation
+        - GET
+      parameters:
+        - name: filter
+          in: query
+          description: The query filter to be matched - "?filter="{json description}"
+          type: string
+          required: true
+      responses:
+          '200':
+            description: The list of regulations documents that match the query are returned in full. 
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/PrivacyRegulation'
+          '405':
+            description: Error in request. There is an invalid input in the query field. 
+       
+  /Regulations/{reg_id}/: 
+    get:
+      summary: Read a given legislation with its ID.
+      description: |
+        Get a specific legislation document via the id. This will return the full legislation document in json format. 
+      tags:
+        - Legislation
+        - GET
+      parameters:
+        - name: regulation_id
+          in: path
+          description: Unique identifier representing a specific user
+          type: number
+          required: true
+          format: integer32
+
+      responses:
+        '200':
+          description: The regulation document requested to be read is returned in full 
+          schema:
+            $ref: '#/definitions/UPP'
+        '404':
+          description: Error - the regulation does not exist. 
+  
+    post:
+        summary: Create a new legislation entry in the database.
+        description: |
+                     Called by the policy computation component when a new regulation is added to OPERANDO.
+                     
+        tags:
+        - Legislation
+        - POST
+        parameters:
+          - name: regulation_id
+            in: path
+            description: Unique identifier representing a specific user
+            type: number
+            required: true
+            format: integer32
+          - name: regulation
+            in: body
+            description: The first instance of this regulation document
+            type: object
+            required: true
+            schema:
+              $ref: '#/definitions/PrivacyRegulation'
+        responses:
+          '201':
+            description: The document (PrivacyRegulation) was successfully created in the database.
+          '405':
+            description: Error. The document (PrivacyRegulation) at this id has previously been created in the database.
+     
+    put:
+      summary: Update PrivacyRegulation entry in the database.
+      description: |
+                     Called when by the policy computation component when the regulator api updates a regulation. Their new PrivacyRegulation document is stored in the policy DB.
+      tags:
+        - Legislation
+        - PUT
+      parameters:
+        - name: regulation_id
+          in: path
+          description: Unique identifier representing a specific regulation
+          type: number
+          required: true
+          format: integer32
+        - name: regulation
+          in: body
+          description: The changed instance of this PrivacyRegulation
+          type: object
+          required: true
+          schema:
+            $ref: '#/definitions/PrivacyRegulation'
+      responses:
+        '204':
+          description: The document (PrivacyRegulation) was successfully updated in the database.
+        '404':
+          description: Error. No document exists to be updated.
+     
+    delete:
+      summary: Remove the PrivacyRegulation entry in the database.
+      description: |
+                   Called when by the policy computation component when the regulator api requests that the regulation be deleted.
+      tags:
+      - Legislation
+      - DELETE
+      parameters:
+        - name: regulation_id
+          in: query
+          description: Unique identifier representing a specific regulation
+          type: number
+          required: true
+          format: integer32
+
+      responses:
+        '204':
+          description: The document (PrivacyRegulation) was successfully deleted from the database.
+        '404':
+          description: Error. No document exists to be deleted.   
+
+
+  /OSP/:
+    get:
+      summary: Perform a search query across the collection of OSP behaviour.
+      
+      description: |
+        The query contains a json object (names, values) and the request returns the list of documents (regulations) where the filter matches i.e. the document contains fields with those values. 
+      tags:
+        - OSP
+        - GET
+      parameters:
+        - name: filter
+          in: query
+          description: The query filter to be matched - "?filter="{json description}"
+          type: string
+          required: true
+      responses:
+          '200':
+            description: The list of OSP documents that match the query are returned in full. 
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/OSPRequest'
+          '405':
+            description: Error in request. There is an invalid input in the query field. 
+       
+  /OSP/{osp_id}/: 
+    get:
+      summary: Read a given OSP behaviour policy.
+      description: |
+        Get a specific OSP document via the id. This will return the full OSP document in json format. 
+      tags:
+        - OSP
+        - GET
+      parameters:
+        - name: osp_id
+          in: path
+          description: Unique identifier representing a specific osp
+          type: number
+          required: true
+          format: integer32
+
+      responses:
+        '200':
+          description: The OSP document requested to be read is returned in full 
+          schema:
+            $ref: '#/definitions/OSPBehaviour'
+        '404':
+          description: Error - the regulation does not exist. 
+  
+    post:
+        summary: Create a new OSP entry in the database.
+        description: |
+                     Called by the policy computation component when a new regulation is added to OPERANDO.
+                     
+        tags:
+        - OSP
+        - POST
+        parameters:
+          - name: OSP_id
+            in: path
+            description: Unique identifier representing a specific osp
+            type: number
+            required: true
+            format: integer32
+          - name: regulation
+            in: body
+            description: The first instance of this OSP document
+            type: object
+            required: true
+            schema:
+              $ref: '#/definitions/OSPBehaviour'
+        responses:
+          '201':
+            description: The document (OSPBehaviour) was successfully created in the database.
+          '405':
+            description: Error. The document (OSPBehaviour) at this id has previously been created in the database.
+     
+    put:
+      summary: Update OSPBehaviour entry in the database.
+      description: |
+                     Called when by the policy computation component when the regulator api updates a regulation. Their new OSPRequest document is stored in the policy DB.
+      tags:
+        - OSP
+        - PUT
+      parameters:
+        - name: osp_id
+          in: path
+          description: Unique identifier representing a specific osp
+          type: number
+          required: true
+          format: integer32
+        - name: regulation
+          in: body
+          description: The changed instance of this OSPRequest
+          type: object
+          required: true
+          schema:
+            $ref: '#/definitions/OSPBehaviour'
+      responses:
+        '204':
+          description: The document (OSPBehaviour) was successfully updated in the database.
+        '404':
+          description: Error. No document exists to be updated.
+     
+    delete:
+      summary: Remove the OSPRequest entry in the database.
+      description: |
+                   Called when by the policy computation component when the regulator api requests that the regulation be deleted.
+      tags:
+      - OSP
+      - DELETE
+      parameters:
+        - name: osp_id
+          in: query
+          description: Unique identifier representing a specific regulation
+          type: number
+          required: true
+          format: integer32
+
+      responses:
+        '204':
+          description: The document (OSPBehaviour) was successfully deleted from the database.
+        '404':
+          description: Error. No document exists to be deleted. 
+
+definitions:
+
+  UserOSPPolicy:
+    type: object
+    properties:
+      osp_id:
+        type: string
+        description: The ID of the OSP that the policy relates to
+      osp_request:
+        type: string
+        description: The ID of the OSP that the policy relates to
+      consent:
+        type: boolean
+        description: 
+     
+  OSPRequest:
+    type: object
+    properties:
+      id:
+        type: string
+        description: OSP identifier
+      data_requested:
+        type: string
+        description: Description of the data/fields that the request concerns
+      operation:
+        type: string
+        description: Action to be performed on the data
+      Role:
+        type: string
+        description: Role of the person requesting the request
+        
+  OSPBehaviour:
+    type: object
+    properties:
+      OSP_behaviour:
+        type: array
+        schema:
+          type: object
+          properties:
+            id:
+              type: string
+              description: OSP identifier
+            data_requested:
+              type: string
+              description: Description of the data/fields that the request concerns
+            operation:
+              type: string
+              description: Action to be performed on the data
+            Role:
+              type: string
+              description: Role of the person requesting the request
+        description: the set of requests made on data by this OSP (OSP request objects in array)
+      OSP_privacy_policy:
+        type: string
+        description: the set of privacy policies put in place by the OSP i.e. the rules they follow given the data actions they make
+        
+  UserPreference:
+    type: object
+    properties:
+      preference_id:
+        type: integer
+        format: int32
+        description: the identifier of the preference
+      sector:
+        type: string
+        description: The domain that the preference applies in
+      privacy_target:
+        type: string
+        description: The private data the preference describes
+      privacy_value:
+        type: integer
+        format: int32
+        description: The user's rating of the importance of the privacy targt.
+        
+  UPP:
+    type: object
+    properties:
+      id:
+        type: string
+        description: User Identity
+      user preferences:
+        type: object
+        description: User stated preferences (questionnaire answers)
+        schema:
+          $ref: '#/definitions/UserPreference'
+      access_policies:
+        type: object
+        description: OSP access policies
+        schema:
+          $ref: '#/definitions/UserOSPPolicy'
+      role:
+        type: string
+        description: Role of the person requesting the request
+        
+  Report:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Request status success or error
+      message:
+        type: string
+        description: Message stating the reasons any request failed e.g. breaks the user's privacy preferences.
+
+  PrivacyRegulation:
+    type: object
+    properties:
+      sector:
+        type: string
+        description: The domain that the legislation applies to
+      legislation:
+        type: string
+        description: The legislation description
+      legislation_value:
+        type: string
+        description: The value that must be complied with

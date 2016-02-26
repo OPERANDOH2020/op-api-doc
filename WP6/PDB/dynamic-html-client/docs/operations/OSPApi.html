@@ -1,0 +1,167 @@
+<div class="main-content">
+  <h2><a name=""></a></h2>
+  <p>This is the  API</p>
+
+  
+  
+  <h2><a name="oSPGet"></a>oSPGet</h2>
+  <hr>
+  <p></p>
+  <p>The query contains a json object (names, values) and the request returns the list of documents (regulations) where the filter matches i.e. the document contains fields with those values.</p>
+  <h3 class="section">URL</h3>
+  <code>http://operando.eu/policyDB/OSP/</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>GET</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model="OSPRequest"><a href="">List</a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+  	
+	  <li class="parameter">
+      
+      <span class="param-in">Query: </span>
+      
+      
+      
+      <span class="param-name">filter</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">The query filter to be matched - \&quot;?filter=\&quot;{json description}\&quot;</p>
+	  </li>
+    
+  </ul>
+  
+  <h2><a name="oSPOspIdGet"></a>oSPOspIdGet</h2>
+  <hr>
+  <p></p>
+  <p>Get a specific OSP document via the id. This will return the full OSP document in json format.</p>
+  <h3 class="section">URL</h3>
+  <code>http://operando.eu/policyDB/OSP/{osp_id}/</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>GET</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model="OSPBehaviour"><a href="">OSPBehaviour</a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+  	
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">osp_id</span>
+      <span class="param-type">BigDecimal</span>
+      
+      <p class="param-description">Unique identifier representing a specific osp</p>
+	  </li>
+    
+  </ul>
+  
+  <h2><a name="oSPOspIdPut"></a>oSPOspIdPut</h2>
+  <hr>
+  <p></p>
+  <p>Called when by the policy computation component when the regulator api updates a regulation. Their new OSPRequest document is stored in the policy DB.</p>
+  <h3 class="section">URL</h3>
+  <code>http://operando.eu/policyDB/OSP/{osp_id}/</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>PUT</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model=""><a href=""></a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+  	
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">osp_id</span>
+      <span class="param-type">BigDecimal</span>
+      
+      <p class="param-description">Unique identifier representing a specific osp</p>
+	  </li>
+    
+	  <li class="parameter">
+      
+      
+      
+      
+      <span class="param-in">Body: </span>
+      <span class="param-name">regulation</span>
+      <span class="param-type">OSPBehaviour</span>
+      
+      <p class="param-description">The changed instance of this OSPRequest</p>
+	  </li>
+    
+  </ul>
+  
+  <h2><a name="oSPOspIdPost"></a>oSPOspIdPost</h2>
+  <hr>
+  <p></p>
+  <p>Called by the policy computation component when a new regulation is added to OPERANDO.</p>
+  <h3 class="section">URL</h3>
+  <code>http://operando.eu/policyDB/OSP/{osp_id}/</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>POST</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model=""><a href=""></a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+  	
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">OSP_id</span>
+      <span class="param-type">BigDecimal</span>
+      
+      <p class="param-description">Unique identifier representing a specific osp</p>
+	  </li>
+    
+	  <li class="parameter">
+      
+      
+      
+      
+      <span class="param-in">Body: </span>
+      <span class="param-name">regulation</span>
+      <span class="param-type">OSPBehaviour</span>
+      
+      <p class="param-description">The first instance of this OSP document</p>
+	  </li>
+    
+  </ul>
+  
+  <h2><a name="oSPOspIdDelete"></a>oSPOspIdDelete</h2>
+  <hr>
+  <p></p>
+  <p>Called when by the policy computation component when the regulator api requests that the regulation be deleted.</p>
+  <h3 class="section">URL</h3>
+  <code>http://operando.eu/policyDB/OSP/{osp_id}/</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>DELETE</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model=""><a href=""></a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+  	
+	  <li class="parameter">
+      
+      <span class="param-in">Query: </span>
+      
+      
+      
+      <span class="param-name">osp_id</span>
+      <span class="param-type">BigDecimal</span>
+      
+      <p class="param-description">Unique identifier representing a specific regulation</p>
+	  </li>
+    
+  </ul>
+  
+  
+</div>
