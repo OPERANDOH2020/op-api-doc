@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: Browser Extension API
   description: Browser Extension  API
-  version: 0.0.2
+  version: 0.0.3
   contact:
     email: raf@rms.ro
     name : RomSoft
@@ -68,7 +68,7 @@ parameters:
 #                                     Paths                                    #
 ################################################################################    
 paths:
-  /getCurrentBrowserIdentity/{user_id}: 
+  /identity/{user_id}: 
     get:
       summary: Ask for current used user identity 
       parameters:
@@ -88,7 +88,7 @@ paths:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'      
-  /getRegisteredSocialNetworks/{user_id}:
+  /social_networks/{user_id}:
     get:
       summary: Ask for all user's social networks  
       parameters :
@@ -97,7 +97,7 @@ paths:
         - Social Networks
       responses:
         200:
-          description: An object containing current identity
+          description: An array containing user social networks
           schema:
             type: array
             items:
@@ -110,7 +110,7 @@ paths:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'  
-  /getSocialNetworkPrivacySettings/{user_id}:
+  /social_networks/settings/{user_id}:
     get:
       summary: Ask for all user's social networks  
       parameters :
@@ -121,7 +121,7 @@ paths:
         - Social Networks
       responses:
         200:
-          description: An object containing current identity
+          description: An object containing social network settings
           schema:
             type: array
             items:
@@ -134,7 +134,6 @@ paths:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'
-  /secureSocialNetwork/{user_id}:
     patch: 
       summary: Apply secure settings for the social network
       parameters :
@@ -163,7 +162,7 @@ paths:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'
-  /getInstalledApps/{user_id}:
+  /apps/{user_id}:
     get:
       summary: Get all installed apps, extension and themes
       parameters: 
@@ -189,7 +188,7 @@ paths:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'        
-  /disableApp/{user_id}/{application_id}:
+  /apps/disable/{user_id}/{application_id}:
     put:
       summary: Suggest to extension to disable an application presenting the reason for the action
       parameters:
@@ -211,7 +210,7 @@ paths:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'    
-  /uninstallApp/{user_id}/{application_id}:
+  /apps/{user_id}/{application_id}:
     delete:
       summary: Suggest to extension to uninstall an application presenting the reason for the action
       parameters:
