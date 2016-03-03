@@ -6,7 +6,7 @@ info:
     name : RomSoft
     url: http://www.operando.eu/
   description: Email Services API
-  version: 0.0.2
+  version: 0.0.3
   license:
     name: MIT
     url: http://opensource.org/licenses/MIT
@@ -61,7 +61,7 @@ paths:
   ################################################
   #               Email Services                 #
   ################################################
-  /sendEmail/{user_id}:
+  /email/{user_id}:
     post:
       summary: Interface used to send an email
       parameters:
@@ -91,7 +91,7 @@ paths:
           description: The total size of your mailing exceeds the recipient server's limits.
           schema: 
             $ref: '#/definitions/Error'
-  /sendEmailWithAttachments/{user_id}:
+  /emailWithAttachments/{user_id}:
     post:
       summary: Interface used to send an email
       parameters:
@@ -125,7 +125,7 @@ paths:
   ################################################
   #               Identity Manager               #
   ################################################ 
-  /generateIdentity/{user_id}:
+  /identities/{user_id}:
     post:
       summary: Generate a new identity for an user
       parameters:
@@ -141,28 +141,6 @@ paths:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'
-  /removeIdentity/{user_id}/{identity_id}:
-    delete:
-      summary: Remove a certain identity
-      parameters:
-        - $ref: '#/parameters/user_id'
-        - $ref: '#/parameters/identity_id'
-      tags:
-        - Identities Manager    
-      responses:
-        200:
-          description: Identity successfully removed from system
-          schema: 
-            $ref: '#/definitions/Status'
-        404:
-          description: Identity not found
-          schema: 
-            $ref: '#/definitions/Status'
-        500:
-          description: Unexpected error
-          schema: 
-            $ref: '#/definitions/Error'
-  /listIdentities/{user_id}:
     get:
       summary: Get user identities
       parameters: 
@@ -189,10 +167,32 @@ paths:
         500:
           description: Unexpected error
           schema: 
-            $ref: '#/definitions/Error'      
-
+            $ref: '#/definitions/Error'              
+  
+  /identities/{user_id}/{identity_id}:
+    delete:
+      summary: Remove a certain identity
+      parameters:
+        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/identity_id'
+      tags:
+        - Identities Manager    
+      responses:
+        200:
+          description: Identity successfully removed from system
+          schema: 
+            $ref: '#/definitions/Status'
+        404:
+          description: Identity not found
+          schema: 
+            $ref: '#/definitions/Status'
+        500:
+          description: Unexpected error
+          schema: 
+            $ref: '#/definitions/Error'
+ 
 ################################################################################
-#                              Objects Definitions                            #
+#                              Objects Definitions                             #
 ################################################################################        
 definitions:
   Email:

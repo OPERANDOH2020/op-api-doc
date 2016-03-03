@@ -185,7 +185,7 @@ font-style: italic;
     <div class="app-desc">Email Services API</div>
     <div class="app-desc">More information: <a href="http://www.operando.eu/">http://www.operando.eu/</a></div>
     <div class="app-desc">Contact Info: <a href="raf@rms.ro">raf@rms.ro</a></div>
-    <div class="app-desc">Version: 0.0.2</div>
+    <div class="app-desc">Version: 0.0.3</div>
     <div class="license-info">MIT</div>
     <div class="license-url">http://opensource.org/licenses/MIT</div>
   <h2>Access</h2>
@@ -202,15 +202,15 @@ font-style: italic;
   
   
   
-  <li><a href="#generateIdentityUserIdPost"><code><span class="http-method">post</span> /generateIdentity/{user_id}</code></a></li>
+  <li><a href="#emailUserIdPost"><code><span class="http-method">post</span> /email/{user_id}</code></a></li>
   
-  <li><a href="#listIdentitiesUserIdGet"><code><span class="http-method">get</span> /listIdentities/{user_id}</code></a></li>
+  <li><a href="#emailWithAttachmentsUserIdPost"><code><span class="http-method">post</span> /emailWithAttachments/{user_id}</code></a></li>
   
-  <li><a href="#removeIdentityUserIdIdentityIdDelete"><code><span class="http-method">delete</span> /removeIdentity/{user_id}/{identity_id}</code></a></li>
+  <li><a href="#identitiesUserIdGet"><code><span class="http-method">get</span> /identities/{user_id}</code></a></li>
   
-  <li><a href="#sendEmailUserIdPost"><code><span class="http-method">post</span> /sendEmail/{user_id}</code></a></li>
+  <li><a href="#identitiesUserIdPost"><code><span class="http-method">post</span> /identities/{user_id}</code></a></li>
   
-  <li><a href="#sendEmailWithAttachmentsUserIdPost"><code><span class="http-method">post</span> /sendEmailWithAttachments/{user_id}</code></a></li>
+  <li><a href="#identitiesUserIdIdentityIdDelete"><code><span class="http-method">delete</span> /identities/{user_id}/{identity_id}</code></a></li>
   
   
   
@@ -221,11 +221,11 @@ font-style: italic;
   
   
   
-  <div class="method"><a name="generateIdentityUserIdPost"/>
+  <div class="method"><a name="emailUserIdPost"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /generateIdentity/{user_id}</code></pre></div>
-    <div class="method-summary">Generate a new identity for an user (<span class="nickname">generateIdentityUserIdPost</span>)</div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /email/{user_id}</code></pre></div>
+    <div class="method-summary">Interface used to send an email (<span class="nickname">emailUserIdPost</span>)</div>
     
     <div class="method-notes"></div>
 
@@ -241,6 +241,13 @@ font-style: italic;
     
 
     
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">email (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Email Object that is forwareded by EmailService </div>
+    </div>  <!-- field-items -->
+    
 
     
 
@@ -251,7 +258,7 @@ font-style: italic;
     
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
-      <a href="#Identity">Identity</a>
+      <a href="#Status">Status</a>
       
     </div>
     
@@ -274,21 +281,115 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     
     <h4 class="field-label">201</h4>
-    Get the created identiy object
+    Request was successfully completed
+    
+    
+    <h4 class="field-label">420</h4>
+    Timeout connection problem
     
     
     <h4 class="field-label">500</h4>
-    Unexpected error
+    Invalid command
+    
+    
+    <h4 class="field-label">501</h4>
+    Invalid parameters args
+    
+    
+    <h4 class="field-label">523</h4>
+    The total size of your mailing exceeds the recipient server&#39;s limits.
     
     
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="listIdentitiesUserIdGet"/>
+  <div class="method"><a name="emailWithAttachmentsUserIdPost"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /listIdentities/{user_id}</code></pre></div>
-    <div class="method-summary">Get user identities (<span class="nickname">listIdentitiesUserIdGet</span>)</div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /emailWithAttachments/{user_id}</code></pre></div>
+    <div class="method-summary">Interface used to send an email (<span class="nickname">emailWithAttachmentsUserIdPost</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">email (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Email Object that is forwareded by EmailService </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Status">Status</a>
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">201</h4>
+    Request was successfully completed
+    
+    
+    <h4 class="field-label">420</h4>
+    Timeout connection problem
+    
+    
+    <h4 class="field-label">500</h4>
+    Invalid command
+    
+    
+    <h4 class="field-label">501</h4>
+    Invalid parameters args
+    
+    
+    <h4 class="field-label">523</h4>
+    The total size of your mailing exceeds the recipient server&#39;s limits.
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="identitiesUserIdGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /identities/{user_id}</code></pre></div>
+    <div class="method-summary">Get user identities (<span class="nickname">identitiesUserIdGet</span>)</div>
     
     <div class="method-notes"></div>
 
@@ -351,11 +452,74 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="removeIdentityUserIdIdentityIdDelete"/>
+  <div class="method"><a name="identitiesUserIdPost"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /removeIdentity/{user_id}/{identity_id}</code></pre></div>
-    <div class="method-summary">Remove a certain identity (<span class="nickname">removeIdentityUserIdIdentityIdDelete</span>)</div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /identities/{user_id}</code></pre></div>
+    <div class="method-summary">Generate a new identity for an user (<span class="nickname">identitiesUserIdPost</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Identity">Identity</a>
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">201</h4>
+    Get the created identiy object
+    
+    
+    <h4 class="field-label">500</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="identitiesUserIdIdentityIdDelete"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /identities/{user_id}/{identity_id}</code></pre></div>
+    <div class="method-summary">Remove a certain identity (<span class="nickname">identitiesUserIdIdentityIdDelete</span>)</div>
     
     <div class="method-notes"></div>
 
@@ -420,170 +584,6 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="sendEmailUserIdPost"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /sendEmail/{user_id}</code></pre></div>
-    <div class="method-summary">Interface used to send an email (<span class="nickname">sendEmailUserIdPost</span>)</div>
-    
-    <div class="method-notes"></div>
-
-    
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-    <h3 class="field-label">Request body</h3>
-    <div class="field-items">
-      <div class="param">email (required)</div>
-
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Email Object that is forwareded by EmailService </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-
-    
-
-    
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#Status">Status</a>
-      
-    </div>
-    
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    
-
-    
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
-    <ul>
-    
-      <li><code>application/json</code></li>
-    
-    </ul>
-    
-
-    <h3 class="field-label">Responses</h3>
-    
-    <h4 class="field-label">201</h4>
-    Request was successfully completed
-    
-    
-    <h4 class="field-label">420</h4>
-    Timeout connection problem
-    
-    
-    <h4 class="field-label">500</h4>
-    Invalid command
-    
-    
-    <h4 class="field-label">501</h4>
-    Invalid parameters args
-    
-    
-    <h4 class="field-label">523</h4>
-    The total size of your mailing exceeds the recipient server&#39;s limits.
-    
-    
-  </div> <!-- method -->
-  <hr/>
-  
-  <div class="method"><a name="sendEmailWithAttachmentsUserIdPost"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /sendEmailWithAttachments/{user_id}</code></pre></div>
-    <div class="method-summary">Interface used to send an email (<span class="nickname">sendEmailWithAttachmentsUserIdPost</span>)</div>
-    
-    <div class="method-notes"></div>
-
-    
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-    <h3 class="field-label">Request body</h3>
-    <div class="field-items">
-      <div class="param">email (required)</div>
-
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Email Object that is forwareded by EmailService </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-
-    
-
-    
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#Status">Status</a>
-      
-    </div>
-    
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    
-
-    
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
-    <ul>
-    
-      <li><code>application/json</code></li>
-    
-    </ul>
-    
-
-    <h3 class="field-label">Responses</h3>
-    
-    <h4 class="field-label">201</h4>
-    Request was successfully completed
-    
-    
-    <h4 class="field-label">420</h4>
-    Timeout connection problem
-    
-    
-    <h4 class="field-label">500</h4>
-    Invalid command
-    
-    
-    <h4 class="field-label">501</h4>
-    Invalid parameters args
-    
-    
-    <h4 class="field-label">523</h4>
-    The total size of your mailing exceeds the recipient server&#39;s limits.
-    
-    
-  </div> <!-- method -->
-  <hr/>
-  
   
   
   
@@ -596,23 +596,11 @@ font-style: italic;
   <ol>
   
   
-    <li><a href="#Email"><code>Email</code></a></li>
-  
-  
-  
-    <li><a href="#Attachment"><code>Attachment</code></a></li>
-  
-  
-  
-    <li><a href="#Identity"><code>Identity</code></a></li>
-  
-  
-  
     <li><a href="#Status"><code>Status</code></a></li>
   
   
   
-    <li><a href="#Error"><code>Error</code></a></li>
+    <li><a href="#Email"><code>Email</code></a></li>
   
   
   
@@ -620,15 +608,40 @@ font-style: italic;
   
   
   
+    <li><a href="#Email_bcc"><code>Email_bcc</code></a></li>
+  
+  
+  
+    <li><a href="#Error"><code>Error</code></a></li>
+  
+  
+  
+    <li><a href="#Attachment"><code>Attachment</code></a></li>
+  
+  
+  
     <li><a href="#Email_cc"><code>Email_cc</code></a></li>
   
   
   
-    <li><a href="#Email_bcc"><code>Email_bcc</code></a></li>
+    <li><a href="#Identity"><code>Identity</code></a></li>
   
   
   </ol>
 
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="Status">Status</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">status </div><div class="param-desc"><span class="param-type">String</span> Request status success or error</div>
+      
+      <div class="param">message </div><div class="param-desc"><span class="param-type">String</span> Status message</div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
   
   
   <div class="model">
@@ -655,11 +668,9 @@ font-style: italic;
   
   
   <div class="model">
-    <h3 class="field-label"><a name="Attachment">Attachment</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="Email_to">Email_to</a> <a class="up" href="#__Models">Up</a></h3>
     <div class="field-items">
-      <div class="param">title </div><div class="param-desc"><span class="param-type">String</span> Filename</div>
-      
-      <div class="param">path </div><div class="param-desc"><span class="param-type">String</span> File path on the file system or temp folder</div>
+      <div class="param">userId </div><div class="param-desc"><span class="param-type">String</span> Recipient unique identifier</div>
       
       
     </div>  <!-- field-items -->
@@ -668,28 +679,9 @@ font-style: italic;
   
   
   <div class="model">
-    <h3 class="field-label"><a name="Identity">Identity</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="Email_bcc">Email_bcc</a> <a class="up" href="#__Models">Up</a></h3>
     <div class="field-items">
-      <div class="param">identityId </div><div class="param-desc"><span class="param-type">String</span> This is a generated field</div>
-      
-      <div class="param">username </div><div class="param-desc"><span class="param-type">String</span> Generated username</div>
-      
-      <div class="param">email </div><div class="param-desc"><span class="param-type">String</span> Generated email</div>
-      
-      <div class="param">password </div><div class="param-desc"><span class="param-type">String</span> Generated password</div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
-    <h3 class="field-label"><a name="Status">Status</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">status </div><div class="param-desc"><span class="param-type">String</span> Request status success or error</div>
-      
-      <div class="param">message </div><div class="param-desc"><span class="param-type">String</span> Status message</div>
+      <div class="param">userId </div><div class="param-desc"><span class="param-type">String</span> Blind carbon copy recipient unique identifier</div>
       
       
     </div>  <!-- field-items -->
@@ -713,9 +705,11 @@ font-style: italic;
   
   
   <div class="model">
-    <h3 class="field-label"><a name="Email_to">Email_to</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="Attachment">Attachment</a> <a class="up" href="#__Models">Up</a></h3>
     <div class="field-items">
-      <div class="param">userId </div><div class="param-desc"><span class="param-type">String</span> Recipient unique identifier</div>
+      <div class="param">title </div><div class="param-desc"><span class="param-type">String</span> Filename</div>
+      
+      <div class="param">path </div><div class="param-desc"><span class="param-type">String</span> File path on the file system or temp folder</div>
       
       
     </div>  <!-- field-items -->
@@ -735,9 +729,15 @@ font-style: italic;
   
   
   <div class="model">
-    <h3 class="field-label"><a name="Email_bcc">Email_bcc</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="Identity">Identity</a> <a class="up" href="#__Models">Up</a></h3>
     <div class="field-items">
-      <div class="param">userId </div><div class="param-desc"><span class="param-type">String</span> Blind carbon copy recipient unique identifier</div>
+      <div class="param">identityId </div><div class="param-desc"><span class="param-type">String</span> This is a generated field</div>
+      
+      <div class="param">username </div><div class="param-desc"><span class="param-type">String</span> Generated username</div>
+      
+      <div class="param">email </div><div class="param-desc"><span class="param-type">String</span> Generated email</div>
+      
+      <div class="param">password </div><div class="param-desc"><span class="param-type">String</span> Generated password</div>
       
       
     </div>  <!-- field-items -->
