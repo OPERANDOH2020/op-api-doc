@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: USER DEVICE ENFORCEMENT API
   description: User Device Enformcement API
-  version: 0.0.2
+  version: 0.0.3
   contact:
     email: raf@rms.ro
     name : RomSoft
@@ -51,7 +51,7 @@ paths:
   ################################################
   #            User Device Enforcement           #
   ################################################
-  /ude/getPrivacySettings:
+  /ude/privacySettings:
     get:
       summary: Get Privacy Settings
       description: |
@@ -75,7 +75,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/PrivacySettings'
+              $ref: '#/definitions/PrivacySetting'
         404: 
           description: Not found or invalid
           schema:
@@ -84,7 +84,6 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /ude/applyPrivacySettings:
     put:
       summary: Apply Privacy Settings
       description: Called by OSE when it wants to update user’s settings
@@ -98,7 +97,7 @@ paths:
           schema:
             type: array
             items: 
-              $ref: '#/definitions/PrivacySettings'
+              $ref: '#/definitions/PrivacySetting'
       tags:
         - Privacy Settings
       responses:
@@ -118,7 +117,7 @@ paths:
   ################################################
   #                OSP Enforcement               #
   ################################################        
-  /ose/getRequiredSettings:
+  /ose/requiredSettings:
     get:
       summary: Called by watchdog when it requests the settings last applied by OSE
       parameters:
@@ -132,7 +131,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/PrivacySettings'
+              $ref: '#/definitions/PrivacySetting'
         404: 
           description: Not found or invalid. (e.g. user_id, osp_id)
           schema:
@@ -142,7 +141,6 @@ paths:
           schema:
             $ref: '#/definitions/Error'
             
-  /ose/changeDetectedSetting:
     put:
       summary: Called by watchdog when it detects change in user’s privacy settings
       parameters:
@@ -154,7 +152,7 @@ paths:
           schema: 
             type: array
             items: 
-              $ref: '#/definitions/PrivacySettings'
+              $ref: '#/definitions/PrivacySetting'
       tags:
         - OSE
       responses:
@@ -170,7 +168,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /ose/changeDetectedPolicy/{osp_id}:
+  /ose/policy/{osp_id}:
     patch:
       summary: Called by watchdog when it detects change in OSP privacy policy(ies)
       parameters:
@@ -208,7 +206,7 @@ paths:
 #                              Objects Definitions                             #
 ################################################################################   
 definitions:
-  PrivacySettings:
+  PrivacySetting:
     type: object
     properties:
       id:
@@ -219,8 +217,8 @@ definitions:
         description: Description of the setting
       name:
         type: string
-        description: Short name of the setting
-      setting_target:
+        description: Short name of the setting(e.g. )
+      setting_key:
         type: string
         description: Targeted setting key
       setting_value:
@@ -256,7 +254,7 @@ definitions:
       settingsAffected:
         type: array
         items:
-            $ref: '#/definitions/PrivacySettings'    
+            $ref: '#/definitions/PrivacySetting'    
         description: Settings affected    
   Error:
     type: object

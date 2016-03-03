@@ -185,7 +185,7 @@ font-style: italic;
     <div class="app-desc">User Device Enformcement API</div>
     <div class="app-desc">More information: <a href="http://www.operando.eu/">http://www.operando.eu/</a></div>
     <div class="app-desc">Contact Info: <a href="raf@rms.ro">raf@rms.ro</a></div>
-    <div class="app-desc">Version: 0.0.2</div>
+    <div class="app-desc">Version: 0.0.3</div>
     <div class="license-info">MIT</div>
     <div class="license-url">http://opensource.org/licenses/MIT</div>
   <h2>Access</h2>
@@ -202,15 +202,15 @@ font-style: italic;
   
   
   
-  <li><a href="#oseChangeDetectedPolicyOspIdPatch"><code><span class="http-method">patch</span> /ose/changeDetectedPolicy/{osp_id}</code></a></li>
+  <li><a href="#osePolicyOspIdPatch"><code><span class="http-method">patch</span> /ose/policy/{osp_id}</code></a></li>
   
-  <li><a href="#oseChangeDetectedSettingPut"><code><span class="http-method">put</span> /ose/changeDetectedSetting</code></a></li>
+  <li><a href="#oseRequiredSettingsGet"><code><span class="http-method">get</span> /ose/requiredSettings</code></a></li>
   
-  <li><a href="#oseGetRequiredSettingsGet"><code><span class="http-method">get</span> /ose/getRequiredSettings</code></a></li>
+  <li><a href="#oseRequiredSettingsPut"><code><span class="http-method">put</span> /ose/requiredSettings</code></a></li>
   
-  <li><a href="#udeApplyPrivacySettingsPut"><code><span class="http-method">put</span> /ude/applyPrivacySettings</code></a></li>
+  <li><a href="#udePrivacySettingsGet"><code><span class="http-method">get</span> /ude/privacySettings</code></a></li>
   
-  <li><a href="#udeGetPrivacySettingsGet"><code><span class="http-method">get</span> /ude/getPrivacySettings</code></a></li>
+  <li><a href="#udePrivacySettingsPut"><code><span class="http-method">put</span> /ude/privacySettings</code></a></li>
   
   
   
@@ -221,11 +221,11 @@ font-style: italic;
   
   
   
-  <div class="method"><a name="oseChangeDetectedPolicyOspIdPatch"/>
+  <div class="method"><a name="osePolicyOspIdPatch"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /ose/changeDetectedPolicy/{osp_id}</code></pre></div>
-    <div class="method-summary">Called by watchdog when it detects change in OSP privacy policy(ies) (<span class="nickname">oseChangeDetectedPolicyOspIdPatch</span>)</div>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /ose/policy/{osp_id}</code></pre></div>
+    <div class="method-summary">Called by watchdog when it detects change in OSP privacy policy(ies) (<span class="nickname">osePolicyOspIdPatch</span>)</div>
     
     <div class="method-notes"></div>
 
@@ -299,11 +299,80 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="oseChangeDetectedSettingPut"/>
+  <div class="method"><a name="oseRequiredSettingsGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /ose/changeDetectedSetting</code></pre></div>
-    <div class="method-summary">Called by watchdog when it detects change in user’s privacy settings (<span class="nickname">oseChangeDetectedSettingPut</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /ose/requiredSettings</code></pre></div>
+    <div class="method-summary">Called by watchdog when it requests the settings last applied by OSE (<span class="nickname">oseRequiredSettingsGet</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Unique identifier representing a specific user </div><div class="param">osp_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; OSP unique identifier </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#PrivacySetting">PrivacySetting</a>]
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    An array containing required settings
+    
+    
+    <h4 class="field-label">404</h4>
+    Not found or invalid. (e.g. user_id, osp_id)
+    
+    
+    <h4 class="field-label">500</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="oseRequiredSettingsPut"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /ose/requiredSettings</code></pre></div>
+    <div class="method-summary">Called by watchdog when it detects change in user’s privacy settings (<span class="nickname">oseRequiredSettingsPut</span>)</div>
     
     <div class="method-notes"></div>
 
@@ -375,18 +444,25 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="oseGetRequiredSettingsGet"/>
+  <div class="method"><a name="udePrivacySettingsGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /ose/getRequiredSettings</code></pre></div>
-    <div class="method-summary">Called by watchdog when it requests the settings last applied by OSE (<span class="nickname">oseGetRequiredSettingsGet</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /ude/privacySettings</code></pre></div>
+    <div class="method-summary">Get Privacy Settings (<span class="nickname">udePrivacySettingsGet</span>)</div>
     
-    <div class="method-notes"></div>
+    <div class="method-notes">The UDE endpoint returns the current privacy settings for all social\nnetworks. It is called by Watchdog when it requests to get current\nsettings</div>
 
     
 
     
 
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">osp_list (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; OSP_list </div>
+    </div>  <!-- field-items -->
     
 
     
@@ -396,9 +472,7 @@ font-style: italic;
     <div class="field-items">
       <div class="param">user_id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Unique identifier representing a specific user </div><div class="param">osp_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; OSP unique identifier </div>
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Unique identifier representing a specific user </div>
     </div>  <!-- field-items -->
     
 
@@ -407,7 +481,7 @@ font-style: italic;
     
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
-      array[<a href="#PrivacySettings">PrivacySettings</a>]
+      array[<a href="#PrivacySetting">PrivacySetting</a>]
       
     </div>
     
@@ -430,11 +504,11 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     
     <h4 class="field-label">200</h4>
-    An array containing required settings
+    An array of privacy settings
     
     
     <h4 class="field-label">404</h4>
-    Not found or invalid. (e.g. user_id, osp_id)
+    Not found or invalid
     
     
     <h4 class="field-label">500</h4>
@@ -444,11 +518,11 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="udeApplyPrivacySettingsPut"/>
+  <div class="method"><a name="udePrivacySettingsPut"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /ude/applyPrivacySettings</code></pre></div>
-    <div class="method-summary">Apply Privacy Settings (<span class="nickname">udeApplyPrivacySettingsPut</span>)</div>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /ude/privacySettings</code></pre></div>
+    <div class="method-summary">Apply Privacy Settings (<span class="nickname">udePrivacySettingsPut</span>)</div>
     
     <div class="method-notes">Called by OSE when it wants to update user’s settings</div>
 
@@ -520,80 +594,6 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="udeGetPrivacySettingsGet"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /ude/getPrivacySettings</code></pre></div>
-    <div class="method-summary">Get Privacy Settings (<span class="nickname">udeGetPrivacySettingsGet</span>)</div>
-    
-    <div class="method-notes">The UDE endpoint returns the current privacy settings for all social\nnetworks. It is called by Watchdog when it requests to get current\nsettings</div>
-
-    
-
-    
-
-    
-    <h3 class="field-label">Request body</h3>
-    <div class="field-items">
-      <div class="param">osp_list (optional)</div>
-
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; OSP_list </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Unique identifier representing a specific user </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      array[<a href="#PrivacySettings">PrivacySettings</a>]
-      
-    </div>
-    
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    
-
-    
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
-    <ul>
-    
-      <li><code>application/json</code></li>
-    
-    </ul>
-    
-
-    <h3 class="field-label">Responses</h3>
-    
-    <h4 class="field-label">200</h4>
-    An array of privacy settings
-    
-    
-    <h4 class="field-label">404</h4>
-    Not found or invalid
-    
-    
-    <h4 class="field-label">500</h4>
-    Unexpected error
-    
-    
-  </div> <!-- method -->
-  <hr/>
-  
   
   
   
@@ -606,7 +606,15 @@ font-style: italic;
   <ol>
   
   
-    <li><a href="#PrivacySettings"><code>PrivacySettings</code></a></li>
+    <li><a href="#Status"><code>Status</code></a></li>
+  
+  
+  
+    <li><a href="#PrivacySetting"><code>PrivacySetting</code></a></li>
+  
+  
+  
+    <li><a href="#Error"><code>Error</code></a></li>
   
   
   
@@ -614,15 +622,7 @@ font-style: italic;
   
   
   
-    <li><a href="#Status"><code>Status</code></a></li>
-  
-  
-  
     <li><a href="#PolicyChange"><code>PolicyChange</code></a></li>
-  
-  
-  
-    <li><a href="#Error"><code>Error</code></a></li>
   
   
   </ol>
@@ -630,17 +630,45 @@ font-style: italic;
   
   
   <div class="model">
-    <h3 class="field-label"><a name="PrivacySettings">PrivacySettings</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="Status">Status</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">status </div><div class="param-desc"><span class="param-type">String</span> Request status success or error</div>
+      
+      <div class="param">message </div><div class="param-desc"><span class="param-type">String</span> Status message</div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="PrivacySetting">PrivacySetting</a> <a class="up" href="#__Models">Up</a></h3>
     <div class="field-items">
       <div class="param">id </div><div class="param-desc"><span class="param-type">String</span> PrivacySetting Unique Identifier</div>
       
       <div class="param">description </div><div class="param-desc"><span class="param-type">String</span> Description of the setting</div>
       
-      <div class="param">name </div><div class="param-desc"><span class="param-type">String</span> Short name of the setting</div>
+      <div class="param">name </div><div class="param-desc"><span class="param-type">String</span> Short name of the setting(e.g. )</div>
       
-      <div class="param">setting_target </div><div class="param-desc"><span class="param-type">String</span> Targeted setting key</div>
+      <div class="param">setting_key </div><div class="param-desc"><span class="param-type">String</span> Targeted setting key</div>
       
       <div class="param">setting_value </div><div class="param-desc"><span class="param-type">String</span> Targeted setting value</div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="Error">Error</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">code </div><div class="param-desc"><span class="param-type">Integer</span> </div>
+      
+      <div class="param">message </div><div class="param-desc"><span class="param-type">String</span> </div>
+      
+      <div class="param">fields </div><div class="param-desc"><span class="param-type">String</span> </div>
       
       
     </div>  <!-- field-items -->
@@ -664,39 +692,11 @@ font-style: italic;
   
   
   <div class="model">
-    <h3 class="field-label"><a name="Status">Status</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">status </div><div class="param-desc"><span class="param-type">String</span> Request status success or error</div>
-      
-      <div class="param">message </div><div class="param-desc"><span class="param-type">String</span> Status message</div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
     <h3 class="field-label"><a name="PolicyChange">PolicyChange</a> <a class="up" href="#__Models">Up</a></h3>
     <div class="field-items">
       <div class="param">type </div><div class="param-desc"><span class="param-type">String</span> PolycyChange type (e.g. security change)</div>
       
-      <div class="param">settingsAffected </div><div class="param-desc"><span class="param-type">array[PrivacySettings]</span> Settings affected</div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
-    <h3 class="field-label"><a name="Error">Error</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">code </div><div class="param-desc"><span class="param-type">Integer</span> </div>
-      
-      <div class="param">message </div><div class="param-desc"><span class="param-type">String</span> </div>
-      
-      <div class="param">fields </div><div class="param-desc"><span class="param-type">String</span> </div>
+      <div class="param">settingsAffected </div><div class="param-desc"><span class="param-type">array[PrivacySetting]</span> Settings affected</div>
       
       
     </div>  <!-- field-items -->
