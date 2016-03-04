@@ -46,7 +46,7 @@ parameters:
   user-id:
     name: user-id
     in: path
-    description: The offer identifier number
+    description: The user identifier number
     type: string
     required: true
   osp-id:
@@ -59,7 +59,7 @@ parameters:
 #                                   PATHs                                      #
 ################################################################################
 paths:
-  /offers/search:
+  /offers:
     get:      
       summary: Search offers in databse
       description: Extension or management console send request to PfB service to get a list of offers by specific search terms (e.g Gets offers related to a website  when signup page is detected)
@@ -236,11 +236,9 @@ paths:
             $ref: '#/definitions/Error'
     delete:
       summary: Cancel a deal.
-      description: Request from Privacy Dashboard to cancel a deal.
+      description: Request from Privacy Dashboard to cancel a deal. The deal is not deleted, but updated by setting the current date value to canceled_at field.
       tags:
         - Deals
-        - Offers
-        - Users
       operationId: cancelDeal
       consumes:
         - application/json
@@ -255,12 +253,14 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'   
-  /deals/{deal-id}/acknoledge:
+  /deals/{deal-id}/acknowledgement:
     parameters:
       - $ref: '#/parameters/deal-id'
     post:
       summary: Acknoledge a deal by OSP.
       description: This API call is used by the OSP to acknowledge a deal and approve that offer was awarded to user
+      tags:
+        - Deals
       operationId: offerAccepted
       produces:
         - application/json
@@ -289,7 +289,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /osp:
+  /osps:
     post:
       summary: Registers a new OSP.
       description: Request from Administration Console to register a new Online Service Provider.
@@ -316,7 +316,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /osp/{osp-id}/deals:
+  /osps/{osp-id}/deals:
     parameters:
       - $ref: '#/parameters/osp-id'
     get:      
@@ -417,10 +417,17 @@ definitions:
       offer_id:
         type: string
         description: Unique ID of the offer.
+      user_id:
+        type: string
+        description: Unique ID of the user.
       created_at:
         type: string
         format: date-time
         description: Date when the deal was created (accepted).
+      canceled_at:
+        type: string
+        format: date-time
+        description: Date when the deal was canceled.
   Error:
     type: object
     properties:

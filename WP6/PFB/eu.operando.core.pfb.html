@@ -208,19 +208,19 @@ font-style: italic;
   
   <li><a href="#cancelDeal"><code><span class="http-method">delete</span> /deals/{deal-id}</code></a></li>
   
-  <li><a href="#offerAccepted"><code><span class="http-method">post</span> /deals/{deal-id}/acknoledge</code></a></li>
+  <li><a href="#offerAccepted"><code><span class="http-method">post</span> /deals/{deal-id}/acknowledgement</code></a></li>
   
-  <li><a href="#getOffers"><code><span class="http-method">get</span> /offers/search</code></a></li>
+  <li><a href="#getOffers"><code><span class="http-method">get</span> /offers</code></a></li>
   
-  <li><a href="#createOffer"><code><span class="http-method">post</span> /offers/search</code></a></li>
+  <li><a href="#createOffer"><code><span class="http-method">post</span> /offers</code></a></li>
   
   <li><a href="#getOfferStatus"><code><span class="http-method">get</span> /offers/{offer-id}</code></a></li>
   
   <li><a href="#updateOffer"><code><span class="http-method">put</span> /offers/{offer-id}</code></a></li>
   
-  <li><a href="#registerOSP"><code><span class="http-method">post</span> /osp</code></a></li>
+  <li><a href="#registerOSP"><code><span class="http-method">post</span> /osps</code></a></li>
   
-  <li><a href="#getAcceptedDealsByOSP"><code><span class="http-method">get</span> /osp/{osp-id}/deals</code></a></li>
+  <li><a href="#getAcceptedDealsByOSP"><code><span class="http-method">get</span> /osps/{osp-id}/deals</code></a></li>
   
   <li><a href="#getAcceptedDealsByUser"><code><span class="http-method">get</span> /users/{user-id}/deals</code></a></li>
   
@@ -367,7 +367,7 @@ font-style: italic;
     <pre class="delete"><code class="huge"><span class="http-method">delete</span> /deals/{deal-id}</code></pre></div>
     <div class="method-summary">Cancel a deal. (<span class="nickname">cancelDeal</span>)</div>
     
-    <div class="method-notes">Request from Privacy Dashboard to cancel a deal.</div>
+    <div class="method-notes">Request from Privacy Dashboard to cancel a deal. The deal is not deleted, but updated by setting the current date value to canceled_at field.</div>
 
     
     <h3 class="field-label">Path parameters</h3>
@@ -435,7 +435,7 @@ font-style: italic;
   <div class="method"><a name="offerAccepted"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /deals/{deal-id}/acknoledge</code></pre></div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /deals/{deal-id}/acknowledgement</code></pre></div>
     <div class="method-summary">Acknoledge a deal by OSP. (<span class="nickname">offerAccepted</span>)</div>
     
     <div class="method-notes">This API call is used by the OSP to acknowledge a deal and approve that offer was awarded to user</div>
@@ -509,7 +509,7 @@ font-style: italic;
   <div class="method"><a name="getOffers"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /offers/search</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /offers</code></pre></div>
     <div class="method-summary">Search offers in databse (<span class="nickname">getOffers</span>)</div>
     
     <div class="method-notes">Extension or management console send request to PfB service to get a list of offers by specific search terms (e.g Gets offers related to a website  when signup page is detected)</div>
@@ -578,7 +578,7 @@ font-style: italic;
   <div class="method"><a name="createOffer"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /offers/search</code></pre></div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /offers</code></pre></div>
     <div class="method-summary">Creates a new offer for an OSP . (<span class="nickname">createOffer</span>)</div>
     
     <div class="method-notes">Request from Administration Console to create a new offer for an OSP.</div>
@@ -790,7 +790,7 @@ font-style: italic;
   <div class="method"><a name="registerOSP"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /osp</code></pre></div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /osps</code></pre></div>
     <div class="method-summary">Registers a new OSP. (<span class="nickname">registerOSP</span>)</div>
     
     <div class="method-notes">Request from Administration Console to register a new Online Service Provider.</div>
@@ -861,7 +861,7 @@ font-style: italic;
   <div class="method"><a name="getAcceptedDealsByOSP"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /osp/{osp-id}/deals</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /osps/{osp-id}/deals</code></pre></div>
     <div class="method-summary">List of all users and their active deals for the OSP. (<span class="nickname">getAcceptedDealsByOSP</span>)</div>
     
     <div class="method-notes">Request from an OSP to get a list of all users and their active deals for specific OSP (could be also for report) .</div>
@@ -934,7 +934,7 @@ font-style: italic;
     <div class="field-items">
       <div class="param">user-id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The offer identifier number </div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The user identifier number </div>
     </div>  <!-- field-items -->
     
 
@@ -1003,11 +1003,19 @@ font-style: italic;
   <ol>
   
   
+    <li><a href="#OfferStatus"><code>OfferStatus</code></a></li>
+  
+  
+  
+    <li><a href="#Inline_response_200_5"><code>Inline_response_200_5</code></a></li>
+  
+  
+  
     <li><a href="#Offer"><code>Offer</code></a></li>
   
   
   
-    <li><a href="#Deal"><code>Deal</code></a></li>
+    <li><a href="#Inline_response_200_1"><code>Inline_response_200_1</code></a></li>
   
   
   
@@ -1015,23 +1023,7 @@ font-style: italic;
   
   
   
-    <li><a href="#OfferStatus"><code>OfferStatus</code></a></li>
-  
-  
-  
-    <li><a href="#OSP"><code>OSP</code></a></li>
-  
-  
-  
-    <li><a href="#OfferUser"><code>OfferUser</code></a></li>
-  
-  
-  
     <li><a href="#Inline_response_200"><code>Inline_response_200</code></a></li>
-  
-  
-  
-    <li><a href="#Inline_response_200_1"><code>Inline_response_200_1</code></a></li>
   
   
   
@@ -1047,11 +1039,43 @@ font-style: italic;
   
   
   
-    <li><a href="#Inline_response_200_5"><code>Inline_response_200_5</code></a></li>
+    <li><a href="#Deal"><code>Deal</code></a></li>
+  
+  
+  
+    <li><a href="#OSP"><code>OSP</code></a></li>
+  
+  
+  
+    <li><a href="#OfferUser"><code>OfferUser</code></a></li>
   
   
   </ol>
 
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="OfferStatus">OfferStatus</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type">String</span> Id of the offer.</div>
+      
+      <div class="param">status </div><div class="param-desc"><span class="param-type">String</span> Description of the offer.</div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="Inline_response_200_5">Inline_response_200_5</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">data </div><div class="param-desc"><span class="param-type">array[Deal]</span> </div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
   
   
   <div class="model">
@@ -1080,13 +1104,9 @@ font-style: italic;
   
   
   <div class="model">
-    <h3 class="field-label"><a name="Deal">Deal</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="Inline_response_200_1">Inline_response_200_1</a> <a class="up" href="#__Models">Up</a></h3>
     <div class="field-items">
-      <div class="param">id </div><div class="param-desc"><span class="param-type">String</span> Unique ID of the deal.</div>
-      
-      <div class="param">offer_id </div><div class="param-desc"><span class="param-type">String</span> Unique ID of the offer.</div>
-      
-      <div class="param">created_at </div><div class="param-desc"><span class="param-type">Date</span> Date when the deal was created (accepted).</div>
+      <div class="param">data </div><div class="param-desc"><span class="param-type">array[Offer]</span> </div>
       
       
     </div>  <!-- field-items -->
@@ -1110,63 +1130,9 @@ font-style: italic;
   
   
   <div class="model">
-    <h3 class="field-label"><a name="OfferStatus">OfferStatus</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">id </div><div class="param-desc"><span class="param-type">String</span> Id of the offer.</div>
-      
-      <div class="param">status </div><div class="param-desc"><span class="param-type">String</span> Description of the offer.</div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
-    <h3 class="field-label"><a name="OSP">OSP</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">id </div><div class="param-desc"><span class="param-type">String</span> Id of the OSP.</div>
-      
-      <div class="param">name </div><div class="param-desc"><span class="param-type">String</span> Name of the OSP.</div>
-      
-      <div class="param">description </div><div class="param-desc"><span class="param-type">String</span> Description of the OSP.</div>
-      
-      <div class="param">osp_website </div><div class="param-desc"><span class="param-type">String</span> Website of the OSP.</div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
-    <h3 class="field-label"><a name="OfferUser">OfferUser</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">offer_id </div><div class="param-desc"><span class="param-type">String</span> Id of the Offer.</div>
-      
-      <div class="param">user_id </div><div class="param-desc"><span class="param-type">String</span> Id of the User.</div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
     <h3 class="field-label"><a name="Inline_response_200">Inline_response_200</a> <a class="up" href="#__Models">Up</a></h3>
     <div class="field-items">
       <div class="param">data </div><div class="param-desc"><span class="param-type">Deal</span> </div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
-    <h3 class="field-label"><a name="Inline_response_200_1">Inline_response_200_1</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">data </div><div class="param-desc"><span class="param-type">array[Offer]</span> </div>
       
       
     </div>  <!-- field-items -->
@@ -1208,9 +1174,47 @@ font-style: italic;
   
   
   <div class="model">
-    <h3 class="field-label"><a name="Inline_response_200_5">Inline_response_200_5</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="Deal">Deal</a> <a class="up" href="#__Models">Up</a></h3>
     <div class="field-items">
-      <div class="param">data </div><div class="param-desc"><span class="param-type">array[Deal]</span> </div>
+      <div class="param">id </div><div class="param-desc"><span class="param-type">String</span> Unique ID of the deal.</div>
+      
+      <div class="param">offer_id </div><div class="param-desc"><span class="param-type">String</span> Unique ID of the offer.</div>
+      
+      <div class="param">user_id </div><div class="param-desc"><span class="param-type">String</span> Unique ID of the user.</div>
+      
+      <div class="param">created_at </div><div class="param-desc"><span class="param-type">Date</span> Date when the deal was created (accepted).</div>
+      
+      <div class="param">canceled_at </div><div class="param-desc"><span class="param-type">Date</span> Date when the deal was canceled.</div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="OSP">OSP</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type">String</span> Id of the OSP.</div>
+      
+      <div class="param">name </div><div class="param-desc"><span class="param-type">String</span> Name of the OSP.</div>
+      
+      <div class="param">description </div><div class="param-desc"><span class="param-type">String</span> Description of the OSP.</div>
+      
+      <div class="param">osp_website </div><div class="param-desc"><span class="param-type">String</span> Website of the OSP.</div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="OfferUser">OfferUser</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">offer_id </div><div class="param-desc"><span class="param-type">String</span> Id of the Offer.</div>
+      
+      <div class="param">user_id </div><div class="param-desc"><span class="param-type">String</span> Id of the User.</div>
       
       
     </div>  <!-- field-items -->
