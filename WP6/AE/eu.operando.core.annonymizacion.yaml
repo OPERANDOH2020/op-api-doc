@@ -79,7 +79,7 @@ paths:
         in: body
         description: The Data Unit data in JSON format.
         schema:
-          $ref: '#/definitions/DataUnit'
+          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/DataUnit.yaml'
         required: true
       responses:
         "200":
@@ -88,11 +88,11 @@ paths:
             type: object
             properties:
               data:
-                $ref: '#/definitions/DataUnit'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/DataUnit.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     get:      
       summary: Gets existing data units.
       description: Gets existing data units.
@@ -107,11 +107,11 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/DataUnit'
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/DataUnit.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /dataUnit/{dataunit-id}:
     parameters:
       - $ref: '#/parameters/dataunit-id'      
@@ -135,7 +135,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     put:      
       summary: Updates an existing data unit.
       description: Updates an existing data unit.
@@ -151,7 +151,7 @@ paths:
         in: body
         description: The Data Unit data in JSON format.
         schema:
-          $ref: '#/definitions/DataUnit'
+          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/DataUnit.yaml'
         required: true
       responses:
         "200":
@@ -160,11 +160,11 @@ paths:
             type: object
             properties:
               data:
-                $ref: '#/definitions/DataUnit'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/DataUnit.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     delete:
       summary: Deletes an existing data unit.
       description: Deletes an existing data unit.
@@ -185,7 +185,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /accessLevel:
     post:      
       summary: Creates a new access level.
@@ -202,7 +202,7 @@ paths:
         in: body
         description: The Access Level data in JSON format.
         schema:
-          $ref: '#/definitions/AccessLevel'
+          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel.yaml'
         required: true
       responses:
         "200":
@@ -211,11 +211,11 @@ paths:
             type: object
             properties:
               data:
-                $ref: '#/definitions/AccessLevel'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     get:      
       summary: Gets existing access levels.
       description: Gets existing access levels.
@@ -230,11 +230,11 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/AccessLevel'
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /accessLevel/{accessLevel-id}:
     parameters:
       - $ref: '#/parameters/accessLevel-id'      
@@ -258,7 +258,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     put:      
       summary: Updates an existing access level.
       description: Updates an existing access level.
@@ -274,7 +274,7 @@ paths:
         in: body
         description: The Access Level data in JSON format.
         schema:
-          $ref: '#/definitions/AccessLevel'
+          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel.yaml'
         required: true
       responses:
         "200":
@@ -283,11 +283,11 @@ paths:
             type: object
             properties:
               data:
-                $ref: '#/definitions/AccessLevel'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     delete:
       summary: Deletes an existing access level.
       description: Deletes an existing access level.
@@ -308,7 +308,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /dataUnit/{dataunit-id}/accessLevels:
     parameters:
       - $ref: '#/parameters/dataunit-id'      
@@ -329,11 +329,11 @@ paths:
               data:
                 type: array
                 items:
-                  $ref: '#/definitions/AccessLevel'
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     post:
       summary: Sets the available access levels for a specific data unit.
       description: Sets the available access levels for a specific data unit.
@@ -350,14 +350,14 @@ paths:
         schema:
           type: array
           items:
-            $ref: "#/definitions/AccessLevel"
+            $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel.yaml"
       responses:
         "200":
           description: Successful operation
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     put:      
       summary: Updates the available access levels for a specific data unit.
       description: Updates the available access levels for a specific data unit.
@@ -376,14 +376,14 @@ paths:
         schema:
           type: array
           items:
-            $ref: "#/definitions/AccessLevel"
+            $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel.yaml"
       responses:
         "200":
           description: Successful operation
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /dataUnit/{dataunit-id}/country/{country-id}/accessLevels:
     parameters:
       - $ref: '#/parameters/dataunit-id'
@@ -405,11 +405,11 @@ paths:
               data:
                 type: array
                 items:
-                  $ref: '#/definitions/AccessLevel'
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /dataUnit/{dataunit-id}/pa/accessLevels:
     parameters:
       - $ref: '#/parameters/dataunit-id'
@@ -430,11 +430,11 @@ paths:
               data:
                 type: array
                 items:
-                  $ref: '#/definitions/AccessLevel'
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /dataUnit/{dataunit-id}/person/{person-id}/requester/{requester-id}/accessLevel:
     parameters:
       - $ref: '#/parameters/dataunit-id'
@@ -455,11 +455,11 @@ paths:
             type: object
             properties:
               data:
-                $ref: '#/definitions/AccessLevel'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     post:
       summary: Sets the granted access level for a data unit related to a person and for a specific requester.
       description: Sets the granted access level for a data unit related to a person and for a specific requester.
@@ -475,7 +475,7 @@ paths:
           in: body
           description: The access level data in JSON format.
           schema:
-            $ref: '#/definitions/AccessLevel'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel.yaml'
           required: true
       responses:
         "200":
@@ -483,7 +483,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     put:
       summary: Updates the granted access level for a data unit related to a person and for a specific requester.
       description: Updates the granted access level for a data unit related to a person and for a specific requester.
@@ -499,7 +499,7 @@ paths:
           in: body
           description: The access level data in JSON format.
           schema:
-            $ref: '#/definitions/AccessLevel'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel.yaml'
           required: true
       responses:
         "200":
@@ -507,7 +507,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /personaldata/{requester-id}:
     parameters:
       - $ref: '#/parameters/requester-id'
@@ -537,55 +537,12 @@ paths:
               data:
                 type: array
                 items:
-                  $ref: '#/definitions/PersonalData'
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PersonalData.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
 definitions:
-  AccessLevel:
-    type: object
-    properties:
-      id:
-        type: string
-        description: Id of the access level.
-      description:
-        type: string
-        description: Description of the access level.
-  DataUnit:
-    type: object
-    properties:
-      id:
-        type: string
-        description: Id of the data unit.
-      description:
-        type: string
-        description: Description of the data unit.
-      valuesPerAccessLevel:
-        type: array
-        items:
-          $ref: '#/definitions/DataUnitValuePerAccessLevel'
-  DataUnitValuePerAccessLevel:
-    type: object
-    properties:
-      dataUnitId:
-        type: string
-        description: Id of the data unit.
-      accessLevelId:
-        type: string
-        description: Id of the access level.
-      value:
-        type: string
-        description: Value of the data unit per the access level.
-  PersonalData:
-    type: object
-    properties:
-      id:
-        type: string
-        description: Id of the person.
-      description:
-        type: string
-        description: Description of the access level.
   RequestedDataUnitsByPersons:
     type: object
     properties:
@@ -599,13 +556,4 @@ definitions:
         items:
           type: string
         description: Ids of the persons.
-  Error:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
-      fields:
         type: string
