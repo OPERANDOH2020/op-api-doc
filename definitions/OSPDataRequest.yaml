@@ -26,4 +26,9 @@ OSPDataRequest:
               - Disclose
               - Archive
 
-        
+        Attributes:
+            description: |
+                The set of context attributes attached to the policy (e.g. subject role, subject purpose)
+            type: array
+            items:
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PolicyAttribute.yaml#/PolicyAttribute'

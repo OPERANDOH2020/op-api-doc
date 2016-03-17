@@ -28,5 +28,3 @@ OSPPrivacyPolicy:
         type: array
         items:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/AccessPolicy'
-
-

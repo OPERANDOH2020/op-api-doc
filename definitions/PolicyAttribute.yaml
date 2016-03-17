@@ -1,0 +1,7 @@
+PolicyAttribute:
+      type: object
+      properties:
+          AttributeName:
+            type: string
+          AttributeValue:
+            type: string
