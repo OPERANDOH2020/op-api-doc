@@ -1,0 +1,48 @@
+definitions:
+    
+    OSPConsents:
+        osp_id: 
+            type: string
+            description: | 
+                The unique ID of the OSP user is subscribed to and these consent policies concern. 
+        
+        access_policies:
+            type: array
+            description: OSP access policies
+            item:
+              $ref: '/../../definitions/AccessPolicy'
+              
+    OSPSettings:
+        osp_id: 
+            type: string
+            description: | 
+                The unique ID of the OSP user is subscribed to and these settings concern. 
+        
+        settings:
+            type: array
+            description: OSP settings
+            item:
+              $ref: '/../../definitions/PrivacySetting'
+    
+    UserPrivacyPolicy:
+        user_id:
+            type: string
+            description: The unique operando id of the user this policy is about. Each OPERANDO user has one and only one UPP.
+
+        user preferences:
+            type: array
+            description: User stated preferences (questionnaire answers)
+            items:
+              $ref: '#/definitions/UserPreference'
+
+        subscribedOSPsPoliciies:
+            type: array
+            description: The user policies for each OSP they subscribe to.
+            items:
+               $ref: '#/definitions/OSPConsents'    
+            
+        SubscribedOSPsSettings:
+            type: array
+            description: The user settings for each of their services
+            items:
+               $ref: '#/definitions/OSPSettings' 
