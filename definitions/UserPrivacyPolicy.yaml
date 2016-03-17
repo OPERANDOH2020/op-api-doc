@@ -8,7 +8,7 @@ definitions:
             type: array
             description: User stated preferences (questionnaire answers)
             items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml#/definitions/UserPreference'
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml'
 
         subscribedOSPsPoliciies:
             type: array

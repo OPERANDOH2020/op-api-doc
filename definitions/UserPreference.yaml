@@ -1,3 +1,4 @@
+
   UserPreference:
     type: object
     required: 
