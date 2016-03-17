@@ -1,0 +1,10 @@
+type: object
+properties:
+  type: 
+    type: string
+    description : PolicyChange type (e.g. security change)
+  settingsAffected:
+    type: array
+    items:
+        $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml'    
+    description: Settings affected    
