@@ -1,0 +1,41 @@
+type: object
+    properties:
+      sender:
+        type: string
+        description : Sender unique identifier
+      to:
+        description : Recipients
+        type: array
+        items:
+          properties:
+            userId:
+              type: string
+              description : Recipient unique identifier
+      cc:
+        description : Carbon Copy  recipients
+        type: array
+        items:
+          properties:
+            userId:
+              type: string
+              description : Carbon copy recipient unique identifier
+           
+      bcc:
+        description : Blind Carbon Copy recipients
+        type: array
+        items:
+          properties:
+            userId:
+              type: string
+              description: Blind carbon copy recipient unique identifier
+      content:
+        description: Email content
+        type: string
+      hasAttachements:
+        type: boolean
+        description: Indicates if this email has at least one attachement
+      attachments:
+        description: Email attchments
+        type: array
+        items:
+          $ref: '#/definitions/Attachment'

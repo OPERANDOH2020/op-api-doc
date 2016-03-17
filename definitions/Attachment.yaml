@@ -1,0 +1,8 @@
+ type: object
+    properties:
+      title: 
+        type: string
+        description: Filename
+      path: 
+        type: string
+        description: File path on the file system or temp folder
