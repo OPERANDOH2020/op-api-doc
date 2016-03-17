@@ -6,7 +6,7 @@ info:
     name : RomSoft
     url: http://www.operando.eu/
   description: Email Services API
-  version: 0.0.3
+  version: 0.1.0
   license:
     name: MIT
     url: http://opensource.org/licenses/MIT
@@ -196,88 +196,10 @@ paths:
 ################################################################################        
 definitions:
   Email:
-    type: object
-    properties:
-      sender:
-        type: string
-        description : Sender unique identifier
-      to:
-        description : Recipients
-        type: array
-        items:
-          properties:
-            userId:
-              type: string
-              description : Recipient unique identifier
-      cc:
-        description : Carbon Copy  recipients
-        type: array
-        items:
-          properties:
-            userId:
-              type: string
-              description : Carbon copy recipient unique identifier
-           
-      bcc:
-        description : Blind Carbon Copy recipients
-        type: array
-        items:
-          properties:
-            userId:
-              type: string
-              description: Blind carbon copy recipient unique identifier
-      content:
-        description: Email content
-        type: string
-      hasAttachements:
-        type: boolean
-        description: Indicates if this email has at least one attachement
-      attachments:
-        description: Email attchments
-        type: array
-        items:
-          $ref: '#/definitions/Attachment'
-  Attachment:
-    type: object
-    properties:
-      title: 
-        type: string
-        description: Filename
-      path: 
-        type: string
-        description: File path on the file system or temp folder
+    $ref : "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Email.yaml"
   Identity:
-    type: object
-    properties:
-      identityId:
-        type: string
-        description: This is a generated field
-      username:
-        type: string
-        description: Generated username
-      email:
-        type: string
-        description: Generated email
-      password:
-        type: string
-        description: Generated password
-        format: password
+    $ref : "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Identity.yaml"
   Status:
-    type: object
-    properties:
-      status:
-        type: string
-        description: Request status success or error
-      message:
-        type: string
-        description: Status message
+    $ref : "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Status.yaml"
   Error:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
-      fields:
-        type: string
+    $ref : "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml"
