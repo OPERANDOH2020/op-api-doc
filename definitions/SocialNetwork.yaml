@@ -1,0 +1,12 @@
+type: object
+properties:
+  name:
+    type: string
+    description: Social Network name (e.g Twitter, Facebook)
+  url:
+    type: string
+    description: Social Network url (e.g twitter.com, facebook.com)
+  privacy_settings:
+    type: array
+    items:
+      $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml'

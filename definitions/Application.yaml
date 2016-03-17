@@ -1,0 +1,22 @@
+type: object
+properties:
+  application_id:
+    type: string
+    description:  app unique identifier 
+  name:
+    type: string
+    description:  app name
+  version:
+    type: string
+    description: installed version
+  installation_date:
+    type: string
+    description: Date when app was installed
+  type:
+    type: string
+    description: App type (application, extension, theme)
+  permisions:
+    type: array
+    items:
+      $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Permission.yaml' 
+    description: An array containing all required permissions 

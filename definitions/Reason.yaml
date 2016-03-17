@@ -1,0 +1,8 @@
+type: object
+properties: 
+  message:
+    type: string
+    description: Reason description
+  severity:  
+    type: string
+    description: Severity description
