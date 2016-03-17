@@ -2,22 +2,70 @@
 <h2>PrivacyRegulation</h2>
   
 <ul class="parameter">
-  <li class="param-required-">sector : String
-    <br/>The domain that the legislation applies to
+  <li class="param-required-true">legislation_sector : String
+    <br/>The identifier of the set of legislation rules this rule\nbelongs to e.g. the UK data protection act.
     
   </li>
 </ul>
   
 <ul class="parameter">
-  <li class="param-required-">legislation : String
-    <br/>The legislation description
+  <li class="param-required-">Private Information Source : String
+    <br/>The source of the private data
     
   </li>
 </ul>
   
 <ul class="parameter">
-  <li class="param-required-">legislation_value : String
-    <br/>The value that must be complied with
+  <li class="param-required-">Private Information Type : String
+    <br/>The type of private information; e.g. is it information that identifies the user (e.g. id number)? is it location information about the user? Is it about their activities?
+    
+      <dl class="param-enum">
+        <dt>Enum:
+          
+            <dd>Identification</dd>
+          
+            <dd>Shared Identification</dd>
+          
+            <dd>Geographic</dd>
+          
+            <dd>Temporal</dd>
+          
+            <dd>Network and relationships</dd>
+          
+            <dd>Objects</dd>
+          
+            <dd>Behavioural</dd>
+          
+            <dd>Beliefs</dd>
+          
+            <dd>Measurements</dd>
+          
+        </dt>
+      </dl>
+    
+  </li>
+</ul>
+  
+<ul class="parameter">
+  <li class="param-required-">Action : String
+    <br/>The action being carried out on the data
+    
+  </li>
+</ul>
+  
+<ul class="parameter">
+  <li class="param-required-">Required Consent : String
+    <br/>The type of consent that must be followed
+    
+      <dl class="param-enum">
+        <dt>Enum:
+          
+            <dd>opt-in</dd>
+          
+            <dd>opt-out</dd>
+          
+        </dt>
+      </dl>
     
   </li>
 </ul>

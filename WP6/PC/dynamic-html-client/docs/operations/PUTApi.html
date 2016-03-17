@@ -7,7 +7,7 @@
   <h2><a name="regulationsRegIdPut"></a>regulationsRegIdPut</h2>
   <hr>
   <p></p>
-  <p>Called by the Regulator API. An updated regulation is entered into OPERANDO. The regulation is stored in the policy DB. Existing UPPs are then evaluated to see if they comply with the regulation.\n\nPre-condition -- The regulation must have been written to the system.</p>
+  <p>Called by the Regulator API. An updated regulation is entered into OPERANDO. The regulation is stored in the policy DB. Existing UPPs are then evaluated to see if they comply with the regulation.\n\n\nPre-condition -- The regulation must have been written to the system.</p>
   <h3 class="section">URL</h3>
   <code>http://operando.eu/policycomputation/Regulations/{reg_id}/</code>
   <h3 class="section">HTTP Method</h3>
@@ -36,7 +36,7 @@
       
       <span class="param-in">Body: </span>
       <span class="param-name">regulation</span>
-      <span class="param-type">List</span>
+      <span class="param-type">List(PrivacyRegulation)</span>
       
       <p class="param-description">The description of the changed regulation.</p>
 	  </li>

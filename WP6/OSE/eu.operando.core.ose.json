@@ -67,7 +67,7 @@
                             "title": "ArrayOfPrivacySettings",
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/PrivacySetting"
+                                "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml#PrivacySetting"
                             }
                         }
                     },
@@ -106,7 +106,7 @@
                             "title": "ArrayOfPrivacySettings",
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/PrivacySetting"
+                                "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml#/PrivacySetting"
                             }
                         },
                         "required": true
@@ -143,10 +143,8 @@
                         "description": "The set of individual policies that have now compose the OSP's new privacy policy. This is the complete OSP list of the policies to be compared with the existing stored policy for this OSP.",
                         "schema": {
                             "title": "ArrayOfPrivacyPolicy",
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/PrivacyPolicy"
-                            }
+                            "type": "object",
+                            "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicy"
                         },
                         "required": true
                     }
@@ -180,10 +178,8 @@
                         "description": "The initial policy entered when the OSP registers with OPERANDO",
                         "schema": {
                             "title": "ArrayOfPrivacySettings",
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/PrivacyPolicy"
-                            }
+                            "type": "object",
+                            "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicy"
                         },
                         "required": true
                     }
@@ -222,7 +218,7 @@
                             "title": "ArrayOfPrivacySettings",
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/PrivacySetting"
+                                "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml#/PrivacySetting"
                             }
                         }
                     }
@@ -260,7 +256,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/OSPRequest"
+                                "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPDataRequest.yaml#/OSPDataRequest"
                             }
                         }
                     }
@@ -298,7 +294,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/PrivacyRegulation"
+                                "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation"
                             }
                         }
                     }
@@ -334,7 +330,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/PrivacyRegulation"
+                                "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation"
                             }
                         }
                     }
@@ -346,88 +342,6 @@
                     "404": {
                         "description": "Error. The resource does not exist to be updated."
                     }
-                }
-            }
-        }
-    },
-    "definitions": {
-        "PrivacySetting": {
-            "type": "object",
-            "properties": {
-                "setting_name": {
-                    "type": "string",
-                    "description": "The description of the privacy setting e.g Facebook.birthday"
-                },
-                "setting_value": {
-                    "type": "string",
-                    "description": "The value of the setting e.g. private, friends, friend of friends, etc."
-                }
-            }
-        },
-        "PrivacyPolicy": {
-            "type": "object",
-            "properties": {
-                "policy_description": {
-                    "type": "string",
-                    "description": "The description of the privacy policy e.g Doctor access to medical record"
-                },
-                "policy_category": {
-                    "type": "string",
-                    "description": "The sector the policy applies to e.g. healthcare"
-                },
-                "recipient_role": {
-                    "type": "string",
-                    "description": "The role(s) of persons involved in the policy that receives the private data e.g. doctor, admin"
-                },
-                "action": {
-                    "type": "string",
-                    "description": "The action performed on the data e.g. read, write, store, publish, etc."
-                },
-                "policy_data": {
-                    "type": "string",
-                    "description": "The reference to the data object the policy applies to."
-                },
-                "policy_purpose": {
-                    "type": "string",
-                    "description": "The purpose of the this action on the stated private data."
-                }
-            }
-        },
-        "OSPRequest": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "description": "OSP identifier"
-                },
-                "data_requested": {
-                    "type": "string",
-                    "description": "Description of the data/fields that the request concerns"
-                },
-                "operation": {
-                    "type": "string",
-                    "description": "Action to be performed on the data"
-                },
-                "role": {
-                    "type": "string",
-                    "description": "Role of the person making the request"
-                }
-            }
-        },
-        "PrivacyRegulation": {
-            "type": "object",
-            "properties": {
-                "sector": {
-                    "type": "string",
-                    "description": "The domain that the legislation applies to"
-                },
-                "legislation": {
-                    "type": "string",
-                    "description": "The legislation description"
-                },
-                "legislation_value": {
-                    "type": "string",
-                    "description": "The value that must be complied with"
                 }
             }
         }

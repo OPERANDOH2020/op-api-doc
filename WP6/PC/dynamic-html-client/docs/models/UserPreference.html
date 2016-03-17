@@ -2,29 +2,116 @@
 <h2>UserPreference</h2>
   
 <ul class="parameter">
-  <li class="param-required-">preference_id : Integer
-    <br/>the identifier of the preference
+  <li class="param-required-true">Information_Type : String
+    <br/>The type of private information; e.g. is it information that identifies the user (e.g. id number)? is it location information about the user? Is it about their activities?
+    
+      <dl class="param-enum">
+        <dt>Enum:
+          
+            <dd>Identification</dd>
+          
+            <dd>Shared Identification</dd>
+          
+            <dd>Geographic</dd>
+          
+            <dd>Temporal</dd>
+          
+            <dd>Network and relationships</dd>
+          
+            <dd>Objects</dd>
+          
+            <dd>Behavioural</dd>
+          
+            <dd>Beliefs</dd>
+          
+            <dd>Measurements</dd>
+          
+        </dt>
+      </dl>
     
   </li>
 </ul>
   
 <ul class="parameter">
-  <li class="param-required-">sector : String
-    <br/>The domain that the preference applies in
+  <li class="param-required-true">Category : String
+    <br/>The category of the service invading the privacy of the user.
+    
+      <dl class="param-enum">
+        <dt>Enum:
+          
+            <dd>Healthcare</dd>
+          
+            <dd>Finance</dd>
+          
+            <dd>Web</dd>
+          
+            <dd>Social Network</dd>
+          
+        </dt>
+      </dl>
     
   </li>
 </ul>
   
 <ul class="parameter">
-  <li class="param-required-">privacy_target : String
-    <br/>The private data the preference describes
+  <li class="param-required-true">Preference : String
+    <br/>The user&#39;s privacy preference. High means they are sensitive to disclosing private information. Medium they have concerns; and low means they have few privacy concerns with this question.
+    
+      <dl class="param-enum">
+        <dt>Enum:
+          
+            <dd>High</dd>
+          
+            <dd>Medium</dd>
+          
+            <dd>Low</dd>
+          
+        </dt>
+      </dl>
     
   </li>
 </ul>
   
 <ul class="parameter">
-  <li class="param-required-">privacy_value : Integer
-    <br/>The user&#39;s rating of the importance of the privacy targt.
+  <li class="param-required-">Role&quot; : String
+    <br/>The role of a person or service that the private information is being disclosed to or used by. This is an optional parameter in the case where users drill down to more detailed preferences.
+    
+  </li>
+</ul>
+  
+<ul class="parameter">
+  <li class="param-required-">Action : String
+    <br/>The action being carried out on the private date e.g. accessing, disclosing to a third party. This is an optional parameter in the case where users drill down to more detailed preferences.
+    
+      <dl class="param-enum">
+        <dt>Enum:
+          
+            <dd>Collect</dd>
+          
+            <dd>Access</dd>
+          
+            <dd>Use</dd>
+          
+            <dd>Disclose</dd>
+          
+            <dd>Archive</dd>
+          
+        </dt>
+      </dl>
+    
+  </li>
+</ul>
+  
+<ul class="parameter">
+  <li class="param-required-">Purpose : String
+    <br/>The purpose for which the service is using the private data. This is an optional parameter in the case where users drill down to more detailed preferences.
+    
+  </li>
+</ul>
+  
+<ul class="parameter">
+  <li class="param-required-">Recipient : String
+    <br/>The recipient of any disclosed privacy information. This is an optional parameter in the case where users drill down to more detailed preferences.
     
   </li>
 </ul>

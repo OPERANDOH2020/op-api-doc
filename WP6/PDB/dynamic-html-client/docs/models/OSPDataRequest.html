@@ -1,0 +1,54 @@
+
+<h2>OSPDataRequest</h2>
+  
+<ul class="parameter">
+  <li class="param-required-">requesterId : String
+    <br/>Id of the requester (typically the id of an OSP).
+    
+  </li>
+</ul>
+  
+<ul class="parameter">
+  <li class="param-required-">Subject : String
+    <br/>A description of the subject who the policies grants/doesn&#39;t grant to carry out.
+    
+  </li>
+</ul>
+  
+<ul class="parameter">
+  <li class="param-required-">requestedURL : String
+    <br/>The Requested URL of the data.
+    
+  </li>
+</ul>
+  
+<ul class="parameter">
+  <li class="param-required-">Action : String
+    <br/>The action being carried out on the private date e.g. accessing, disclosing to a third party.
+    
+      <dl class="param-enum">
+        <dt>Enum:
+          
+            <dd>Collect</dd>
+          
+            <dd>Access</dd>
+          
+            <dd>Use</dd>
+          
+            <dd>Disclose</dd>
+          
+            <dd>Archive</dd>
+          
+        </dt>
+      </dl>
+    
+  </li>
+</ul>
+  
+<ul class="parameter">
+  <li class="param-required-">Attributes : List
+    <br/>The set of context attributes attached to the policy (e.g. subject role, subject purpose)
+    
+  </li>
+</ul>
+  

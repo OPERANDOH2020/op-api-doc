@@ -67,7 +67,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/OSPRequest"
+                                "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPDataRequest.yaml#/OSPDataRequest"
                             }
                         },
                         "required": true
@@ -106,7 +106,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/OSPRequest"
+                                "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPDataRequest.yaml#/OSPDataRequest"
                             }
                         },
                         "required": true
@@ -152,7 +152,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/OSPRequest"
+                                "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPDataRequest.yaml#/OSPDataRequest"
                             }
                         },
                         "required": false
@@ -191,7 +191,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/UserPreference"
+                                "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml#/UserPreference"
                             }
                         },
                         "required": true
@@ -234,7 +234,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/PrivacyRegulation"
+                                "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation"
                             }
                         }
                     }
@@ -249,7 +249,7 @@
                 }
             },
             "put": {
-                "description": "Called by the Regulator API. An updated regulation is entered into OPERANDO. The regulation is stored in the policy DB. Existing UPPs are then evaluated to see if they comply with the regulation.\n\nPre-condition -- The regulation must have been written to the system.\n",
+                "description": "Called by the Regulator API. An updated regulation is entered into OPERANDO. The regulation is stored in the policy DB. Existing UPPs are then evaluated to see if they comply with the regulation.\n\n\nPre-condition -- The regulation must have been written to the system.\n",
                 "tags": [
                     "Privacy Legislation",
                     "PUT"
@@ -271,7 +271,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/PrivacyRegulation"
+                                "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation"
                             }
                         }
                     }
@@ -288,50 +288,6 @@
         }
     },
     "definitions": {
-        "OSPRequest": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "description": "OSP identifier"
-                },
-                "data_requested": {
-                    "type": "string",
-                    "description": "Description of the data/fields that the request concerns"
-                },
-                "operation": {
-                    "type": "string",
-                    "description": "Action to be performed on the data"
-                },
-                "Role": {
-                    "type": "string",
-                    "description": "Role of the person requesting the request"
-                }
-            }
-        },
-        "UserPreference": {
-            "type": "object",
-            "properties": {
-                "preference_id": {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "the identifier of the preference"
-                },
-                "sector": {
-                    "type": "string",
-                    "description": "The domain that the preference applies in"
-                },
-                "privacy_target": {
-                    "type": "string",
-                    "description": "The private data the preference describes"
-                },
-                "privacy_value": {
-                    "type": "integer",
-                    "format": "int32",
-                    "description": "The user's rating of the importance of the privacy targt."
-                }
-            }
-        },
         "Report": {
             "type": "object",
             "properties": {
@@ -342,23 +298,6 @@
                 "message": {
                     "type": "string",
                     "description": "Message stating the reasons any request failed e.g. breaks the user's privacy preferences."
-                }
-            }
-        },
-        "PrivacyRegulation": {
-            "type": "object",
-            "properties": {
-                "sector": {
-                    "type": "string",
-                    "description": "The domain that the legislation applies to"
-                },
-                "legislation": {
-                    "type": "string",
-                    "description": "The legislation description"
-                },
-                "legislation_value": {
-                    "type": "string",
-                    "description": "The value that must be complied with"
                 }
             }
         }
