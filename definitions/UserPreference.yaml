@@ -1,5 +1,4 @@
-definitions:
-  UserPreference:
+UserPreference:
     type: object
     required: 
       - Information_Type

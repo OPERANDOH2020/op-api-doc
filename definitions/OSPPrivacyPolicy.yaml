@@ -1,5 +1,4 @@
-
-  OSPPrivacyPolicy:
+OSPPrivacyPolicy:
     type: object
     properties: 
       PolicyText: 
@@ -20,7 +19,7 @@
             of user policies.
         type: array
         items:
-            $ref: '/../../definitions/OSPDataRequest.yaml'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPDataRequest.yaml#/OSPDataRequest'
 
       Policies: 
         description: | 
@@ -28,6 +27,6 @@
             information can then be used in calculation of the policy and in compliance checking.
         type: array
         items:
-            $ref: '/../../definitions/AccessPolicy.yaml'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/AccessPolicy'
 
 

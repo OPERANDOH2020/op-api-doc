@@ -1,35 +1,34 @@
- definitions:
-    OSPDataRequest:
-        type: object
-        properties:
-            requesterId:
-                type: string
-                description: Id of the requester (typically the id of an OSP).
-                
-            Subject: 
-              type: string
-              description: | 
-                A description of the subject who the policies grants/doesn't grant to carry out.
+OSPDataRequest:
+    type: object
+    properties:
+        requesterId:
+            type: string
+            description: Id of the requester (typically the id of an OSP).
 
-            requestedURL:
-                type: string
-                description: | 
-                  The Requested URL of the data.
+        Subject: 
+          type: string
+          description: | 
+            A description of the subject who the policies grants/doesn't grant to carry out.
 
-            Action: 
-                description: | 
-                    The action being carried out on the private date e.g. accessing, disclosing to a third party. 
-                type: string
-                enum: 
-                  - Collect 
-                  - Access
-                  - Use
-                  - Disclose
-                  - Archive
+        requestedURL:
+            type: string
+            description: | 
+              The Requested URL of the data.
 
-            Attributes:
-                description: |
-                    The set of context attributes attached to the policy (e.g. subject role, subject purpose)
-                type: array
-                items:
-                    $ref: '#/definitions/Attribute'
+        Action: 
+            description: | 
+                The action being carried out on the private date e.g. accessing, disclosing to a third party. 
+            type: string
+            enum: 
+              - Collect 
+              - Access
+              - Use
+              - Disclose
+              - Archive
+
+        Attributes:
+            description: |
+                The set of context attributes attached to the policy (e.g. subject role, subject purpose)
+            type: array
+            items:
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/Attribute'

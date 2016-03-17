@@ -45,4 +45,4 @@
             The set of context attributes attached to the policy (e.g. subject role, subject purpose)
         type: array
         items:
-            $ref: '#/definitions/Attribute'
+            $ref: '#/Attribute'
