@@ -1,48 +1,33 @@
-  Attribute:
-      type: object
-      properties:
-          AttributeName:
-            type: string
-          AttributeValue:
-            type: string
-  
-  AccessPolicy:
-    type: object
-    required: 
-      - Subject
-      - Permission
-      - Action
-      - Resource
-    properties: 
-      Subject: 
-        type: string
-        description: | 
-            A description of the subject who the policies grants/doesn't grant to carry out.
-        
-      Permission: 
-        description: | 
-            Grant or deny the subject access to the resource via the operation defined in this policy
-        type: boolean
 
-      Action: 
-        description: | 
-            The action being carried out on the private date e.g. accessing, disclosing to a third party. 
+  OSPPrivacyPolicy:
+    type: object
+    properties: 
+      PolicyText: 
         type: string
-        enum: 
-          - Collect 
-          - Access
-          - Use
-          - Disclose
-          - Archive
-      
-      Resource: 
         description: | 
-            The identifier of the resource that the policy concerns (e.g. URL)
-        type: string
-     
-      Attributes:
-        description: |
-            The set of context attributes attached to the policy (e.g. subject role, subject purpose)
+           The content of the OSP privacy policy, textually described and published. It is
+           a the full text adverstised by the OSP.
+      PolicyURL:
+          type: string
+          description: |
+            The url location of the privacy policy of the OSP
+          
+      Workflow: 
+        description: | 
+            The sequence of requests that this OSP makes (simple ordered array list
+            in this version). The requests describes the operations that the OSP may
+            carry out on the data. This can be used for compliance checking and computation
+            of user policies.
         type: array
         items:
-            $ref: '#/definitions/Attribute'
+            $ref: '/../../definitions/OSPDataRequest.yaml'
+
+      Policies: 
+        description: | 
+            The list of rights that the OSP intends to follow e.g. give X access to Y data for Z purpose. This
+            information can then be used in calculation of the policy and in compliance checking.
+        type: array
+        items:
+            $ref: '/../../definitions/AccessPolicy.yaml'
+
+
