@@ -41,7 +41,7 @@ paths:
         in: body
         description: The request data in JSON format to be inserted in the database by using Log4j
         schema:
-          $ref: '#/definitions/Request'
+          $ref: '../../definitions/Request.yaml'
         required: true
       responses:
         "200":
@@ -51,7 +51,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '../../definitions/Error.yaml'
 definitions:
   Request:
     type: object
