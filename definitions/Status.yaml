@@ -1,8 +1,8 @@
 type: object
-    properties:
-      status:
-        type: string
-        description: Request status success or error
-      message:
-        type: string
-        description: Status message
+properties:
+  status:
+    type: string
+    description: Request status success or error
+  message:
+    type: string
+    description: Status message

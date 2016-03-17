@@ -1,15 +1,15 @@
 type: object
-    properties:
-      identityId:
-        type: string
-        description: This is a generated field
-      username:
-        type: string
-        description: Generated username
-      email:
-        type: string
-        description: Generated email
-      password:
-        type: string
-        description: Generated password
-        format: password
+properties:
+  identityId:
+    type: string
+    description: This is a generated field
+  username:
+    type: string
+    description: Generated username
+  email:
+    type: string
+    description: Generated email
+  password:
+    type: string
+    description: Generated password
+    format: password
