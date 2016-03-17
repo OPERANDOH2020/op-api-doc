@@ -1,29 +1,4 @@
 definitions:
-    
-    OSPConsents:
-        osp_id: 
-            type: string
-            description: | 
-                The unique ID of the OSP user is subscribed to and these consent policies concern. 
-        
-        access_policies:
-            type: array
-            description: OSP access policies
-            item:
-              $ref: '/../../definitions/AccessPolicy'
-              
-    OSPSettings:
-        osp_id: 
-            type: string
-            description: | 
-                The unique ID of the OSP user is subscribed to and these settings concern. 
-        
-        settings:
-            type: array
-            description: OSP settings
-            item:
-              $ref: '/../../definitions/PrivacySetting'
-    
     UserPrivacyPolicy:
         user_id:
             type: string
@@ -33,16 +8,17 @@ definitions:
             type: array
             description: User stated preferences (questionnaire answers)
             items:
-              $ref: '#/definitions/UserPreference'
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml#/definitions/UserPreference'
 
         subscribedOSPsPoliciies:
             type: array
             description: The user policies for each OSP they subscribe to.
             items:
-               $ref: '#/definitions/OSPConsents'    
+               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPConsents.yaml#/definitions/OSPConsents'
             
         SubscribedOSPsSettings:
             type: array
             description: The user settings for each of their services
             items:
-               $ref: '#/definitions/OSPSettings' 
+               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPSettings.yaml#/definitions/OSPSettings'
+               
