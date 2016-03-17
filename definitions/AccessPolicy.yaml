@@ -1,12 +1,6 @@
-  Attribute:
-      type: object
-      properties:
-          AttributeName:
-            type: string
-          AttributeValue:
-            type: string
+
   
-  AccessPolicy:
+AccessPolicy:
     type: object
     required: 
       - Subject
@@ -40,9 +34,4 @@
             The identifier of the resource that the policy concerns (e.g. URL)
         type: string
      
-      Attributes:
-        description: |
-            The set of context attributes attached to the policy (e.g. subject role, subject purpose)
-        type: array
-        items:
-            $ref: '#/Attribute'
+
