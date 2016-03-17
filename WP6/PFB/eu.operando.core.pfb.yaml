@@ -92,11 +92,11 @@ paths:
               data:
                 type: array
                 items:
-                  $ref: '#/definitions/Offer'
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Offer.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     post:
       summary: Creates a new offer for an OSP .
       description: Request from Administration Console to create a new offer for an OSP.
@@ -112,7 +112,7 @@ paths:
           in: body
           description: The offer data in JSON format.
           schema:
-            $ref: '#/definitions/Offer'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Offer.yaml'
           required: true
       responses:
         "200":
@@ -123,11 +123,11 @@ paths:
               data:
                 type: object
                 items:
-                  $ref: '#/definitions/OfferStatus'
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OfferStatus.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /offers/{offer-id}:
     parameters:
       - $ref: '#/parameters/offer-id'
@@ -146,11 +146,11 @@ paths:
             type: object
             properties:
               data:
-                $ref: '#/definitions/OfferStatus'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OfferStatus.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     put:
       summary: Update an offer for an OSP .
       description: Request from Administration Console to update existing offer. (limited to specific fields - TBD).
@@ -166,7 +166,7 @@ paths:
           in: body
           description: The offer data in JSON format.
           schema:
-            $ref: '#/definitions/Offer'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Offer.yaml'
           required: true
       responses:
         "200":
@@ -175,11 +175,11 @@ paths:
             type: object
             properties:
               data:
-                $ref: '#/definitions/OfferStatus'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OfferStatus.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /deals:
     post:
       summary: Create a new deal. Indicates the user's acceptance for an offer.
@@ -207,11 +207,11 @@ paths:
             type: object
             properties:
               data:
-                $ref: '#/definitions/Deal'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /deals/{deal-id}:
     parameters:
       - $ref: '#/parameters/deal-id'
@@ -229,11 +229,11 @@ paths:
             type: object
             properties:
               data:
-                $ref: '#/definitions/Deal'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     delete:
       summary: Cancel a deal.
       description: Request from Privacy Dashboard to cancel a deal. The deal is not deleted, but updated by setting the current date value to canceled_at field.
@@ -252,7 +252,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'   
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'   
   /deals/{deal-id}/acknowledgement:
     parameters:
       - $ref: '#/parameters/deal-id'
@@ -288,7 +288,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /osps:
     post:
       summary: Registers a new OSP.
@@ -305,7 +305,7 @@ paths:
           in: body
           description: The OSP data in JSON format.
           schema:
-            $ref: '#/definitions/OSP'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSP.yaml'
           required: true
       responses:
         "200":
@@ -315,7 +315,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /osps/{osp-id}/deals:
     parameters:
       - $ref: '#/parameters/osp-id'
@@ -337,11 +337,11 @@ paths:
               data:
                 type: array
                 items:
-                  $ref: '#/definitions/OfferUser'
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OfferUser.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /users/{user-id}/deals:
     parameters:
       - $ref: '#/parameters/user-id'
@@ -374,100 +374,8 @@ paths:
               data:
                 type: array
                 items:
-                  $ref: '#/definitions/Deal'
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
-definitions:
-  Offer:
-    type: object
-    properties:
-      id:
-        type: string
-        description: Id of the offer.
-      osp_id:
-        type: string
-        description: Id of the OSP to which belongs the offer.
-      title:
-        type: string
-        description: Description of the offer.
-      description:
-        type: string
-        description: Description of the offer.
-      service_website:
-        type: string
-        description: Website of the offering.
-      is_enabled:
-        type: boolean
-        description: Indication whether the offer is enabled or not.
-      osp_callback_url:
-        type: string
-        description: Callback url.
-      expiration_date:
-        type: string
-        format: date-time
-        description: Date when the offer expires.
-  Deal:
-    type: object
-    properties:
-      id:
-        type: string
-        description: Unique ID of the deal.
-      offer_id:
-        type: string
-        description: Unique ID of the offer.
-      user_id:
-        type: string
-        description: Unique ID of the user.
-      created_at:
-        type: string
-        format: date-time
-        description: Date when the deal was created (accepted).
-      canceled_at:
-        type: string
-        format: date-time
-        description: Date when the deal was canceled.
-  Error:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
-      fields:
-        type: string
-  OfferStatus:
-    type: object
-    properties:
-      id:
-        type: string
-        description: Id of the offer.
-      status:
-        type: string
-        description: Description of the offer.
-  OSP:
-    type: object
-    properties:
-      id:
-        type: string
-        description: Id of the OSP.
-      name:
-        type: string
-        description: Name of the OSP.
-      description:
-        type: string
-        description: Description of the OSP.
-      osp_website:
-        type: string
-        description: Website of the OSP.
-  OfferUser:
-    type: object
-    properties:
-      offer_id:
-        type: string
-        description: Id of the Offer.
-      user_id:
-        type: string
-        description: Id of the User.
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
