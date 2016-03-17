@@ -1,0 +1,8 @@
+type: object
+properties:
+  key:
+    type: string
+    description: data key
+  value:
+    type: string
+    description: data value

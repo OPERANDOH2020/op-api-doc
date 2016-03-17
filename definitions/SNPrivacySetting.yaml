@@ -1,0 +1,12 @@
+type: object
+properties:
+  name:
+    type: string
+    description: name of the setting (e.g post_visibility)
+  post_address: 
+    type: string
+    description: url of the setting that changes it
+  data:
+    type: array
+    items:
+      $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Data.yaml'
