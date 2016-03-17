@@ -185,7 +185,7 @@ font-style: italic;
     <div class="app-desc">Browser Extension  API</div>
     <div class="app-desc">More information: <a href="http://www.operando.eu/">http://www.operando.eu/</a></div>
     <div class="app-desc">Contact Info: <a href="raf@rms.ro">raf@rms.ro</a></div>
-    <div class="app-desc">Version: 0.0.3</div>
+    <div class="app-desc">Version: 0.1.0</div>
     <div class="license-info">MIT</div>
     <div class="license-url">http://opensource.org/licenses/MIT</div>
   <h2>Access</h2>
@@ -204,11 +204,19 @@ font-style: italic;
   
   <li><a href="#appsDisableUserIdApplicationIdPut"><code><span class="http-method">put</span> /apps/disable/{user_id}/{application_id}</code></a></li>
   
-  <li><a href="#appsUserIdGet"><code><span class="http-method">get</span> /apps/{user_id}</code></a></li>
-  
   <li><a href="#appsUserIdApplicationIdDelete"><code><span class="http-method">delete</span> /apps/{user_id}/{application_id}</code></a></li>
   
+  <li><a href="#appsUserIdGet"><code><span class="http-method">get</span> /apps/{user_id}</code></a></li>
+  
+  
+  
+  
+  
   <li><a href="#identityUserIdGet"><code><span class="http-method">get</span> /identity/{user_id}</code></a></li>
+  
+  
+  
+  
   
   <li><a href="#socialNetworksSettingsUserIdGet"><code><span class="http-method">get</span> /social_networks/settings/{user_id}</code></a></li>
   
@@ -301,6 +309,78 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
+  <div class="method"><a name="appsUserIdApplicationIdDelete"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /apps/{user_id}/{application_id}</code></pre></div>
+    <div class="method-summary">Suggest to extension to uninstall an application presenting the reason for the action (<span class="nickname">appsUserIdApplicationIdDelete</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User&#39;s unique identifier </div><div class="param">application_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Application unique identifier </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">reason (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Reason for this action </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Status">Status</a>
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    Successfully request
+    
+    
+    <h4 class="field-label">500</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
   <div class="method"><a name="appsUserIdGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -375,77 +455,9 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="appsUserIdApplicationIdDelete"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /apps/{user_id}/{application_id}</code></pre></div>
-    <div class="method-summary">Suggest to extension to uninstall an application presenting the reason for the action (<span class="nickname">appsUserIdApplicationIdDelete</span>)</div>
-    
-    <div class="method-notes"></div>
-
-    
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User&#39;s unique identifier </div><div class="param">application_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Application unique identifier </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-    <h3 class="field-label">Request body</h3>
-    <div class="field-items">
-      <div class="param">reason (required)</div>
-
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Reason for this action </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-
-    
-
-    
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#Status">Status</a>
-      
-    </div>
-    
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    
-
-    
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
-    <ul>
-    
-      <li><code>application/json</code></li>
-    
-    </ul>
-    
-
-    <h3 class="field-label">Responses</h3>
-    
-    <h4 class="field-label">200</h4>
-    Successfully request
-    
-    
-    <h4 class="field-label">500</h4>
-    Unexpected error
-    
-    
-  </div> <!-- method -->
-  <hr/>
+  
+  
+  
   
   <div class="method"><a name="identityUserIdGet"/>
     <div class="method-path">
@@ -513,6 +525,10 @@ font-style: italic;
     
   </div> <!-- method -->
   <hr/>
+  
+  
+  
+  
   
   <div class="method"><a name="socialNetworksSettingsUserIdGet"/>
     <div class="method-path">
@@ -752,19 +768,7 @@ font-style: italic;
   <ol>
   
   
-    <li><a href="#Status"><code>Status</code></a></li>
-  
-  
-  
-    <li><a href="#Permision"><code>Permision</code></a></li>
-  
-  
-  
-    <li><a href="#PrivacySetting"><code>PrivacySetting</code></a></li>
-  
-  
-  
-    <li><a href="#SocialNetwork"><code>SocialNetwork</code></a></li>
+    <li><a href="#Application"><code>Application</code></a></li>
   
   
   
@@ -772,19 +776,23 @@ font-style: italic;
   
   
   
-    <li><a href="#Data"><code>Data</code></a></li>
-  
-  
-  
     <li><a href="#Identity"><code>Identity</code></a></li>
   
   
   
-    <li><a href="#Application"><code>Application</code></a></li>
+    <li><a href="#PrivacySetting"><code>PrivacySetting</code></a></li>
   
   
   
     <li><a href="#Reason"><code>Reason</code></a></li>
+  
+  
+  
+    <li><a href="#SocialNetwork"><code>SocialNetwork</code></a></li>
+  
+  
+  
+    <li><a href="#Status"><code>Status</code></a></li>
   
   
   </ol>
@@ -792,56 +800,19 @@ font-style: italic;
   
   
   <div class="model">
-    <h3 class="field-label"><a name="Status">Status</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="Application">Application</a> <a class="up" href="#__Models">Up</a></h3>
     <div class="field-items">
-      <div class="param">status </div><div class="param-desc"><span class="param-type">String</span> Request status success or error</div>
+      <div class="param">application_id </div><div class="param-desc"><span class="param-type">String</span> app unique identifier</div>
       
-      <div class="param">message </div><div class="param-desc"><span class="param-type">String</span> Status message</div>
+      <div class="param">name </div><div class="param-desc"><span class="param-type">String</span> app name</div>
       
+      <div class="param">version </div><div class="param-desc"><span class="param-type">String</span> installed version</div>
       
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
-    <h3 class="field-label"><a name="Permision">Permision</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">name </div><div class="param-desc"><span class="param-type">String</span> Permission name</div>
+      <div class="param">installation_date </div><div class="param-desc"><span class="param-type">String</span> Date when app was installed</div>
       
-      <div class="param">config.name </div><div class="param-desc"><span class="param-type">String</span> configuration needed key value</div>
+      <div class="param">type </div><div class="param-desc"><span class="param-type">String</span> App type (application, extension, theme)</div>
       
-      <div class="param">config.value </div><div class="param-desc"><span class="param-type">String</span> configuration needed value</div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
-    <h3 class="field-label"><a name="PrivacySetting">PrivacySetting</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">name </div><div class="param-desc"><span class="param-type">String</span> name of the setting (e.g post_visibility)</div>
-      
-      <div class="param">post_address </div><div class="param-desc"><span class="param-type">String</span> url of the setting that changes it</div>
-      
-      <div class="param">data </div><div class="param-desc"><span class="param-type">array[Data]</span> </div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
-    <h3 class="field-label"><a name="SocialNetwork">SocialNetwork</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">name </div><div class="param-desc"><span class="param-type">String</span> Social Network name (e.g Twitter, Facebook)</div>
-      
-      <div class="param">url </div><div class="param-desc"><span class="param-type">String</span> Social Network url (e.g twitter.com, facebook.com)</div>
-      
-      <div class="param">privacy_settings </div><div class="param-desc"><span class="param-type">array[PrivacySetting]</span> </div>
+      <div class="param">permisions </div><div class="param-desc"><span class="param-type">array[https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Permission.yaml]</span> An array containing all required permissions</div>
       
       
     </div>  <!-- field-items -->
@@ -857,19 +828,6 @@ font-style: italic;
       <div class="param">message </div><div class="param-desc"><span class="param-type">String</span> </div>
       
       <div class="param">fields </div><div class="param-desc"><span class="param-type">String</span> </div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
-    <h3 class="field-label"><a name="Data">Data</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">key </div><div class="param-desc"><span class="param-type">String</span> data key</div>
-      
-      <div class="param">value </div><div class="param-desc"><span class="param-type">String</span> data value</div>
       
       
     </div>  <!-- field-items -->
@@ -895,19 +853,13 @@ font-style: italic;
   
   
   <div class="model">
-    <h3 class="field-label"><a name="Application">Application</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="PrivacySetting">PrivacySetting</a> <a class="up" href="#__Models">Up</a></h3>
     <div class="field-items">
-      <div class="param">application_id </div><div class="param-desc"><span class="param-type">String</span> app unique identifier</div>
+      <div class="param">name </div><div class="param-desc"><span class="param-type">String</span> name of the setting (e.g post_visibility)</div>
       
-      <div class="param">name </div><div class="param-desc"><span class="param-type">String</span> app name</div>
+      <div class="param">post_address </div><div class="param-desc"><span class="param-type">String</span> url of the setting that changes it</div>
       
-      <div class="param">version </div><div class="param-desc"><span class="param-type">String</span> installed version</div>
-      
-      <div class="param">installation_date </div><div class="param-desc"><span class="param-type">String</span> Date when app was installed</div>
-      
-      <div class="param">type </div><div class="param-desc"><span class="param-type">String</span> App type (application, extension, theme)</div>
-      
-      <div class="param">permisions </div><div class="param-desc"><span class="param-type">array[Permision]</span> An array containing all required permissions</div>
+      <div class="param">data </div><div class="param-desc"><span class="param-type">array[https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Data.yaml]</span> </div>
       
       
     </div>  <!-- field-items -->
@@ -921,6 +873,34 @@ font-style: italic;
       <div class="param">message </div><div class="param-desc"><span class="param-type">String</span> Reason description</div>
       
       <div class="param">severity </div><div class="param-desc"><span class="param-type">String</span> Severity description</div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="SocialNetwork">SocialNetwork</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">name </div><div class="param-desc"><span class="param-type">String</span> Social Network name (e.g Twitter, Facebook)</div>
+      
+      <div class="param">url </div><div class="param-desc"><span class="param-type">String</span> Social Network url (e.g twitter.com, facebook.com)</div>
+      
+      <div class="param">privacy_settings </div><div class="param-desc"><span class="param-type">array[https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml]</span> </div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="Status">Status</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">status </div><div class="param-desc"><span class="param-type">String</span> Request status success or error</div>
+      
+      <div class="param">message </div><div class="param-desc"><span class="param-type">String</span> Status message</div>
       
       
     </div>  <!-- field-items -->

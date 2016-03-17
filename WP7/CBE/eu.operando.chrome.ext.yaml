@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: Browser Extension API
   description: Browser Extension  API
-  version: 0.0.3
+  version: 0.1.0
   contact:
     email: raf@rms.ro
     name : RomSoft
@@ -231,115 +231,16 @@ paths:
 
 definitions:
   Identity:
-    type: object
-    properties:
-      identityId:
-        type: string
-        description: This is a generated field
-      username:
-        type: string
-        description: Generated username
-      email:
-        type: string
-        description: Generated email
-      password:
-        type: string
-        description: Generated password
+    $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Identity.yaml'
   SocialNetwork:
-    type: object
-    properties:
-      name:
-        type: string
-        description: Social Network name (e.g Twitter, Facebook)
-      url:
-        type: string
-        description: Social Network url (e.g twitter.com, facebook.com)
-      privacy_settings:
-        type: array
-        items:
-          $ref: '#/definitions/PrivacySetting'
+    $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/SocialNetwork.yaml'
   PrivacySetting:
-    type: object
-    properties:
-      name:
-        type: string
-        description: name of the setting (e.g post_visibility)
-      post_address: 
-        type: string
-        description: url of the setting that changes it
-      data:
-        type: array
-        items:
-          $ref: '#/definitions/Data'
-  Data:
-    type: object
-    properties:
-      key:
-        type: string
-        description: data key
-      value:
-        type: string
-        description: data value
+    $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/SNPrivacySetting.yaml'
   Application:
-    type: object
-    properties:
-      application_id:
-        type: string
-        description:  app unique identifier 
-      name:
-        type: string
-        description:  app name
-      version:
-        type: string
-        description: installed version
-      installation_date:
-        type: string
-        description: Date when app was installed
-      type:
-        type: string
-        description: App type (application, extension, theme)
-      permisions:
-        type: array
-        items:
-          $ref: '#/definitions/Permision' 
-        description: An array containing all required permissions    
-  Permision:
-    type: object
-    properties:
-      name: 
-        type: string
-        description: Permission name
-      config.name:
-        type: string
-        description: configuration needed key value
-      config.value:
-        type: string
-        description: configuration needed value  
+   $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Application.yaml'    
   Reason: 
-    type: object
-    properties: 
-      message:
-        type: string
-        description: Reason description
-      severity:  
-        type: string
-        description: Severity description
+    $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Reason.yaml'
   Status:
-    type: object
-    properties:
-      status:
-        type: string
-        description: Request status success or error
-      message:
-        type: string
-        description: Status message
+    $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Status.yaml'
   Error:
-    type: object
-    properties:
-      code:
-        type: integer
-        format: int32
-      message:
-        type: string
-      fields:
-        type: string
+    $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
