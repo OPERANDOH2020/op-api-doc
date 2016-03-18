@@ -36,7 +36,7 @@ schemes:
   - https
   
 host: operando.eu
-basePath: /policyDB
+basePath: /policy_database
 
 tags:
   - name: UPP
@@ -49,7 +49,7 @@ tags:
       Storage and management of privacy regulations.
       
 paths:
-  /UserPrivacyPolicy/:
+  /user_privacy_policy/:
     get:
       summary: Perform a search query across the collection of UPPs.
       description: |
@@ -73,7 +73,7 @@ paths:
         '405':
           description: Error in request. There is an invalid input in the query field.
     
-  /UserPrivacyPolicy/{user_id}/:
+  /user_privacy_policy/{user_id}/:
     get:
       summary: Read the user privacy policy for the given user id.
       description: |
@@ -171,7 +171,7 @@ paths:
         '404':
           description: Error. No document exists to be deleted.
           
-  /Regulations/:
+  /regulations/:
     get:
       summary: Perform a search query across the collection of regulation.
       description: | 
@@ -196,7 +196,7 @@ paths:
         '405':
           description: Error in request. There is an invalid input in the query field.
           
-  /Regulations/{reg_id}/:
+  /regulations/{reg_id}/:
     get:
       summary: Read a given legislation with its ID.
       description: |
@@ -420,22 +420,3 @@ paths:
         '404':
           description: Error. No document exists to be deleted.
           
-definitions:
-  PrivacySetting:
-    type: object
-    properties:
-      id:
-        type: string
-        description: PrivacySetting Unique Identifier
-      retDes:
-        type: string
-        description: Description of the setting
-      name:
-        type: string
-        description: Short name of the setting(e.g. visibility)
-      setting_key:
-        type: string
-        description: Targeted setting key
-      setting_value:
-        type: string
-        description: Targeted setting value
