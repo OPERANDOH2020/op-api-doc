@@ -36,7 +36,7 @@ UserPreference:
           - High
           - Medium
           - Low
-      Role": 
+      Role: 
         description: | 
             The role of a person or service that the private information is being disclosed to or used by. This is an optional parameter in the case where users drill down to more detailed preferences.
         type: string
