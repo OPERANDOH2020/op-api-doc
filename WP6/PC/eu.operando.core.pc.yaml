@@ -29,7 +29,7 @@ tags:
     description: |
       Management of privacy legislation.
 paths:
-  /evaluateOSPRequest:
+  /evaluate_osp_request:
     post:
       summary: Evaluate a set of OSP requests against the User Privacy Policy
       description: >
@@ -50,7 +50,7 @@ paths:
           required: true
         - name: osp_request
           in: body
-          description: "The set of requests that the OSP wants to on a user's private data"
+          description: "The set of requests that the OSP wants to perform on a user's private data"
           schema:
             type: array
             items:
@@ -63,8 +63,9 @@ paths:
         '200':
           description: 'Evaluation was successful and a report is produced. The report indicates if the request(s) is allowed. Where not allowed, the report indicates'
           schema:
-            $ref: '#/definitions/Report'
-  /evaluateOSPCompliance:
+            $ref: '#/definitions/PolicyEvaluationReport'
+  
+  /evaluate_osp_policy:
     post:
       summary: Evaluate a set of OSP requests against the legislation
       description: >
@@ -80,9 +81,9 @@ paths:
           in: body
           description: "The set of requests that the OSP will carry out on a user's private data"
           schema:
-            type: array
+            type: object
             items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPDataRequest.yaml#/OSPDataRequest'
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicy'
           required: true
       tags:
         - Policy Compliance
@@ -91,18 +92,19 @@ paths:
         '200':
           description: 'Compliance was successful and a report is produced. The report indicates if the request(s) complies with legislation. Where there is a breach, the report indicates the reason for the breach.'
           schema:
-            $ref: '#/definitions/Report'
-  /computeUPP:
+            $ref: '#/definitions/PolicyEvaluationReport'
+            
+  /compute_user_privacy_policy:
     post:
-      summary: Creates or changes the UPP based on a user subscribing to a new service.
+      summary: Creates or changes the UPP based on a user subscribing to a new service (enters OSP_ID in query) or simply enters their preferences.
       description: |
-        Called by the management console when a user subscribes to a new OSP.
+        Called by the management console when a user subscribes to a new OSP or enters their prefs.
       parameters:
         - name: osp_id
           in: query
           description: OSP unique identifier of the OSP to compute and add to the UPP
           type: string
-          required: true
+          required: false
         - name: user_id
           in: query
           description: user unique identifier of the UPP to compute
@@ -110,11 +112,12 @@ paths:
           required: true
         - name: osp_request
           in: body
-          description: "The set of requests that the OSP will carry out on a user's private data. This will likely be stored in the DB, so not needed to pass each time."
+          description: |
+            The set of requests that the OSP will carry out on a user's private data. This will likely be stored in the DB, so not needed to pass each time.
           schema:
             type: array
             items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPDataRequest.yaml#/OSPDataRequest'
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml#/UserPreference'
           required: false
       tags:
         - Policy Compute
@@ -123,37 +126,10 @@ paths:
         '200':
           description: 'UPP update was successful and a report is produced. The report indicates if the request(s) complies matches the subscription. Where there is a mismatch, the report indicates the reason for the mismatch.'
           schema:
-            $ref: '#/definitions/Report'
-  /computeUPPPreferences:
-    post:
-      summary: Creates or changes the UPP based on a newly input privacy preferences by the user.
-      description: >
-        Called by the management console when a user enters their information
-        into questionnaire.
-      parameters:
-        - name: user_id
-          in: query
-          description: user unique identifier
-          type: string
-          required: true
-        - name: user_preferences
-          in: body
-          description: The array of preference values.
-          schema:
-            type: array
-            items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml#/UserPreference'
-          required: true
-      tags:
-        - Policy Compute
-        - POST
-      responses:
-        '200':
-          description: 'UPP update was successful and a report is produced. The report indicates if the request(s) complies matches the subscription. Where there is a mismatch, the report indicates the reason for the mismatch.'
-          schema:
-            $ref: '#/definitions/Report'
+            $ref: '#/definitions/PolicyEvaluationReport'
+  
             
-  '/Regulations/{reg_id}/':
+  '/regulations/{reg_id}/':
     post:
       description: "Called by the Regulator API. A New regulation is entered into OPERANDO. The regulation is stored in the policy DB. Existing UPPs are then evaluated to see if they comply with the regulation. \n"
       tags:
@@ -210,14 +186,15 @@ paths:
           description: Successful response. The regulation has been added.
         '404':
           description: Error. The resource does not exist to be updated.
+
 definitions:
-  Report:
+  PolicyEvaluationReport:
     type: object
     properties:
       status:
         type: string
         description: Request status success or error
-      message:
+      compliance:
         type: string
         description: "Message stating the reasons any request failed e.g. breaks the user's privacy preferences."
 
