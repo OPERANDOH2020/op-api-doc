@@ -29,10 +29,5 @@ OSPPrivacyPolicy:
         items:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/AccessPolicy'
 
-      Settings:
-        description: | 
-            The set of privacy settings at a B2C service.
-        type: array
-        items:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml'
+
          
