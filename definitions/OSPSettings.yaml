@@ -8,6 +8,6 @@ OSPSettings:
         type: array
         description: OSP settings
         item:
-          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml#/PrivacySetting'
+          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml'
               
     
