@@ -1,9 +1,13 @@
 OSPSettings:
-    osp_id: 
+    type: object
+    properties:
+      osp_id: 
         type: string
         description: | 
-            The unique ID of the OSP user is subscribed to and these settings concern. 
-
-
-              
-    
+          The unique ID of the OSP user is subscribed to and these settings concern. 
+          
+      osp_settings:
+        type: array
+        description: The list of privacy settings at an OSP
+        items:
+          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml' 

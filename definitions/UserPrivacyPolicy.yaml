@@ -1,23 +1,25 @@
 UserPrivacyPolicy:
-    user_id:
-        type: string
-        description: The unique operando id of the user this policy is about. Each OPERANDO user has one and only one UPP.
+    type: object
+    properties:
+        user_id:
+            type: string
+            description: The unique operando id of the user this policy is about. Each OPERANDO user has one and only one UPP.
 
-    user preferences:
-        type: array
-        description: User stated preferences (questionnaire answers)
-        items:
-          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml#/UserPreference'
+        user preferences:
+            type: array
+            description: User stated preferences (questionnaire answers)
+            items:
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml#/UserPreference'
 
-    subscribedOSPsPoliciies:
-        type: array
-        description: The user policies for each OSP they subscribe to.
-        items:
-           $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPConsents.yaml#/OSPConsents'
+        subscribedOSPsPoliciies:
+            type: array
+            description: The user policies for each OSP they subscribe to.
+            items:
+               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPConsents.yaml#/OSPConsents'
 
-    SubscribedOSPsSettings:
-        type: array
-        description: The user settings for each of their services
-        items:
-           $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPSettings.yaml#/OSPSettings'
+        SubscribedOSPsSettings:
+            type: array
+            description: The user settings for each of their services
+            items:
+               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPSettings.yaml#/OSPSettings'
                
