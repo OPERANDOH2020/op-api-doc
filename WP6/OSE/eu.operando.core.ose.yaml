@@ -2,16 +2,18 @@
 swagger: '2.0'
 
 info:
-  version: "0.0.7"
+  version: "0.0.8"
   title: OSP Enforcement (OSE)
 
   description: |
     
     The OSP enforcement component provides a set of functions that manage the interaction of OSP behaviour with the user's private data. The OSE component is largely in charge of ensuring that an OSP follows both privacy regulations and policies put in place by the user (i.e. in the OPERANDO UPPs). There are a set of events that trigger the usage of this API.
     
-    1) When a new OSP registers with OPERANDO via the OPERANDO console. The management console informs the OSE, which then checks that an OSP conforms with existing privacy regulations; if it breaches the regulations, the OSE returns via the management console a report describing the breaches.
+    1) When a new G2C OSP registers with OPERANDO via the OPERANDO console. The management console informs the OSE, which then checks that an OSP conforms with existing privacy regulations; if it breaches the regulations, the OSE returns via the management console a report describing the breaches.
     
-    2) When a change of OSP privacy policy or of the OSP's privacy settings are detected by the watchdog component. The OSE is notified and then managess the update of the user's UPP and the user's privacy settings where the OSP has changed either its privacy policy or its own privacy settings.
+    2) When a change of OSP privacy policy or of the OSP's privacy settings are detected by the watchdog component. The
+    watchdog component sends a message to a privacy analyst who reviews any changes. The privacy analyst may then
+    inform the OSE of the new OSP information (to be checked for compliance with regulations and users' UPPs.
     
     3) When a privacy legislation is entered (or changed) via the Regulator API. The OSE checks registered OSPs for compliance with the new regulations; where there is a breach the OSP is notified either by e-mail or the console.
 
@@ -51,34 +53,33 @@ tags:
 ################################################################################
 
 paths:
-
-  /PrivacySettings/{user_id}/{osp_id}/:
+  /osps/{osp_id}/privacy_settings/:
     get:
       description: |
-        Simple retrieval of an OPERANDO registered user's OSP privacy settings.
+        Simple retrieval of an OPERANDO registered OSP's privacy settings.
         This method is called by the watchdog component when it requests the settings last applied by the OSE component.
         
         Pre condition -- An OPERANDO user must have registered with the OPERANDO platform and subscribed to the OSP service in question.
         
         Pre condition --The user's UPP must be stored in the Policy DB component and contain the privacy settings for the OSP service in question.
+        
+        When the query includes a user id; that user's settings are returned. For a request with no user id as a query parameter, the operation returns the general set of settings covered by this OSP.
+        
       tags:
         - Privacy Settings
       parameters:
-
-        -
-          name: user_id
-          in: path
-          description: The unqiue OPERANDO ID for the individual user. This corresponds to the unqiue ID of the user record stored in the User Account DB. This corresponds to the identifier of the UPP of the user stored in the Policy DB. 
-          required: true
-          type: number
-          format: integer32
-        -
-          name: osp_id
+        - name: osp_id
           in: path
           description: The unqiue OPERANDO ID for a given OSP service. Identifies an OSP within OPERANDO.
           required: true
-          type: number
-          format: integer32
+          type: integer
+          format: int64
+        - name: user_id
+          in: query
+          description: The unqiue OPERANDO ID for a given user.
+          required: false
+          type: integer
+          format: int64
       
       responses:
         200:
@@ -87,42 +88,38 @@ paths:
             title: ArrayOfPrivacySettings    
             type: array
             items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml#PrivacySetting'
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml'
               
         404: 
-          description: Error response. The user does not exist. Or the OSP does not exist. Or the user is not subscribed to the OSP in OPERANDO.
-    
+          description: Error response. The settings resource does not exist. Or the OSP does not exist. Or the user is not subscribed to the OSP in OPERANDO.
+
     put:
       description: |
-        Called by the watchdog component when it detects a change in the user’s privacy settings at the given OSP. OSE computes the required new settings and ensures that they are enforced at the OSP and the new settings stored in the policy DB.
+        Called when a change in privacy settings is detected at a specific OSP. The OSE evaluates the impact of the changed settings and computes the required new settings and ensures that they are enforced at the OSP and the new settings stored in the policy DB.
       tags:
         - Privacy Settings
 
       parameters:
-        -
-          name: user_id
-          in: path
+        - name: user_id
+          in: query
           description: The unqiue OPERANDO ID for the individual user. This corresponds to the unqiue ID of the user record stored in the User Account DB. This corresponds to the identifier of the UPP of the user stored in the Policy DB. 
-          required: true
-          type: number
-          format: integer32
-        -
-          name: osp_id
+          required: false
+          type: integer
+          format: int64
+        - name: osp_id
           in: path
           description: The unqiue OPERANDO ID for a given OSP service. Identifies an OSP within OPERANDO.
           required: true
-          type: number
-          format: integer32
-          
-        -
-          name: osp_settings
+          type: integer
+          format: int64
+        - name: osp_settings
           in: body
           description: The set of settings that have now changed. This is the complete OSP settings list to be compared with the existing stored settings for this OSP for the user.
           schema:
             title: ArrayOfPrivacySettings    
             type: array
             items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml#/PrivacySetting'
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml'
           required: true
           
       responses:
@@ -132,218 +129,161 @@ paths:
           description: Error response. The user does not exist. Or the OSP does not exist. Or the user is not subscribed to the OSP in OPERANDO.
           
 
-  /PrivacyPolicy/{osp_id}/policy/:         
-      put:
-        description: |
-          Called by watchdog when it detects change in an OSP’s privacy policy. OSE computes whether the OSP policy complies with regulations; complies with UPP. It updates UPP where appropriate and notifies users and OSP if there are issues with the updated privacy policy.
+  /osps/{osp_id}/:         
+    post:
+      description: |
+        Called when a change in an OSP's privacy policy detected by OPERANDO (or a new OSP is registered). OSE computes whether the OSP policy complies with regulations; complies with UPP. It updates UPPs where appropriate and notifies users and OSP if there are issues with the updated privacy policy.
           
-          Pre-condition -- The OSP must be registered with OPERANDO and it must have an existing policy stored in the policy DB.
+        Pre-condition -- The OSP must be registered with OPERANDO and it must have an existing policy stored in the policy DB.
           
-        tags:
+      tags:
         - Privacy Policy
         
-        parameters:
-          -
-            name: osp_id
-            in: path
-            description: The unqiue OPERANDO ID for the OSP.
-            required: true
-            type: number
-            format: integer32
+      parameters:
+        - name: osp_id
+          in: path
+          description: The unqiue OPERANDO ID for the OSP.
+          required: true
+          type: integer
+          format: int64
             
-          -
-            name: osp_policy
-            in: body
-            description: The set of individual policies that have now compose the OSP's new privacy policy. This is the complete OSP list of the policies to be compared with the existing stored policy for this OSP.
-            schema:
-              title: ArrayOfPrivacyPolicy    
-              type: object
+        - name: osp_policy
+          in: body
+          description: The set of individual policies that have now compose the OSP's new privacy policy. This is the complete OSP list of the policies to be compared with the existing stored policy for this OSP.
+          required: true
+          schema:
               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicy'
-            required: true
-            
-        responses:
 
-          200:
-            description: Successful response. The privacy policy has been updated.
-          404: 
-            description: Error response. The OSP does not exist. It has not been registered with OPERANDO.
-    
-      post:
-        description: |
-          Called by the management console when a new G2C OSP registers with OPERANDO. The new OSP tells the system its policies. Note G2C will be policy and data requests - hence when a new OSP registers it calls this method and the similar workflow method.
-        tags:
-          - Privacy Policy
-        
-        parameters:
-          -
-            name: osp_id
-            in: path
-            description: The unqiue OPERANDO ID for the new OSP being registered.
-            required: true
-            type: number
-            format: integer32
-            
-          -
-            name: osp_policy
-            in: body
-            description: The initial policy entered when the OSP registers with OPERANDO
-            schema:
-              title: ArrayOfPrivacySettings    
-              type: object
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicy'
-            required: true
-          
-        responses:
-              # Response code
-            200:
-              description: Successful response. The new policy is registered with the OSP in the policy DB.
-            409:
-              description: Error. The policy is already in place and cannot be created.
-              
-              
-  /PrivacyPolicy/{osp_id}/settings/:         
-    
-      post:
-        description: |
-          Called by the management console when a new B2C OSP registers with OPERANDO. The OSP provides to OPERANDO its privacy settings. These are stored and used in later computations.
-        
-        tags:
-          - Privacy Settings
-        
-        parameters:
-          -
-            name: osp_id
-            in: path
-            description: The unqiue OPERANDO ID for the registered OSP service.
-            required: true
-            type: number
-            format: integer32
-            
-          -
-            name: osp_settings
-            in: body
-            description: The OSPs set of privacy settings.
-            required: true
-            schema:
-              title: ArrayOfPrivacySettings    
-              type: array
-              items:
-                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml#/PrivacySetting'
-          
-        responses:
-            200:
-              description: Successful response. The settings have been stored when the OSP is registered.
-            409:
-              description: Error occured. The resource already exists, so a new resource cannot be created.
-              
-  /PrivacyPolicy/{osp_id}/workflow/:         
-      
-      post:
-        description: |
-          Called by the management console when a new G2C OSP registers with OPERANDO. Tells the system its requests for data (Workflow). Note G2C will be policy and data requests; B2C will be settings.
+      responses:
+        200:
+          description: Successful response. The privacy policy has been received and being processed. Information will be sent via other operation sequences.
+        404: 
+          description: Error response. The OSP does not exist. It has not been registered with OPERANDO.
 
-        tags:
+  /osps/{osp_id}/privacytext/: 
+    put:
+      description: |
+          Notify the OSE of a change in policy text
+
+      tags:
           - Privacy Policy
           
-        parameters:
-          -
-            name: osp_id
-            in: path
-            description: The unqiue OPERANDO ID for the registered OSP service.
-            required: true
-            type: number
-            format: integer32
+      parameters:
+        - name: osp_id
+          in: path
+          description: The unqiue OPERANDO ID for the registered OSP service.
+          required: true
+          type: integer
+          format: int64
             
-          -
-            name: osp_requests
-            in: body
-            description: The set of data requests that this service will make. Any requests not in this list, will be rejected by the OSP enforcement component of OPERANDO. G2C services must follow the information they provide here.
-            required: true
-            schema:
-              type: array
-              items:
-                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPDataRequest.yaml#/OSPDataRequest'
+        - name: osp_privacy_text
+          in: query
+          description: The complete privacy policy text of the OSP.
+          required: true
+          type: string
+        
+      responses:
+          # Response code
+        204:
+          description: Successful response, The privacy text update analysis has begun.
+        409:
+          description: Error occured. The resource already exists, so a new resource cannot be created.
+  
+  /osps/{osp_id}/workflows/: 
+    put:
+      description: |
+          Notify the OSE of a change in an OSP's workflow
+
+      tags:
+          - Privacy Policy
+          
+      parameters:
+        - name: osp_id
+          in: path
+          description: The unqiue OPERANDO ID for the registered OSP service.
+          required: true
+          type: integer
+          format: int64
+            
+        - name: osp_workflow
+          in: body
+          description: The workflow changes of the OSP.
+          required: true
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPDataRequest.yaml#/OSPDataRequest'
               
+      responses:
+          # Response code
+        204:
+          description: Successful response, The workflow update analysis has begun.
+        409:
+          description: Error occured. The resource already exists, so a new resource cannot be created.
               
-        responses:
-              # Response code
-            200:
-              description: Successful response, The workflow of data requests have been stored with the registered OSP.
-            409:
-              description: Error occured. The resource already exists, so a new resource cannot be created.
-              
-              
-  /PrivacyPolicy/{reg_id}/: 
+  /regulations/{reg_id}/: 
     post:
-        description: |
-          Called by the Regulator API. A New regulation is entered into OPERANDO. Existing OSPs are then evaluated to see if they comply with the regulation. If not they are sent a report about how to comply.
+      description: |
+        Called by the Regulator API. A New regulation is entered into OPERANDO. Existing OSPs are then evaluated to see if they comply with the regulation. If not they are sent a report about how to comply.
       
-        tags:
-          - Privacy Legislation
+      tags:
+         - Privacy Legislation
           
-        parameters:
-          -
-            name: reg_id
-            in: path
-            description: The unqiue regulation ID for the new regulation created.
-            required: true
-            type: number
-            format: integer32
+      parameters:
+        - name: reg_id
+          in: path
+          description: The unqiue regulation ID for the new regulation created.
+          required: true
+          type: number
+          format: integer32
             
-          -
-            name: regulation
-            in: body
-            description: The description of the new regulation.
-            required: true
-            schema:
-              type: array
-              items:
-                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
+        - name: regulation
+          in: body
+          description: The description of the new regulation.
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
               
-        responses:
-              # Response code
-            200:
-              description: Successful response. The regulation has been added.
-            409:
-              description: Error occured. The resource already exists, so a new resource cannot be created.
+      responses:
+             # Response code
+        201:
+          description: Successful response. The regulation has been created.
+        409:
+          description: Error occured. The resource already exists, so a new resource cannot be created.
               
     put:
-    
-        description: |
-          Called by the Regulator API. A change to a regulation is entered into OPERANDO. Existing OSPs are then evaluated to see if they comply with the regulation. If not they are sent a report about how to comply.
+      description: |
+        Called by the Regulator API. A change to a regulation is entered into OPERANDO. Existing OSPs are then evaluated to see if they comply with the regulation. If not they are sent a report about how to comply.
           
           Pre-condition -- The regulation must have been written to the system.
           
-        tags:
-          - Privacy Legislation
+      tags:
+        - Privacy Legislation
           
-        parameters:
-          -
-            name: reg_id
-            in: path
-            description: The unqiue regulation ID for the changed regulation.
-            required: true
-            type: number
-            format: integer32
-            
-          -
-            name: regulation
-            in: body
-            description: The description of the changed regulation.
-            required: true
-            schema:
-              type: array
-              items:
-                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
-              
-              
-          # Expected responses for this operation:
-        responses:
-              # Response code
-            200:
-              description: Successful response. The regulation has been added.
-            404:
-              description: Error. The resource does not exist to be updated.
+      parameters:
+        - name: reg_id
+          in: path
+          description: The unqiue regulation ID for the changed regulation.
+          required: true
+          type: integer
+          format: int64
+          
+        - name: regulation
+          in: body
+          description: The description of the changed regulation.
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
+
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        200:
+          description: Successful response. The regulation has been added.
+        404:
+          description: Error. The resource does not exist to be updated.
               
 
      
