@@ -1,13 +1,15 @@
 OSPConsents:
-    osp_id: 
-        type: string
-        description: | 
-            The unique ID of the OSP user is subscribed to and these consent policies concern. 
+    type: object
+    properties:
+        osp_id: 
+            type: string
+            description: | 
+                The unique ID of the OSP user is subscribed to and these consent policies concern. 
 
-    access_policies:
-        type: array
-        description: OSP access policies
-        item:
-          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/AccessPolicy'
+        access_policies:
+            type: array
+            description: OSP access policies
+            items:
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/AccessPolicy'
     
     
