@@ -185,7 +185,7 @@ font-style: italic;
     <div class="app-desc">Email Services API</div>
     <div class="app-desc">More information: <a href="http://www.operando.eu/">http://www.operando.eu/</a></div>
     <div class="app-desc">Contact Info: <a href="raf@rms.ro">raf@rms.ro</a></div>
-    <div class="app-desc">Version: 0.1.0</div>
+    <div class="app-desc">Version: 0.2.0</div>
     <div class="license-info">MIT</div>
     <div class="license-url">http://opensource.org/licenses/MIT</div>
   <h2>Access</h2>
@@ -212,9 +212,7 @@ font-style: italic;
   
   
   
-  <li><a href="#emailUserIdPost"><code><span class="http-method">post</span> /email/{user_id}</code></a></li>
-  
-  <li><a href="#emailWithAttachmentsUserIdPost"><code><span class="http-method">post</span> /emailWithAttachments/{user_id}</code></a></li>
+  <li><a href="#emailPost"><code><span class="http-method">post</span> /email</code></a></li>
   
   
   
@@ -428,103 +426,14 @@ font-style: italic;
   
   
   
-  <div class="method"><a name="emailUserIdPost"/>
+  <div class="method"><a name="emailPost"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /email/{user_id}</code></pre></div>
-    <div class="method-summary">Interface used to send an email (<span class="nickname">emailUserIdPost</span>)</div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /email</code></pre></div>
+    <div class="method-summary">Interface used to send an email (<span class="nickname">emailPost</span>)</div>
     
     <div class="method-notes"></div>
 
-    
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-    <h3 class="field-label">Request body</h3>
-    <div class="field-items">
-      <div class="param">email (required)</div>
-
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Email Object that is forwareded by EmailService </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-
-    
-
-    
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#Status">Status</a>
-      
-    </div>
-    
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    
-
-    
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
-    <ul>
-    
-      <li><code>application/json</code></li>
-    
-    </ul>
-    
-
-    <h3 class="field-label">Responses</h3>
-    
-    <h4 class="field-label">201</h4>
-    Request was successfully completed
-    
-    
-    <h4 class="field-label">420</h4>
-    Timeout connection problem
-    
-    
-    <h4 class="field-label">500</h4>
-    Invalid command
-    
-    
-    <h4 class="field-label">501</h4>
-    Invalid parameters args
-    
-    
-    <h4 class="field-label">523</h4>
-    The total size of your mailing exceeds the recipient server&#39;s limits.
-    
-    
-  </div> <!-- method -->
-  <hr/>
-  
-  <div class="method"><a name="emailWithAttachmentsUserIdPost"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /emailWithAttachments/{user_id}</code></pre></div>
-    <div class="method-summary">Interface used to send an email (<span class="nickname">emailWithAttachmentsUserIdPost</span>)</div>
-    
-    <div class="method-notes"></div>
-
-    
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div>
-    </div>  <!-- field-items -->
     
 
     
@@ -608,18 +517,6 @@ font-style: italic;
   
   
   
-    <li><a href="#Email_bcc"><code>Email_bcc</code></a></li>
-  
-  
-  
-    <li><a href="#Email_cc"><code>Email_cc</code></a></li>
-  
-  
-  
-    <li><a href="#Email_to"><code>Email_to</code></a></li>
-  
-  
-  
     <li><a href="#Error"><code>Error</code></a></li>
   
   
@@ -640,50 +537,15 @@ font-style: italic;
     <div class="field-items">
       <div class="param">sender </div><div class="param-desc"><span class="param-type">String</span> Sender unique identifier</div>
       
-      <div class="param">to </div><div class="param-desc"><span class="param-type">array[Email_to]</span> Recipients</div>
+      <div class="param">to </div><div class="param-desc"><span class="param-type">array[String]</span> Recipients user ids</div>
       
-      <div class="param">cc </div><div class="param-desc"><span class="param-type">array[Email_cc]</span> Carbon Copy  recipients</div>
+      <div class="param">cc </div><div class="param-desc"><span class="param-type">array[String]</span> Carbon Copy recipients user ids</div>
       
-      <div class="param">bcc </div><div class="param-desc"><span class="param-type">array[Email_bcc]</span> Blind Carbon Copy recipients</div>
+      <div class="param">bcc </div><div class="param-desc"><span class="param-type">array[String]</span> Blind Carbon Copy recipients user ids</div>
       
       <div class="param">content </div><div class="param-desc"><span class="param-type">String</span> Email content</div>
       
-      <div class="param">hasAttachements </div><div class="param-desc"><span class="param-type">Boolean</span> Indicates if this email has at least one attachement</div>
-      
       <div class="param">attachments </div><div class="param-desc"><span class="param-type">array[https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Attachment.yaml]</span> Email attchments</div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
-    <h3 class="field-label"><a name="Email_bcc">Email_bcc</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">userId </div><div class="param-desc"><span class="param-type">String</span> Blind carbon copy recipient unique identifier</div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
-    <h3 class="field-label"><a name="Email_cc">Email_cc</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">userId </div><div class="param-desc"><span class="param-type">String</span> Carbon copy recipient unique identifier</div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
-  
-  
-  <div class="model">
-    <h3 class="field-label"><a name="Email_to">Email_to</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">userId </div><div class="param-desc"><span class="param-type">String</span> Recipient unique identifier</div>
       
       
     </div>  <!-- field-items -->

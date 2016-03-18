@@ -6,7 +6,7 @@ info:
     name : RomSoft
     url: http://www.operando.eu/
   description: Email Services API
-  version: 0.1.0
+  version: 0.2.0
   license:
     name: MIT
     url: http://opensource.org/licenses/MIT
@@ -14,7 +14,7 @@ schemes:
   - https
   - http
 host: 'localhost:8080'
-basePath: /operando/core/email/services
+basePath: /operando/interfaces/email_services
 produces:
   - application/json
 
@@ -61,11 +61,10 @@ paths:
   ################################################
   #               Email Services                 #
   ################################################
-  /email/{user_id}:
+  /email:
     post:
       summary: Interface used to send an email
       parameters:
-        - $ref: '#/parameters/user_id'
         - $ref: '#/parameters/email'
       tags:
         - SendEmail
@@ -91,37 +90,7 @@ paths:
           description: The total size of your mailing exceeds the recipient server's limits.
           schema: 
             $ref: '#/definitions/Error'
-  /emailWithAttachments/{user_id}:
-    post:
-      summary: Interface used to send an email
-      parameters:
-        - $ref: '#/parameters/user_id'
-        - $ref: '#/parameters/email'
-      tags:
-        - SendEmail
-      responses:
-        201:
-          description: Request was successfully completed
-          schema:
-              $ref: '#/definitions/Status'
-        420:       
-          description: Timeout connection problem
-          schema:
-            $ref: '#/definitions/Status'
-        500:
-          description: Invalid command
-          schema:
-            $ref: '#/definitions/Error'
-          
-        501:
-          description: Invalid parameters args
-          schema:
-            $ref: '#/definitions/Error'
-        523:
-          description: The total size of your mailing exceeds the recipient server's limits.
-          schema: 
-            $ref: '#/definitions/Error'
-            
+ 
   ################################################
   #               Identity Manager               #
   ################################################ 
