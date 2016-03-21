@@ -14,7 +14,7 @@ schemes:
   - https
   - http
 host: 'localhost:8080'
-basePath: /operando/ude
+basePath: /operando/core/ude
 produces:
   - application/json
 ################################################################################
@@ -117,105 +117,13 @@ paths:
           schema:
             $ref: '#/definitions/Error'
   
-  ################################################
-  #                OSP Enforcement               #
-  ################################################        
-  #/required_settings:
-  #  get:
-  #    summary: Called by watchdog when it requests the settings last applied by OSE
-  #    parameters:
-  #      - $ref: '#/parameters/user_id'
-  #      - $ref: '#/parameters/osp_id'
-  #    tags:
-  #      - OSE
-  #    responses:
-  #      200:
-  #        description: An array containing required settings
-  #        schema:
-  #          type: array
-  #          items:
-  #            $ref: '#/definitions/PrivacySetting'
-  #      404: 
-  #        description: Not found or invalid. (e.g. user_id, osp_id)
-  #        schema:
-  #          $ref: '#/definitions/Error'
-  #      500:
-  #        description: Unexpected error
-  #        schema:
-  #          $ref: '#/definitions/Error'
-            
-  #  put:
-  #    summary: Called by watchdog when it detects change in user’s privacy settings
-  #    parameters:
-  #      - $ref: '#/parameters/user_id'
-  #      - $ref: '#/parameters/osp_id'
-  #      - name: settings
-  #        in: body
-  #        required: true
-  #        schema: 
-  #          type: array
-  #          items: 
-  #            $ref: '#/definitions/PrivacySetting'
-  #    tags:
-  #      - OSE
-  #    responses:
-  #      200:
-  #        description: Current setting were successfully submitted
-  #        schema:
-  #          $ref: '#/definitions/Status'
-  #      404:
-  #        description: Not found or invalid. (e.g. user_id, osp_id)
-  #        schema:
-  #          $ref: '#/definitions/Error'    
-  #      500:
-  #        description: Unexpected error
-  #        schema:
-  #          $ref: '#/definitions/Error'
-  #/policy/{osp_id}:
-  #  patch:
-  #    summary: Called by watchdog when it detects change in OSP privacy policy(ies)
-  #    parameters:
-  #      - name: osp_id
-  #        in: path
-  #        required: true
-  #        description: Unique identifier representing a specific user
-  #        type: string
-  #        format: uuid
-  #      - name: policies
-  #        in: body
-  #        required: true
-  #        schema: 
-  #          type: array
-  #          items: 
-  #            $ref: '#/definitions/PolicyChange'
-  #    tags:
-  #      - OSE
-  #    responses:
-  #      200:
-  #        description: Request successfully sent
-  #        schema:
-  #          $ref: '#/definitions/Status'  
-  #      204:
-  #        description: No response object is required
-  #      404:
-  #        description: Not found or invalid. (e.g. user_id, osp_id)
-  #        schema:
-  #          $ref: '#/definitions/Error'     
-  #      500:
-  #        description: Unexpected error
-  #        schema:
-  #          $ref: '#/definitions/Error'  
 ################################################################################
 #                              Objects Definitions                             #
 ################################################################################   
 definitions:
   PrivacySetting:
     $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml"
-  #OSP:
-  #  $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSP.yaml"
   Status:
     $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Status.yaml"
-  #PolicyChange:
-  # $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PolicyChange.yaml"    
   Error:
     $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml"
