@@ -195,7 +195,29 @@ paths:
               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
         '405':
           description: Error in request. There is an invalid input in the query field.
-          
+    
+    post:
+      summary: Create a new legislation entry in the database.
+      description: |
+        Called by the policy computation component when a new regulation is added
+        to OPERANDO.
+      tags:
+        - Legislation
+        - POST
+      parameters:
+        - name: regulation
+          in: body
+          description: The first instance of this regulation document
+          required: true
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
+            
+      responses:
+        '201':
+          description: The document (PrivacyRegulation) was successfully created in the database and the location field in the HTTP header contains the full URL of the resource. The unique ID reg_id is stored in the body entity.
+          schema:
+            $ref: '#/definitions/RegulationID'    
+        
   /regulations/{reg_id}/:
     get:
       summary: Read a given legislation with its ID.
@@ -420,3 +442,10 @@ paths:
         '404':
           description: Error. No document exists to be deleted.
           
+definitions:
+  RegulationID:
+    type: object
+    properties:
+      reg_id:
+        type: string
+        description: The generatred unique id of the regulation
