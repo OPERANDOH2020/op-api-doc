@@ -1,11 +1,11 @@
 UserPreference:
     type: object
     required: 
-      - Information_Type
+      - InformationType
       - Category
       - Preference
     properties: 
-      Information_Type: 
+      InformationType: 
         type: string
         description: | 
             The type of private information; e.g. is it information that identifies the user (e.g. id number)? is it location information about the user? Is it about their activities?

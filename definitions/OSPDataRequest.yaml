@@ -1,7 +1,7 @@
 OSPDataRequest:
     type: object
     properties:
-        requesterId:
+        RequesterId:
             type: string
             description: Id of the requester (typically the id of an OSP).
 
@@ -10,7 +10,7 @@ OSPDataRequest:
           description: | 
             A description of the subject who the policies grants/doesn't grant to carry out.
 
-        requestedURL:
+        RequestedURL:
             type: string
             description: | 
               The Requested URL of the data.

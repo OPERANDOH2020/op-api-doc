@@ -5,13 +5,13 @@ UserPrivacyPolicy:
             type: string
             description: The unique operando id of the user this policy is about. Each OPERANDO user has one and only one UPP.
 
-        user preferences:
+        UserPreferences:
             type: array
             description: User stated preferences (questionnaire answers)
             items:
               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml#/UserPreference'
 
-        subscribedOSPsPoliciies:
+        SubscribedOSPsPolicies:
             type: array
             description: The user policies for each OSP they subscribe to.
             items:
