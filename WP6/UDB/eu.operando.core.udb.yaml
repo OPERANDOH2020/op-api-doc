@@ -1,0 +1,185 @@
+swagger: '2.0'
+info:
+  title: eu.operando.core.udb
+  description: | 
+    Operando UDB module. The user accounts database; currently this
+    only covers the privacy for benefit account information. User information
+    and credentials will be intergrated with the chosen identity management
+    server (used in Operando)
+  version: "0.0.8"
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+host: localhost:8080
+basePath: /operando/core/udb
+schemes:
+- http
+- https
+produces:
+- application/json
+################################################################################
+#                                   Tags                                       #
+################################################################################
+tags:
+  - name: Deals
+    description: |
+      Privacy for benefit products that have been accepted by a user
+  - name: Offers
+    description: |
+      Privacy for benefit product, offered by an OSP to consumers
+  - name: OSPs
+    description: APIs related to management of Online Service Providers PfB accounts.
+  - name: Users
+    description: End users of the Privacy Service Provider.
+    
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+
+  deal-id:
+    name: deal-id
+    in: path
+    description: The unique identifier number of a deal.
+    type: string
+    required: true
+  user-id:
+    name: user-id
+    in: path
+    description: The user identifier number
+    type: string
+    required: true
+    
+################################################################################
+#                                   PATHs                                      #
+################################################################################
+paths:
+  /users/{user-id}/deals/:
+    parameters:
+      - $ref: '#/parameters/user-id'
+    get:      
+      summary: Returns list of offers accepted by user.
+      description: Request from privacy dashboard to get list of offers accepted by user (and acknowledged by OSP).
+      tags:
+        - Users
+        - Deals
+      operationId: getAcceptedDealsByUser
+      produces:
+        - application/json        
+      parameters:
+        - name: status
+          in: body
+          description: filter deals by category / status
+          schema:
+            type: string
+            enum:
+              - all
+              - pending
+              - accepted
+              - rejected
+      responses:
+        "200":
+          description: Successful operation (list of offers accepted by user).
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
+            
+    post:      
+      summary: Create a new deal for the user.
+      description: Add a new deal.
+      tags:
+        - Users
+        - Deals
+      operationId: createUserDeal
+      produces:
+        - application/json        
+      parameters:
+        - name: deal
+          in: body
+          description: Content of new deal
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
+            
+      responses:
+        "201":
+          description: Successful addition of new deal. Return the deal id
+          schema:
+            $ref: '#/definitions/DealID'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
+    
+  /users/{user-id}/deals/{deal-id}:
+    parameters:
+      - $ref: '#/parameters/deal-id'
+      - $ref: '#/parameters/user-id'
+    get:
+      summary: Read a given PfB for the user.
+      description: |
+        Get a specific deal document via the id. This will return the full deal document in json format.
+      tags:
+        - User
+        - Deals
+        - GET
+          
+      responses:
+        '200':
+          description: The deal document requested to be read is returned in full
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
+        '404':
+          description: Error - the regulation does not exist.
+
+    put:
+      summary: Update deal entry in the database.
+      description: |
+        Called by ??
+      tags:
+        - Users
+        - Deals
+        - PUT
+      parameters:
+        - name: deal
+          in: body
+          description: The changed instance of this deal
+          required: true
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
+
+      responses:
+        '204':
+          description: The document (deal) was successfully updated in the database.
+        '404':
+          description: Error. No document exists to be updated.
+    delete:
+      summary: Remove the deal entry in the database.
+      description: |
+        Called by ??.
+      tags:
+        - Users
+        - Deal
+        - DELETE
+
+      responses:
+        '204':
+          description: The document (deal) was successfully deleted from the database.
+        '404':
+          description: Error. No document exists to be deleted.
+        
+         
+definitions:
+  DealID:
+    type: object
+    properties:
+      deal_id:
+        type: string
+        description: The generatred unique id of the deal
