@@ -66,17 +66,7 @@ paths:
       operationId: getAcceptedDealsByUser
       produces:
         - application/json        
-      parameters:
-        - name: status
-          in: body
-          description: filter deals by category / status
-          schema:
-            type: string
-            enum:
-              - all
-              - pending
-              - accepted
-              - rejected
+
       responses:
         "200":
           description: Successful operation (list of offers accepted by user).
