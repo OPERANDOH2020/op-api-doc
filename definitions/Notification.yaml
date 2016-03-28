@@ -1,5 +1,8 @@
 type: object
 properties:
+  id: 
+    type: integer
+    description : notification unique identifier
   type:
     type: string
     description: notification type (e.g. security alert, recommendation)
