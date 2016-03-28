@@ -1,0 +1,192 @@
+swagger: '2.0'
+info:
+  title: MOBILE APPLICATION API
+  description: Mobile Application (MA) API
+  version: 0.1.0
+  contact:
+    email: raf@rms.ro
+    name : RomSoft
+    url: http://www.operando.eu/
+  license:
+    name: MIT
+    url: 'http://opensource.org/licenses/MIT'
+schemes:
+  - https
+  - http
+host: 'localhost:8080'
+basePath: /operando/mobile
+produces:
+  - application/json
+################################################################################
+#                                   Tags                                       #
+################################################################################
+tags:
+  - name: Mobile Apps
+    description: |
+      Mobile Apps for Android & iOS platforms
+  - name: Mobile Notifications
+    description: |
+      Mobile Notifications for Android & iOS platforms
+
+################################################################################
+#                                   Parameters                                 #
+################################################################################        
+parameters:
+  user_id:
+    name: user_id
+    in: query
+    description: Unique identifier representing a specific user
+    type: string
+    format: uuid
+    required: true
+  device_id:
+    name: device_id
+    in: query
+    description: device unique identifier
+    type: string
+    
+    
+################################################################################
+#                                   Paths                                      #    
+################################################################################
+paths:
+  ################################################
+  #              MOBILE APPLICATION              #
+  ################################################
+  /apps:
+    get:
+      summary: Get all mobile apps
+      description: |
+          Returns all installed apps on the user devices.
+      parameters:
+        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/device_id'
+      tags:
+        - Mobile Apps
+      responses:
+        200:
+          description: An array containing mobile apps ids
+          schema:
+            type: array
+            items:
+              type: string
+        404: 
+          description: Not found or invalid
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: Uninstall a list of applications
+      description: Recommend the user to uninstall a list of malicious apps
+      parameters:
+        - name: apps
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AppUninstallRequest'
+      tags:
+        - Mobile Apps      
+      responses:
+        200:
+          description: Request was succesfully made
+          schema:
+            $ref: '#/definitions/Status'
+        404:   
+          description: Not found or invalid
+          schema:
+            $ref: '#/definitions/Error'
+        500:    
+          description: Not found or invalid
+          schema:
+            $ref: '#/definitions/Error'
+      
+  /notifications:
+    get:
+      summary: Get all notifications for user
+      description: Returns all notifications for a specified user.
+        Also the device id can be provided.
+      tags:
+        - Mobile Notifications
+      parameters:
+        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/device_id'
+      responses:
+        200:
+          description: Get user notifications
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Notification'
+        404:   
+          description: Not found or invalid
+          schema:
+            $ref: '#/definitions/Error'
+        500:    
+          description: Not found or invalid
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+        summary: Store notifications
+        description:  Add notifications that should be presented to user when it will be possible
+        tags:
+        - Mobile Notifications
+        parameters:
+        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/device_id'
+        - name: notification
+          in: body
+          required: true
+          schema:
+              $ref: '#/definitions/Notification'
+        responses:
+          200:
+            description: Get user notifications
+            schema:
+              $ref: '#/definitions/Status'
+          404:   
+            description: Not found or invalid
+            schema:
+              $ref: '#/definitions/Error'
+          500:    
+            description: Not found or invalid
+            schema:
+              $ref: '#/definitions/Error'
+    delete:
+      summary: Delete Notification
+      description: Delete no longer needed notification
+      parameters:
+        - name: notification_id
+          in: query
+          type: integer
+          format: int64
+          required: true
+      responses: 
+        200:
+          description: Request was succesfully made
+          schema:
+            $ref: '#/definitions/Status'
+        404:   
+          description: Not found or invalid
+          schema:
+            $ref: '#/definitions/Error'
+        500:    
+          description: Not found or invalid
+          schema:
+            $ref: '#/definitions/Error'
+          
+      
+################################################################################
+#                              Objects Definitions                             #
+################################################################################   
+definitions:
+  Notification:
+    $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Notification.yaml"
+  AppUninstallRequest:
+    $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AppUninstallRequest.yaml"
+  Status:
+    $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Status.yaml"
+  Error:
+    $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml"
