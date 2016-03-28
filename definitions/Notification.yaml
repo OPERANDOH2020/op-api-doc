@@ -1,0 +1,11 @@
+type: object
+properties:
+  type:
+    type: string
+    description: notification type (e.g. security alert, recommendation)
+  message:
+    type: string
+    description: notification message 
+  device_id:
+    type: string
+    description: device unique identifier
