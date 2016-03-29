@@ -21,6 +21,9 @@ properties:
   content:
     description: Email content
     type: string
+  subject:
+    description: Email subject
+    type: string	
   attachments:
     description: Email attchments
     type: array
