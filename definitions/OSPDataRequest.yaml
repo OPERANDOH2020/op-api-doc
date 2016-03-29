@@ -1,21 +1,21 @@
 OSPDataRequest:
     type: object
     properties:
-        RequesterId:
+        requester_id:
             type: string
             description: Id of the requester (typically the id of an OSP).
 
-        Subject: 
+        subject: 
           type: string
           description: | 
             A description of the subject who the policies grants/doesn't grant to carry out.
 
-        RequestedURL:
+        requested_url:
             type: string
             description: | 
               The Requested URL of the data.
 
-        Action: 
+        action: 
             description: | 
                 The action being carried out on the private date e.g. accessing, disclosing to a third party. 
             type: string
@@ -26,9 +26,9 @@ OSPDataRequest:
               - Disclose
               - Archive
 
-        Attributes:
+        attributes:
             description: |
                 The set of context attributes attached to the policy (e.g. subject role, subject purpose)
             type: array
             items:
-                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PolicyAttribute.yaml#/PolicyAttribute'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PolicyAttribute.yaml#/policy_attribute'

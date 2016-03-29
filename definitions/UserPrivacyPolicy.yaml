@@ -1,28 +1,26 @@
 UserPrivacyPolicy:
     type: object
-    properties:
-        UserPolicyID:
+    properties:    
+        user_id:
             type: integer
             format: int64
-        user_id:
-            type: string
             description: The unique operando id of the user this policy is about. Each OPERANDO user has one and only one UPP.
 
-        UserPreferences:
+        user_preferences:
             type: array
             description: User stated preferences (questionnaire answers)
             items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml#/UserPreference'
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml#/user_preference'
 
-        SubscribedOSPsPolicies:
+        subscribed_osp_policies:
             type: array
             description: The user policies for each OSP they subscribe to.
             items:
-               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPConsents.yaml#/OSPConsents'
+               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPConsents.yaml#/osp_consents'
 
-        SubscribedOSPsSettings:
+        subscribed_osp_settings:
             type: array
             description: The user settings for each of their services
             items:
-               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPSettings.yaml#/OSPSettings'
+               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPSettings.yaml#/osp_setting'
                

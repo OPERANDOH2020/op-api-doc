@@ -6,17 +6,17 @@ AccessPolicy:
       - Action
       - Resource
     properties: 
-      Subject: 
+      subject: 
         type: string
         description: | 
             A description of the subject who the policies grants/doesn't grant to carry out.
         
-      Permission: 
+      permission: 
         description: | 
             Grant or deny the subject access to the resource via the operation defined in this policy
         type: boolean
 
-      Action: 
+      action: 
         description: | 
             The action being carried out on the private date e.g. accessing, disclosing to a third party. 
         type: string
@@ -27,14 +27,14 @@ AccessPolicy:
           - Disclose
           - Archive
       
-      Resource: 
+      resource: 
         description: | 
             The identifier of the resource that the policy concerns (e.g. URL)
         type: string
      
-      Attributes:
+      attributes:
         description: |
             The set of context attributes attached to the policy (e.g. subject role, subject purpose)
         type: array
         items:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PolicyAttribute.yaml#/PolicyAttribute'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PolicyAttribute.yaml#/policy_attribute'
