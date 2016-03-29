@@ -6,7 +6,10 @@ PrivacyRegulation:
     required:
         - legislation_sector
     properties:
-      legislation_sector:
+      RegID:
+          type: integer
+          format: int64
+      LegislationSector:
         type: string
         description: | 
             The identifier of the set of legislation rules this rule
