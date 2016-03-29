@@ -1,6 +1,9 @@
 OSPPrivacyPolicy:
     type: object
     properties: 
+      OSPPolicyID:
+            type: integer
+            format: int64
       PolicyText: 
         type: string
         description: | 
