@@ -22,7 +22,7 @@ OSPPrivacyPolicy:
             of user policies.
         type: array
         items:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPDataRequest.yaml#/osp_data_request'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPDataRequest.yaml#/OSPDataRequest'
 
       policies: 
         description: | 
@@ -30,7 +30,7 @@ OSPPrivacyPolicy:
             information can then be used in calculation of the policy and in compliance checking.
         type: array
         items:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/access_policy'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/AccessPolicy'
 
 
          

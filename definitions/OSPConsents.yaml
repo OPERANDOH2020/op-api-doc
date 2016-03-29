@@ -10,6 +10,6 @@ OSPConsents:
             type: array
             description: OSP access policies
             items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/access_policy'
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/AccessPolicy'
     
     
