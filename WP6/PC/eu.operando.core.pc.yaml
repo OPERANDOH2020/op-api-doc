@@ -132,7 +132,8 @@ paths:
             
   /regulations/{reg_id}/:
     post:
-      description: | Called by the Regulator API after a  
+      description: | 
+        Called by the Regulator API after a  
         new regulation is entered into OPERANDO. The regulation is first created and stored by the policy DB. Existing UPPs 
         are then evaluated to see if they comply with the regulation.
       tags:
