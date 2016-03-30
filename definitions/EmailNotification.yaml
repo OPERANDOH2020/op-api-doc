@@ -10,7 +10,7 @@ properties:
     type: array
     items:
       type: string
-   bcc:
+  bcc:
     description : Blind Copy Carbon user_id/email that should be notified
     type: array
     items:
