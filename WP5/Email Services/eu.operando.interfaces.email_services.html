@@ -185,7 +185,7 @@ font-style: italic;
     <div class="app-desc">Email Services API</div>
     <div class="app-desc">More information: <a href="http://www.operando.eu/">http://www.operando.eu/</a></div>
     <div class="app-desc">Contact Info: <a href="raf@rms.ro">raf@rms.ro</a></div>
-    <div class="app-desc">Version: 0.2.0</div>
+    <div class="app-desc">Version: 0.3.0</div>
     <div class="license-info">MIT</div>
     <div class="license-url">http://opensource.org/licenses/MIT</div>
   <h2>Access</h2>
@@ -199,6 +199,12 @@ font-style: italic;
   <div class="method-summary"></div>
   
   <ol>
+  
+  
+  
+  <li><a href="#emailNotificationFromAddressPost"><code><span class="http-method">post</span> /email_notification/{from_address}</code></a></li>
+  
+  
   
   
   
@@ -219,6 +225,88 @@ font-style: italic;
   </ol>
   
 
+  
+  
+  
+  
+  <div class="method"><a name="emailNotificationFromAddressPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /email_notification/{from_address}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">emailNotificationFromAddressPost</span>)</div>
+    
+    <div class="method-notes">Emit email notifications to internal/external users</div>
+
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">from_address (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The from address of the internalSender (e.g. notifications@operando_platform.eu) </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">email_notification (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; EmailNotification Object </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Status">Status</a>
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    Request was successfully completed
+    
+    
+    <h4 class="field-label">500</h4>
+    Invalid command
+    
+    
+    <h4 class="field-label">501</h4>
+    Invalid parameters args
+    
+    
+    <h4 class="field-label">523</h4>
+    The total size of your mailing exceeds the recipient server&#39;s limits.
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
   
   
   
@@ -443,7 +531,7 @@ font-style: italic;
     <div class="field-items">
       <div class="param">email (required)</div>
 
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Email Object that is forwareded by EmailService </div>
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Email Object that is forwarded by EmailService </div>
     </div>  <!-- field-items -->
     
 
@@ -478,7 +566,7 @@ font-style: italic;
 
     <h3 class="field-label">Responses</h3>
     
-    <h4 class="field-label">201</h4>
+    <h4 class="field-label">200</h4>
     Request was successfully completed
     
     
@@ -517,6 +605,10 @@ font-style: italic;
   
   
   
+    <li><a href="#EmailNotification"><code>EmailNotification</code></a></li>
+  
+  
+  
     <li><a href="#Error"><code>Error</code></a></li>
   
   
@@ -543,9 +635,34 @@ font-style: italic;
       
       <div class="param">bcc </div><div class="param-desc"><span class="param-type">array[String]</span> Blind Carbon Copy recipients user ids</div>
       
+      <div class="param">reply_to </div><div class="param-desc"><span class="param-type">String</span> Reply-to email address</div>
+      
       <div class="param">content </div><div class="param-desc"><span class="param-type">String</span> Email content</div>
       
-      <div class="param">attachments </div><div class="param-desc"><span class="param-type">array[https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Attachment.yaml]</span> Email attchments</div>
+      <div class="param">subject </div><div class="param-desc"><span class="param-type">String</span> Email subject</div>
+      
+      <div class="param">attachments </div><div class="param-desc"><span class="param-type">array[https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Attachment.yaml]</span> Email attachments</div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="EmailNotification">EmailNotification</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">sender </div><div class="param-desc"><span class="param-type">String</span> Internal Sender (e.g. watchdog@operando.eu, notifications@operando.eu)</div>
+      
+      <div class="param">to </div><div class="param-desc"><span class="param-type">array[String]</span> Analyst id/email</div>
+      
+      <div class="param">cc </div><div class="param-desc"><span class="param-type">array[String]</span> Analyst id/email</div>
+      
+      <div class="param">content </div><div class="param-desc"><span class="param-type">String</span> EmailNotification content</div>
+      
+      <div class="param">subject </div><div class="param-desc"><span class="param-type">String</span> Notification subject</div>
+      
+      <div class="param">attachments </div><div class="param-desc"><span class="param-type">array[https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Attachment.yaml]</span> Notification attachments</div>
       
       
     </div>  <!-- field-items -->
