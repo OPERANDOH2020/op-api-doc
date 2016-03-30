@@ -1,0 +1,26 @@
+type: object
+properties:
+  sender:
+    type: string
+    description : Internal Sender (e.g. watchdog@operando.eu, notifications@operando.eu)
+  to:
+    description : Analyst id/email
+    type: array
+    items:
+      type: string
+  cc:
+    description : Analyst id/email
+    type: array
+    items:
+      type: string
+  content:
+    description: EmailNotification content
+    type: string
+  subject:
+    type: string
+    description: Notification subject
+  attachments:
+    description: Notification attachments
+    type: array
+    items:
+      $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Attachment.yaml'

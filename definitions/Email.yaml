@@ -18,6 +18,9 @@ properties:
     type: array
     items:
       type: string
+  reply-to:	  
+    description: Reply-to email address
+    type:string	
   content:
     description: Email content
     type: string
@@ -25,7 +28,7 @@ properties:
     description: Email subject
     type: string	
   attachments:
-    description: Email attchments
+    description: Email attachments
     type: array
     items:
       $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Attachment.yaml'
