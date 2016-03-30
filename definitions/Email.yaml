@@ -18,9 +18,9 @@ properties:
     type: array
     items:
       type: string
-  reply-to:	  
+  reply_to:	  
     description: Reply-to email address
-    type:string	
+    type: string	
   content:
     description: Email content
     type: string
