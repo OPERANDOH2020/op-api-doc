@@ -15,9 +15,6 @@ properties:
     type: array
     items:
       type: string
-  reply_to:	  
-    description: Reply-to email address
-    type: string		  
   content:
     description: EmailNotification content
     type: string
