@@ -1,15 +1,17 @@
 type: object
 properties:
-  sender:
-    type: string
-    description : Internal Sender (e.g. watchdog@operando.eu, notifications@operando.eu)
   to:
-    description : Analyst id/email
+    description :  user_id/email that should be notified
     type: array
     items:
       type: string
   cc:
-    description : Analyst id/email
+    description : Copy Carbon user_id/email that should be notified
+    type: array
+    items:
+      type: string
+   bcc:
+    description : Blind Copy Carbon user_id/email that should be notified
     type: array
     items:
       type: string
