@@ -6,7 +6,7 @@ OSPSettings:
         description: | 
           The unique ID of the OSP user is subscribed to and these settings concern. 
           
-      OSPSettings:
+      osp_settings:
         type: array
         description: The list of privacy settings at an OSP
         items:

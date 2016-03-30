@@ -15,7 +15,7 @@ schemes:
   - http
   - https
 host: operando.eu
-basePath: /policycomputation
+basePath: /policy_computation
 tags:
   - name: Policy Evaluation
     description: |
@@ -32,7 +32,7 @@ paths:
   /evaluate_osp_request:
     post:
       summary: Evaluate a set of OSP requests against the User Privacy Policy
-      description: >
+      description: |
         Called by the Rights Management Component when evaluating if an OSP
         request or set of requests matches the user preferences stored in the
         user's UPP.
@@ -61,14 +61,15 @@ paths:
         - POST
       responses:
         '200':
-          description: 'Evaluation was successful and a report is produced. The report indicates if the request(s) is allowed. Where not allowed, the report indicates'
+          description: |
+            Evaluation was successful and a report is produced. The report indicates if the request(s) is allowed. Where not allowed, the report indicates.
           schema:
             $ref: '#/definitions/PolicyEvaluationReport'
   
   /evaluate_osp_policy:
     post:
       summary: Evaluate a set of OSP requests against the legislation
-      description: >
+      description: |
         Method to run a new OSP registers with OPERANDO; or a legislation
         changes.
       parameters:
@@ -129,9 +130,12 @@ paths:
             $ref: '#/definitions/PolicyEvaluationReport'
   
             
-  '/regulations/{reg_id}/':
+  /regulations/{reg_id}/:
     post:
-      description: "Called by the Regulator API. A New regulation is entered into OPERANDO. The regulation is stored in the policy DB. Existing UPPs are then evaluated to see if they comply with the regulation. \n"
+      description: | 
+        Called by the Regulator API after a  
+        new regulation is entered into OPERANDO. The regulation is first created and stored by the policy DB. Existing UPPs 
+        are then evaluated to see if they comply with the regulation.
       tags:
         - Privacy Legislation
       parameters:
@@ -154,12 +158,12 @@ paths:
           description: Successful response. The regulation has been added.
         '409':
           description: 'Error occured. The resource already exists, so a new resource cannot be created.'
+    
     put:
-      description: >
+      description: |
         Called by the Regulator API. An updated regulation is entered into
         OPERANDO. The regulation is stored in the policy DB. Existing UPPs are
         then evaluated to see if they comply with the regulation.
-
 
 
         Pre-condition -- The regulation must have been written to the system.
@@ -196,5 +200,5 @@ definitions:
         description: Request status success or error
       compliance:
         type: string
-        description: "Message stating the reasons any request failed e.g. breaks the user's privacy preferences."
+        description: Message stating the reasons any request failed e.g. breaks the user's privacy preferences.
 

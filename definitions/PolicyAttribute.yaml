@@ -1,7 +1,7 @@
 PolicyAttribute:
       type: object
       properties:
-          AttributeName:
+          attribute_name:
             type: string
-          AttributeValue:
+          attribute_value:
             type: string

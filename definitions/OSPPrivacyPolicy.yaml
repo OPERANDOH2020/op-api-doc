@@ -1,20 +1,20 @@
 OSPPrivacyPolicy:
     type: object
     properties: 
-      OSPPolicyID:
+      osp_policy_id:
             type: integer
             format: int64
-      PolicyText: 
+      policy_text: 
         type: string
         description: | 
            The content of the OSP privacy policy, textually described and published. It is
            a the full text adverstised by the OSP.
-      PolicyURL:
+      policy_url:
           type: string
           description: |
             The url location of the privacy policy of the OSP
           
-      Workflow: 
+      workflow: 
         description: | 
             The sequence of requests that this OSP makes (simple ordered array list
             in this version). The requests describes the operations that the OSP may
@@ -24,7 +24,7 @@ OSPPrivacyPolicy:
         items:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPDataRequest.yaml#/OSPDataRequest'
 
-      Policies: 
+      policies: 
         description: | 
             The list of rights that the OSP intends to follow e.g. give X access to Y data for Z purpose. This
             information can then be used in calculation of the policy and in compliance checking.
