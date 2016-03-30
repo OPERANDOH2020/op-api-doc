@@ -6,7 +6,7 @@ info:
     name : RomSoft
     url: http://www.operando.eu/
   description: Email Services API
-  version: 0.3.0
+  version: 0.4.0
   license:
     name: MIT
     url: http://opensource.org/licenses/MIT
@@ -47,12 +47,6 @@ parameters:
     required: true
     schema:
        $ref: '#/definitions/Email'
-  from_address:
-    name: from_address
-    in: path
-    required: true
-    type: string
-    description: The from address of the internalSender (e.g. notifications@operando_platform.eu)
   email_notification:
     name: email_notification
     in: body
@@ -110,11 +104,10 @@ paths:
   #           Email Notifications                #
   ################################################            
             
-  /email_notification/{from_address}:
+  /email_notification:
     post:
       description: Emit email notifications to internal/external users
       parameters: 
-        - $ref: '#/parameters/from_address'
         - $ref: '#/parameters/email_notification'
       responses:
         200:
