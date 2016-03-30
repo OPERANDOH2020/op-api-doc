@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: MOBILE APPLICATION API
   description: Mobile Application (MA) API
-  version: 0.1.0
+  version: 0.2.0
   contact:
     email: raf@rms.ro
     name : RomSoft
@@ -34,18 +34,24 @@ tags:
 parameters:
   user_id:
     name: user_id
-    in: query
+    in: path
     description: Unique identifier representing a specific user
     type: string
     format: uuid
     required: true
   device_id:
     name: device_id
-    in: query
+    in: path
     description: device unique identifier
     type: string
-    
-    
+    required: true
+  notification:
+    name: notification
+    in: body
+    required: true
+    schema:
+      $ref: '#/definitions/Notification'
+
 ################################################################################
 #                                   Paths                                      #    
 ################################################################################
@@ -53,7 +59,7 @@ paths:
   ################################################
   #              MOBILE APPLICATION              #
   ################################################
-  /apps:
+  /apps/{user_id}/{device_id}:
     get:
       summary: Get all mobile apps
       description: |
@@ -82,6 +88,8 @@ paths:
       summary: Uninstall a list of applications
       description: Recommend the user to uninstall a list of malicious apps
       parameters:
+        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/device_id'
         - name: apps
           in: body
           required: true
@@ -103,11 +111,10 @@ paths:
           schema:
             $ref: '#/definitions/Error'
       
-  /notifications:
+  /notifications/{user_id}/{device_id}:
     get:
       summary: Get all notifications for user
-      description: Returns all notifications for a specified user.
-        Also the device id can be provided.
+      description: Returns all notifications for a specified user. Also the device id can be provided.
       tags:
         - Mobile Notifications
       parameters:
@@ -129,35 +136,34 @@ paths:
           schema:
             $ref: '#/definitions/Error'
     put:
-        summary: Store notifications
-        description:  Add notifications that should be presented to user when it will be possible
-        tags:
+      summary: Store notifications
+      description:  Add notifications that should be presented to user when it will be possible
+      tags:
         - Mobile Notifications
-        parameters:
+      parameters:
         - $ref: '#/parameters/user_id'
         - $ref: '#/parameters/device_id'
-        - name: notification
-          in: body
-          required: true
+        - $ref: '#/parameters/notification'
+        
+      responses:
+        200:
+          description: Get user notifications
           schema:
-              $ref: '#/definitions/Notification'
-        responses:
-          200:
-            description: Get user notifications
-            schema:
-              $ref: '#/definitions/Status'
-          404:   
-            description: Not found or invalid
-            schema:
-              $ref: '#/definitions/Error'
-          500:    
-            description: Not found or invalid
-            schema:
-              $ref: '#/definitions/Error'
+            $ref: '#/definitions/Status'
+        404:   
+          description: Not found or invalid
+          schema:
+            $ref: '#/definitions/Error'
+        500:    
+          description: Not found or invalid
+          schema:
+           $ref: '#/definitions/Error'
     delete:
       summary: Delete Notification
       description: Delete no longer needed notification
       parameters:
+        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/device_id'
         - name: notification_id
           in: query
           type: integer

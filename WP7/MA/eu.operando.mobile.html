@@ -185,7 +185,7 @@ font-style: italic;
     <div class="app-desc">Mobile Application (MA) API</div>
     <div class="app-desc">More information: <a href="http://www.operando.eu/">http://www.operando.eu/</a></div>
     <div class="app-desc">Contact Info: <a href="raf@rms.ro">raf@rms.ro</a></div>
-    <div class="app-desc">Version: 0.1.0</div>
+    <div class="app-desc">Version: 0.2.0</div>
     <div class="license-info">MIT</div>
     <div class="license-url">http://opensource.org/licenses/MIT</div>
   <h2>Access</h2>
@@ -202,23 +202,23 @@ font-style: italic;
   
   
   
-  <li><a href="#notificationsDelete"><code><span class="http-method">delete</span> /notifications</code></a></li>
+  <li><a href="#notificationsUserIdDeviceIdDelete"><code><span class="http-method">delete</span> /notifications/{user_id}/{device_id}</code></a></li>
   
   
   
   
   
-  <li><a href="#appsDelete"><code><span class="http-method">delete</span> /apps</code></a></li>
+  <li><a href="#appsUserIdDeviceIdDelete"><code><span class="http-method">delete</span> /apps/{user_id}/{device_id}</code></a></li>
   
-  <li><a href="#appsGet"><code><span class="http-method">get</span> /apps</code></a></li>
-  
-  
+  <li><a href="#appsUserIdDeviceIdGet"><code><span class="http-method">get</span> /apps/{user_id}/{device_id}</code></a></li>
   
   
   
-  <li><a href="#notificationsGet"><code><span class="http-method">get</span> /notifications</code></a></li>
   
-  <li><a href="#notificationsPut"><code><span class="http-method">put</span> /notifications</code></a></li>
+  
+  <li><a href="#notificationsUserIdDeviceIdGet"><code><span class="http-method">get</span> /notifications/{user_id}/{device_id}</code></a></li>
+  
+  <li><a href="#notificationsUserIdDeviceIdPut"><code><span class="http-method">put</span> /notifications/{user_id}/{device_id}</code></a></li>
   
   
   
@@ -229,14 +229,23 @@ font-style: italic;
   
   
   
-  <div class="method"><a name="notificationsDelete"/>
+  <div class="method"><a name="notificationsUserIdDeviceIdDelete"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /notifications</code></pre></div>
-    <div class="method-summary">Delete Notification (<span class="nickname">notificationsDelete</span>)</div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /notifications/{user_id}/{device_id}</code></pre></div>
+    <div class="method-summary">Delete Notification (<span class="nickname">notificationsUserIdDeviceIdDelete</span>)</div>
     
     <div class="method-notes">Delete no longer needed notification</div>
 
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div><div class="param">device_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; device unique identifier </div>
+    </div>  <!-- field-items -->
     
 
     
@@ -300,14 +309,23 @@ font-style: italic;
   
   
   
-  <div class="method"><a name="appsDelete"/>
+  <div class="method"><a name="appsUserIdDeviceIdDelete"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /apps</code></pre></div>
-    <div class="method-summary">Uninstall a list of applications (<span class="nickname">appsDelete</span>)</div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /apps/{user_id}/{device_id}</code></pre></div>
+    <div class="method-summary">Uninstall a list of applications (<span class="nickname">appsUserIdDeviceIdDelete</span>)</div>
     
     <div class="method-notes">Recommend the user to uninstall a list of malicious apps</div>
 
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div><div class="param">device_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; device unique identifier </div>
+    </div>  <!-- field-items -->
     
 
     
@@ -367,31 +385,31 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="appsGet"/>
+  <div class="method"><a name="appsUserIdDeviceIdGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /apps</code></pre></div>
-    <div class="method-summary">Get all mobile apps (<span class="nickname">appsGet</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /apps/{user_id}/{device_id}</code></pre></div>
+    <div class="method-summary">Get all mobile apps (<span class="nickname">appsUserIdDeviceIdGet</span>)</div>
     
     <div class="method-notes">Returns all installed apps on the user devices.</div>
 
     
-
-    
-
-    
-
-    
-
-    
-    <h3 class="field-label">Query parameters</h3>
+    <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">user_id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Unique identifier representing a specific user </div><div class="param">device_id (optional)</div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div><div class="param">device_id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; device unique identifier </div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; device unique identifier </div>
     </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -440,31 +458,31 @@ font-style: italic;
   
   
   
-  <div class="method"><a name="notificationsGet"/>
+  <div class="method"><a name="notificationsUserIdDeviceIdGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /notifications</code></pre></div>
-    <div class="method-summary">Get all notifications for user (<span class="nickname">notificationsGet</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /notifications/{user_id}/{device_id}</code></pre></div>
+    <div class="method-summary">Get all notifications for user (<span class="nickname">notificationsUserIdDeviceIdGet</span>)</div>
     
     <div class="method-notes">Returns all notifications for a specified user. Also the device id can be provided.</div>
 
     
-
-    
-
-    
-
-    
-
-    
-    <h3 class="field-label">Query parameters</h3>
+    <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       <div class="param">user_id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Unique identifier representing a specific user </div><div class="param">device_id (optional)</div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div><div class="param">device_id (required)</div>
 
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; device unique identifier </div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; device unique identifier </div>
     </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -509,14 +527,23 @@ font-style: italic;
   </div> <!-- method -->
   <hr/>
   
-  <div class="method"><a name="notificationsPut"/>
+  <div class="method"><a name="notificationsUserIdDeviceIdPut"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /notifications</code></pre></div>
-    <div class="method-summary">Store notifications (<span class="nickname">notificationsPut</span>)</div>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /notifications/{user_id}/{device_id}</code></pre></div>
+    <div class="method-summary">Store notifications (<span class="nickname">notificationsUserIdDeviceIdPut</span>)</div>
     
     <div class="method-notes">Add notifications that should be presented to user when it will be possible</div>
 
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique identifier representing a specific user </div><div class="param">device_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; device unique identifier </div>
+    </div>  <!-- field-items -->
     
 
     
@@ -532,15 +559,6 @@ font-style: italic;
 
     
 
-    
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Unique identifier representing a specific user </div><div class="param">device_id (optional)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; device unique identifier </div>
-    </div>  <!-- field-items -->
     
 
     
