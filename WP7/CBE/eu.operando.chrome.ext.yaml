@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: Browser Extension API
   description: Browser Extension  API
-  version: 0.1.0
+  version: 0.2.0
   contact:
     email: raf@rms.ro
     name : RomSoft
@@ -68,26 +68,6 @@ parameters:
 #                                     Paths                                    #
 ################################################################################    
 paths:
-  /identity/{user_id}: 
-    get:
-      summary: Ask for current used user identity 
-      parameters:
-        - $ref: "#/parameters/user_id"
-      tags:
-        - Browser Identity
-      responses:
-        200:
-          description: An object containing current identity
-          schema:
-            $ref: '#/definitions/Identity'
-        404:
-          description: Identity not found
-          schema: 
-            $ref: '#/definitions/Status'
-        500:
-          description: Unexpected error
-          schema: 
-            $ref: '#/definitions/Error'      
   /social_networks/{user_id}:
     get:
       summary: Ask for all user's social networks  
@@ -230,8 +210,6 @@ paths:
             $ref: '#/definitions/Error'            
 
 definitions:
-  Identity:
-    $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Identity.yaml'
   SocialNetwork:
     $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/SocialNetwork.yaml'
   PrivacySetting:
