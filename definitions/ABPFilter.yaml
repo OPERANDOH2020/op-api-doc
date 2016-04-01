@@ -1,0 +1,11 @@
+type: object
+properties:
+  filter_type:
+    type: string
+    description: Filter type (e.g. malware_blocking, anti_tracking)
+  filter_location:
+    type: string
+    description: URL of the file that contains the filter
+  filter_name:
+    type: string
+    description: Filter name
