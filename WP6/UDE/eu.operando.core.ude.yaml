@@ -27,6 +27,9 @@ tags:
   - name: Anti Tracking
     description: |
       Privacy Settings intend to secure the user private data.
+  - name: Sensor Leakage Monitoring    
+    description: |
+      Audit log 
 
 ################################################################################
 #                                   Parameters                                 #
@@ -56,6 +59,11 @@ parameters:
     required: true
     schema:
       $ref: '#/definitions/ABPFilter'
+  sensor_id:  
+    name: sensor_id
+    in: path
+    required: true
+    type: string
 ################################################################################
 #                                   Paths                                      #    
 ################################################################################
@@ -150,15 +158,36 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'    
-          
-        
-        
-        
+  /sensors/{device_id}/{sensor_id}:
+    get:
+      summary: Get sensors data leakage and logs information
+      parameters:
+        - $ref: '#/parameters/device_id'
+        - $ref: '#/parameters/sensor_id'
+      tags:
+        - Sensor Leakage Monitoring 
+      responses:
+        200:
+          description: Return an array containing sensor logs
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SensorLog'
+        404:
+          description: Not found or invalid.
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'    
   
 ################################################################################
 #                              Objects Definitions                             #
 ################################################################################   
 definitions:
+  SensorLog:
+    $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/SensorLog.yaml"
   ABPFilter:
     $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/ABPFilter.yaml"
   PrivacySetting:
