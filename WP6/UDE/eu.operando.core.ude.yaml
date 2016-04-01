@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: USER DEVICE ENFORCEMENT API
   description: User Device Enformcement API
-  version: 0.2.0
+  version: 0.3.0
   contact:
     email: raf@rms.ro
     name : RomSoft
@@ -24,8 +24,9 @@ tags:
   - name: Privacy Settings
     description: |
       Privacy Settings intend to secure the user private data.
-  #- name: OSE
-  #  description: APIs related to Online Service Provider Enforcement.
+  - name: Anti Tracking
+    description: |
+      Privacy Settings intend to secure the user private data.
 
 ################################################################################
 #                                   Parameters                                 #
@@ -33,7 +34,7 @@ tags:
 parameters:
   user_id:
     name: user_id
-    in: query
+    in: path
     description: Unique identifier representing a specific user
     type: string
     format: uuid
@@ -43,7 +44,18 @@ parameters:
     in: query
     description: OSP unique identifier
     type: string
-    required: true  
+    required: true
+  device_id:
+    name: device_id
+    type: string
+    required: true
+    in: path
+  abp_filter:
+    name: abp_filter
+    in: body
+    required: true
+    schema:
+      $ref: '#/definitions/ABPFilter'
 ################################################################################
 #                                   Paths                                      #    
 ################################################################################
@@ -51,7 +63,7 @@ paths:
   ################################################
   #            User Device Enforcement           #
   ################################################
-  /privacy_settings:
+  /privacy_settings/{user_id}:
     get:
       summary: Get Privacy Settings
       description: |
@@ -116,11 +128,39 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+  /antitracker/{user_id}/{device_id}:
+    put:
+      summary: Update ADBP filter list
+      parameters:
+        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/device_id'
+        - $ref: '#/parameters/abp_filter'
+      tags:
+        - Anti Tracking
+      responses:
+        200:
+          description: Antitracker filters were successfully applied
+          schema:
+            $ref: '#/definitions/Status'
+        404:
+          description: Not found or invalid.
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'    
+          
+        
+        
+        
   
 ################################################################################
 #                              Objects Definitions                             #
 ################################################################################   
 definitions:
+  ABPFilter:
+    $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/ABPFilter.yaml"
   PrivacySetting:
     $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacySetting.yaml"
   Status:
