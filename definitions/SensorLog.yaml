@@ -1,0 +1,8 @@
+type: object
+properties:
+  sensor_id:
+    type: string
+    description: sensor unique identifier
+  sensor_log:
+    type: string
+    description: The sensor log content
