@@ -59,6 +59,38 @@ parameters:
 #                                   PATHs                                      #
 ################################################################################
 paths:
+  /offers:
+    post:
+      summary: Creates a new offer for an OSP .
+      description: Request from Administration Console to create a new offer for an OSP.
+      operationId: createOffer
+      tags:
+        - Offers
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: offer
+          in: body
+          description: The offer data in JSON format.
+          schema:
+            $ref: '#/definitions/OfferRequest'
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                items:
+                  $ref: '#/definitions/OfferStatus'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /offers/search:
     get:      
       summary: Search offers in databse
@@ -93,37 +125,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Offer'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-    post:
-      summary: Creates a new offer for an OSP .
-      description: Request from Administration Console to create a new offer for an OSP.
-      operationId: createOffer
-      tags:
-        - Offers
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: offer
-          in: body
-          description: The offer data in JSON format.
-          schema:
-            $ref: '#/definitions/Offer'
-          required: true
-      responses:
-        "200":
-          description: Successful operation
-          schema:
-            type: object
-            properties:
-              data:
-                type: object
-                items:
-                  $ref: '#/definitions/OfferStatus'
         default:
           description: Unexpected error
           schema:
@@ -166,7 +167,7 @@ paths:
           in: body
           description: The offer data in JSON format.
           schema:
-            $ref: '#/definitions/Offer'
+            $ref: '#/definitions/OfferRequest'
           required: true
       responses:
         "200":
@@ -255,7 +256,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'   
-  /deals/{deal-id}/acknoledge:
+  /deals/{deal-id}/acknoledgement:
     parameters:
       - $ref: '#/parameters/deal-id'
     post:
@@ -305,7 +306,7 @@ paths:
           in: body
           description: The OSP data in JSON format.
           schema:
-            $ref: '#/definitions/OSP'
+            $ref: '#/definitions/OSPRequest'
           required: true
       responses:
         "200":
@@ -408,6 +409,31 @@ definitions:
         type: string
         format: date-time
         description: Date when the offer expires.
+  OfferRequest:
+    type: object
+    properties:
+      osp_id:
+        type: string
+        description: Id of the OSP to which belongs the offer.
+      title:
+        type: string
+        description: Description of the offer.
+      description:
+        type: string
+        description: Description of the offer.
+      service_website:
+        type: string
+        description: Website of the offering.
+      is_enabled:
+        type: boolean
+        description: Indication whether the offer is enabled or not.
+      osp_callback_url:
+        type: string
+        description: Callback url.
+      expiration_date:
+        type: string
+        format: date-time
+        description: Date when the offer expires.        
   Deal:
     type: object
     properties:
@@ -421,6 +447,19 @@ definitions:
         type: string
         format: date-time
         description: Date when the deal was created (accepted).
+  DealRequest:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique ID of the deal.
+      offer_id:
+        type: string
+        description: Unique ID of the offer.
+      created_at:
+        type: string
+        format: date-time
+        description: Date when the deal was created (accepted).        
   Error:
     type: object
     properties:
@@ -446,6 +485,18 @@ definitions:
       id:
         type: string
         description: Id of the OSP.
+      name:
+        type: string
+        description: Name of the OSP.
+      description:
+        type: string
+        description: Description of the OSP.
+      osp_website:
+        type: string
+        description: Website of the OSP.
+  OSPRequest:
+    type: object
+    properties:
       name:
         type: string
         description: Name of the OSP.
