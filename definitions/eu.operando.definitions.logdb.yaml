@@ -1,3 +1,4 @@
+LogRequest:
 type: object
 properties:
   requesterType:
