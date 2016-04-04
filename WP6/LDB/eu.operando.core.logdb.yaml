@@ -41,7 +41,7 @@ paths:
         in: body
         description: The request data in JSON format to be inserted in the database by using Log4j
         schema:
-          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Request.yaml'
+          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/LogRequest.yaml'
         required: true
       responses:
         "200":
