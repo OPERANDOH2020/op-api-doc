@@ -135,7 +135,7 @@ paths:
           description: Not found or invalid
           schema:
             $ref: '#/definitions/Error'
-    put:
+    post:
       summary: Store notifications
       description:  Add notifications that should be presented to user when it will be possible
       tags:
