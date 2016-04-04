@@ -8,7 +8,7 @@ properties:
       - Module.            
   requesterId:
     type: string
-    description: Id of the requester (typically the id of an OSP).
+    description: Id of the requester (e.g the id of an OSP).
   logPriority:
     type: string
     description: Priority level of the data to be logged.
@@ -21,7 +21,7 @@ properties:
     type: string
     description: Type of the data to be logged.
     enum: 
-      - Info 
+      - Info      
       - Warn
       - Error
       - Fatal                    
