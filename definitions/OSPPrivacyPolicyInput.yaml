@@ -1,4 +1,4 @@
-OSPPrivacyPolicy:
+OSPPrivacyPolicyInput:
     type: object
     properties: 
       policy_text: 

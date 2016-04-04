@@ -80,7 +80,10 @@ parameters:
     description: The query filter to be matched - ?filter={json description}
     type: string
     required: true  
-    
+
+################################################################################
+#                                   paths                                      #
+################################################################################
 paths:
   /user_privacy_policy/:
     get:
@@ -219,7 +222,7 @@ paths:
           description: The first instance of this regulation document
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulationInput'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulationInput.yaml#/PrivacyRegulationInput'
             
       responses:
         '201':
@@ -262,7 +265,7 @@ paths:
           description: The changed instance of this PrivacyRegulation
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulationInput'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulationInput.yaml#/PrivacyRegulationInput'
       responses:
         '204':
           description: The document (PrivacyRegulation) was successfully updated in the database.
@@ -318,7 +321,7 @@ paths:
           description: The first instance of this OSP document
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicyInput'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicyInput.yaml#/OSPPrivacyPolicyInput'
       responses:
         '201':
           description: The document (OSPBehaviour) was successfully created in the database.
@@ -361,7 +364,7 @@ paths:
           description: The changed instance of this OSPRequest
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicyInput'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicyInput.yaml#/OSPPrivacyPolicyInput'
 
       responses:
         '204':

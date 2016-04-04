@@ -1,4 +1,4 @@
-PrivacyRegulation:
+PrivacyRegulationInput:
     type: object
     description: |
         A privacy rule that reflects a given privacy legislation as described
