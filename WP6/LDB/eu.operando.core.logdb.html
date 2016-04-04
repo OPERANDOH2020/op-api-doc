@@ -296,52 +296,15 @@ font-style: italic;
   <ol>
   
   
-    <li><a href="#Request"><code>Request</code></a></li>
-  
-  
-  
     <li><a href="#Error"><code>Error</code></a></li>
+  
+  
+  
+    <li><a href="#LogRequest"><code>LogRequest</code></a></li>
   
   
   </ol>
 
-  
-  
-  <div class="model">
-    <h3 class="field-label"><a name="Request">Request</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      <div class="param">requestComponentId </div><div class="param-desc"><span class="param-type">String</span> Id of the called component.</div>
-      
-      <div class="param">requestId </div><div class="param-desc"><span class="param-type">String</span> Request id.</div>
-      
-      <div class="param">iPAddress </div><div class="param-desc"><span class="param-type">String</span> IP Address from which comes the call.</div>
-      
-      <div class="param">mACAddress </div><div class="param-desc"><span class="param-type">String</span> MAC Address from which comes the call.</div>
-      
-      <div class="param">proxyId </div><div class="param-desc"><span class="param-type">String</span> Proxy Id from which comes the call (could be google.com for example)</div>
-      
-      <div class="param">requesterId </div><div class="param-desc"><span class="param-type">String</span> Id of the requester (typically the id of an OSP).</div>
-      
-      <div class="param">requestedURL </div><div class="param-desc"><span class="param-type">String</span> Requested URL.</div>
-      
-      <div class="param">postedData </div><div class="param-desc"><span class="param-type">String</span> Posted data wanted to be stored in the data base.</div>
-      
-      <div class="param">accessGranted </div><div class="param-desc"><span class="param-type">Boolean</span> Value indicating if the access is granted or not.</div>
-      
-      <div class="param">navigatorUserAgent </div><div class="param-desc"><span class="param-type">String</span> Data describing the characteristics of the navigator from which is made the request.</div>
-      
-      <div class="param">isMobile </div><div class="param-desc"><span class="param-type">Boolean</span> Value indicating if the request comes from a mobile device or not.</div>
-      
-      <div class="param">mobileType </div><div class="param-desc"><span class="param-type">String</span> If the request comes from a mobile device, the description of that device.</div>
-      
-      <div class="param">hashLogRM </div><div class="param-desc"><span class="param-type">String</span> Hash value in order to provide a security plus.</div>
-      
-      <div class="param">hashLogDB </div><div class="param-desc"><span class="param-type">String</span> Hash value in order to provide a security plus.</div>
-      
-      
-    </div>  <!-- field-items -->
-  </div>
-  
   
   
   <div class="model">
@@ -352,6 +315,36 @@ font-style: italic;
       <div class="param">message </div><div class="param-desc"><span class="param-type">String</span> </div>
       
       <div class="param">fields </div><div class="param-desc"><span class="param-type">String</span> </div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="LogRequest">LogRequest</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">requesterType </div><div class="param-desc"><span class="param-type">String</span> Source type from which comes the request.</div>
+      
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">Process.</div><div class="param-enum">Module.</div>
+      
+      <div class="param">requesterId </div><div class="param-desc"><span class="param-type">String</span> Id of the requester (typically the id of an OSP).</div>
+      
+      <div class="param">logPriority </div><div class="param-desc"><span class="param-type">String</span> Priority level of the data to be logged.</div>
+      
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">Low</div><div class="param-enum">Normal</div><div class="param-enum">High</div><div class="param-enum">Critical</div>
+      
+      <div class="param">logDataType </div><div class="param-desc"><span class="param-type">String</span> Type of the data to be logged.</div>
+      
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">Info</div><div class="param-enum">Warn</div><div class="param-enum">Error</div><div class="param-enum">Fatal</div>
+      
+      <div class="param">title </div><div class="param-desc"><span class="param-type">String</span> Subject of the event to be logged.</div>
+      
+      <div class="param">description </div><div class="param-desc"><span class="param-type">String</span> Description of the event to be logged.</div>
       
       
     </div>  <!-- field-items -->
