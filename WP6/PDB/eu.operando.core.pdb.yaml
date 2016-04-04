@@ -127,7 +127,7 @@ paths:
           description: Error. The document (UPP) at this id has previously been created in the database.
     
     
-  /user_privacy_policy/{user_id}/:
+  /user_privacy_policy/{user-id}/:
     get:
       summary: Read the user privacy policy for the given user id.
       description: |
@@ -230,7 +230,7 @@ paths:
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'    
         
-  /regulations/{reg_id}/:
+  /regulations/{reg-id}/:
     get:
       summary: Read a given legislation with its ID.
       description: |
@@ -328,7 +328,7 @@ paths:
         '405':
           description: Error. The document (OSPBehaviour) at this id has previously been created in the database.
           
-  /OSP/{osp_id}/:
+  /OSP/{osp-id}/:
     get:
       summary: Read a given OSP behaviour policy.
       description: |
