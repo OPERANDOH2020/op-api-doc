@@ -6,8 +6,6 @@ PrivacyRegulation:
     required:
         - legislation_sector
     properties:
-      reg_id:
-          type: string
       legislation_sector:
         type: string
         description: | 

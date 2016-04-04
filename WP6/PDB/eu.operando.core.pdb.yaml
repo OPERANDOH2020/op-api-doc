@@ -38,6 +38,10 @@ schemes:
 host: operando.eu
 basePath: /policy_database
 
+
+################################################################################
+#                                   Tags                                       #
+################################################################################
 tags:
   - name: UPP
     description: |
@@ -48,6 +52,35 @@ tags:
     description: |
       Storage and management of privacy regulations.
       
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  user-id:
+    name: user-id
+    in: path
+    description: The user identifier number
+    type: string
+    required: true
+  osp-id:
+    name: osp-id
+    in: path
+    description: The identifier number of an OSP
+    type: string
+    required: true
+  reg-id:
+    name: reg-id
+    in: path
+    description: The identifier number of a regulation
+    type: string
+    required: true
+  filter:
+    name: filter
+    in: query
+    description: The query filter to be matched - ?filter={json description}
+    type: string
+    required: true  
+    
 paths:
   /user_privacy_policy/:
     get:
@@ -58,11 +91,7 @@ paths:
         - UPP
         - GET
       parameters:
-        - name: filter
-          in: query
-          description: The query filter to be matched - ?filter={json description}
-          type: string
-          required: true
+        - $ref: '#/parameters/filter'
       responses:
         '200':
           description: The list of UPP documents that match the query are returned in full.
@@ -72,30 +101,7 @@ paths:
               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPrivacyPolicy.yaml#/UserPrivacyPolicy'
         '405':
           description: Error in request. There is an invalid input in the query field.
-    
-  /user_privacy_policy/{user_id}/:
-    get:
-      summary: Read the user privacy policy for the given user id.
-      description: |
-        Get a specific UPP document via the user's id. This will return the full user privacy policy document in json format.
-      tags:
-        - UPP
-        - GET
-      parameters:
-        - name: user_id
-          in: path
-          description: Unique identifier representing a specific user
-          type: integer
-          format: int64
-          required: true
-      responses:
-        '200':
-          description: The UPP document requested to be read is returned in full
-          schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPrivacyPolicy.yaml#/UserPrivacyPolicy'
-        '404':
-          description: Error - the user does not exist.
-    
+          
     post:
       summary: Create a new UPP entry in the database for the user.
       description: |
@@ -105,12 +111,6 @@ paths:
         - UPP
         - POST
       parameters:
-        - name: user_id
-          in: path
-          description: Unique identifier representing a specific user
-          type: integer
-          format: int64
-          required: true
         - name: upp
           in: body
           description: The first instance of this user's UPP
@@ -122,6 +122,27 @@ paths:
           description: The document (UPP) was successfully created in the database.
         '405':
           description: Error. The document (UPP) at this id has previously been created in the database.
+    
+    
+  /user_privacy_policy/{user_id}/:
+    get:
+      summary: Read the user privacy policy for the given user id.
+      description: |
+        Get a specific UPP document via the user's id. This will return the full user privacy policy document in json format.
+      tags:
+        - UPP
+        - GET
+      parameters:
+        - $ref: '#/parameters/user-id'
+      responses:
+        '200':
+          description: The UPP document requested to be read is returned in full
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPrivacyPolicy.yaml#/UserPrivacyPolicy'
+        '404':
+          description: Error - the user does not exist.
+    
+
     put:
       summary: Update UPP entry in the database for the user.
       description: |
@@ -132,12 +153,7 @@ paths:
         - UPP
         - PUT
       parameters:
-        - name: user_id
-          in: path
-          description: Unique identifier representing a specific user
-          type: integer
-          format: int64
-          required: true
+        - $ref: '#/parameters/user-id'
           
         - name: upp
           in: body
@@ -150,6 +166,7 @@ paths:
           description: The document (UPP) was successfully updated in the database.
         '404':
           description: Error. No document exists to be updated.
+    
     delete:
       summary: Remove the UPP entry in the database for the user.
       description: |
@@ -159,12 +176,7 @@ paths:
         - UPP
         - DELETE
       parameters:
-        - name: user_id
-          in: path
-          description: Unique identifier representing a specific user
-          type: integer
-          format: int64
-          required: true
+        - $ref: '#/parameters/user-id'
       responses:
         '204':
           description: The document (UPP) was successfully deleted from the database.
@@ -175,17 +187,14 @@ paths:
     get:
       summary: Perform a search query across the collection of regulation.
       description: | 
-        The query contains a json object (names, values) and the request returns the list of documents (regulations) where the filter matches i.e. the document contains fields with those values.
+        The query contains a json object (names, values) and the request returns 
+        the list of documents (regulations) where the filter matches i.e. the 
+        document contains fields with those values.
       tags:
         - Legislation
         - GET
       parameters:
-        - name: filter
-          in: query
-          description: |
-            The query filter to be matched - ?filter={json description}
-          type: string
-          required: true
+        - $ref: '#/parameters/filter'
       responses:
         '200':
           description: The list of regulations documents that match the query are returned in full.
@@ -210,29 +219,25 @@ paths:
           description: The first instance of this regulation document
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulationInput'
             
       responses:
         '201':
           description: The document (PrivacyRegulation) was successfully created in the database and the location field in the HTTP header contains the full URL of the resource. The unique ID reg_id is stored in the body entity.
           schema:
-            $ref: '#/definitions/RegulationID'    
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'    
         
   /regulations/{reg_id}/:
     get:
       summary: Read a given legislation with its ID.
       description: |
-        Get a specific legislation document via the id. This will return the full legislation document in json format.
+        Get a specific legislation document via the id. This will return the 
+        full legislation document in json format.
       tags:
         - Legislation
         - GET
       parameters:
-        - name: reg_id
-          in: path
-          description: Unique identifier representing a specific user
-          type: integer
-          format: int64
-          required: true
+        - $ref: '#/parameters/reg-id'
       responses:
         '200':
           description: The regulation document requested to be read is returned in full
@@ -240,33 +245,7 @@ paths:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
         '404':
           description: Error - the regulation does not exist.
-    post:
-      summary: Create a new legislation entry in the database.
-      description: |
-        Called by the policy computation component when a new regulation is added
-        to OPERANDO.
-      tags:
-        - Legislation
-        - POST
-      parameters:
-        - name: reg_id
-          in: path
-          description: Unique identifier representing a specific user
-          type: integer
-          format: int64
-          required: true
-        - name: regulation
-          in: body
-          description: The first instance of this regulation document
-          required: true
-          schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
-            
-      responses:
-        '201':
-          description: The document (PrivacyRegulation) was successfully created in the database.
-        '405':
-          description: Error. The document (PrivacyRegulation) at this id has previously been created in the database.
+
     put:
       summary: Update PrivacyRegulation entry in the database.
       description: |
@@ -277,18 +256,13 @@ paths:
         - Legislation
         - PUT
       parameters:
-        - name: reg_id
-          in: path
-          description: Unique identifier representing a specific regulation
-          type: integer
-          format: int64
-          required: true
+        - $ref: '#/parameters/reg-id'
         - name: regulation
           in: body
           description: The changed instance of this PrivacyRegulation
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulationInput'
       responses:
         '204':
           description: The document (PrivacyRegulation) was successfully updated in the database.
@@ -303,17 +277,13 @@ paths:
         - Legislation
         - DELETE
       parameters:
-        - name: reg_id
-          in: path
-          description: Unique identifier representing a specific regulation
-          type: integer
-          format: int64
-          required: true
+        - $ref: '#/parameters/reg-id'
       responses:
         '204':
           description: The document (PrivacyRegulation) was successfully deleted from the database.
         '404':
           description: Error. No document exists to be deleted.
+          
   /OSP/:
     get:
       summary: Perform a search query across the collection of OSP behaviour.
@@ -323,12 +293,7 @@ paths:
         - OSP
         - GET
       parameters:
-        - name: filter
-          in: query
-          description: |
-            The query filter to be matched - ?filter={json description}
-          type: string
-          required: true
+        - $ref: '#/parameters/filter'
       responses:
         '200':
           description: The list of OSP documents that match the query are returned in full.
@@ -339,30 +304,6 @@ paths:
         '405':
           description: Error in request. There is an invalid input in the query field.
           
-  /OSP/{osp_id}/:
-    get:
-      summary: Read a given OSP behaviour policy.
-      description: |
-        Get a specific OSP document via the id. This will return the full OSP document in json format.
-      tags:
-        - OSP
-        - GET
-      parameters:
-        - name: osp_id
-          in: path
-          description: Unique identifier representing a specific osp
-          type: integer
-          format: int64
-          required: true
-          
-      responses:
-        '200':
-          description: The OSP document requested to be read is returned in full
-          schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicy'
-        '404':
-          description: Error - the regulation does not exist.
-    
     post:
       summary: Create a new OSP entry in the database.
       description: |
@@ -372,25 +313,37 @@ paths:
         - OSP
         - POST
       parameters:
-        - name: osp_id
-          in: path
-          description: Unique identifier representing a specific osp
-          type: integer
-          format: int64
-          required: true
-          
-        - name: regulation
+        - name: osp-policy
           in: body
           description: The first instance of this OSP document
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicy'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicyInput'
       responses:
         '201':
           description: The document (OSPBehaviour) was successfully created in the database.
         '405':
           description: Error. The document (OSPBehaviour) at this id has previously been created in the database.
-    
+          
+  /OSP/{osp_id}/:
+    get:
+      summary: Read a given OSP behaviour policy.
+      description: |
+        Get a specific OSP document via the id. This will return the full OSP document in json format.
+      tags:
+        - OSP
+        - GET
+      parameters:
+        - $ref: '#/parameters/osp-id'
+          
+      responses:
+        '200':
+          description: The OSP document requested to be read is returned in full
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicy'
+        '404':
+          description: Error - the regulation does not exist.
+
     put:
       summary: Update OSPBehaviour entry in the database.
       description: |
@@ -401,25 +354,21 @@ paths:
         - OSP
         - PUT
       parameters:
-        - name: osp_id
-          in: path
-          description: Unique identifier representing a specific osp
-          type: integer
-          format: int64
-          required: true
+        - $ref: '#/parameters/osp-id'
           
-        - name: regulation
+        - name: osp-policy
           in: body
           description: The changed instance of this OSPRequest
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicy'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicyInput'
 
       responses:
         '204':
           description: The document (OSPBehaviour) was successfully updated in the database.
         '404':
           description: Error. No document exists to be updated.
+          
     delete:
       summary: Remove the OSPRequest entry in the database.
       description: |
@@ -429,12 +378,7 @@ paths:
         - OSP
         - DELETE
       parameters:
-        - name: osp_id
-          in: path
-          description: Unique identifier representing a specific regulation
-          type: integer
-          format: int64
-          required: true
+        - $ref: '#/parameters/osp-id'
 
       responses:
         '204':
@@ -442,10 +386,3 @@ paths:
         '404':
           description: Error. No document exists to be deleted.
           
-definitions:
-  RegulationID:
-    type: object
-    properties:
-      reg_id:
-        type: string
-        description: The generatred unique id of the regulation

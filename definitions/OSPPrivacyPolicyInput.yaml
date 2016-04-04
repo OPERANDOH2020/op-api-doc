@@ -1,8 +1,6 @@
 OSPPrivacyPolicy:
     type: object
     properties: 
-      osp_policy_id:
-            type: string
       policy_text: 
         type: string
         description: | 

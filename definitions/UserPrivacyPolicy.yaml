@@ -2,8 +2,7 @@ UserPrivacyPolicy:
     type: object
     properties:    
         user_id:
-            type: integer
-            format: int64
+            type: string
             description: The unique operando id of the user this policy is about. Each OPERANDO user has one and only one UPP.
 
         user_preferences:
