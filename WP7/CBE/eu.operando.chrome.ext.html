@@ -185,7 +185,7 @@ font-style: italic;
     <div class="app-desc">Browser Extension  API</div>
     <div class="app-desc">More information: <a href="http://www.operando.eu/">http://www.operando.eu/</a></div>
     <div class="app-desc">Contact Info: <a href="raf@rms.ro">raf@rms.ro</a></div>
-    <div class="app-desc">Version: 0.2.0</div>
+    <div class="app-desc">Version: 0.2.1</div>
     <div class="license-info">MIT</div>
     <div class="license-url">http://opensource.org/licenses/MIT</div>
   <h2>Access</h2>
@@ -202,9 +202,9 @@ font-style: italic;
   
   
   
-  <li><a href="#appsDisableUserIdApplicationIdPut"><code><span class="http-method">put</span> /apps/disable/{user_id}/{application_id}</code></a></li>
-  
   <li><a href="#appsUserIdApplicationIdDelete"><code><span class="http-method">delete</span> /apps/{user_id}/{application_id}</code></a></li>
+  
+  <li><a href="#appsUserIdApplicationIdPatch"><code><span class="http-method">patch</span> /apps/{user_id}/{application_id}</code></a></li>
   
   <li><a href="#appsUserIdGet"><code><span class="http-method">get</span> /apps/{user_id}</code></a></li>
   
@@ -226,82 +226,6 @@ font-style: italic;
   
   
   
-  
-  <div class="method"><a name="appsDisableUserIdApplicationIdPut"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="put"><code class="huge"><span class="http-method">put</span> /apps/disable/{user_id}/{application_id}</code></pre></div>
-    <div class="method-summary">Suggest to extension to disable an application presenting the reason for the action (<span class="nickname">appsDisableUserIdApplicationIdPut</span>)</div>
-    
-    <div class="method-notes"></div>
-
-    
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">user_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User&#39;s unique identifier </div><div class="param">application_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Application unique identifier </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-    <h3 class="field-label">Request body</h3>
-    <div class="field-items">
-      <div class="param">reason (required)</div>
-
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Reason for this action </div>
-    </div>  <!-- field-items -->
-    
-
-    
-
-    
-
-    
-
-    
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#Status">Status</a>
-      
-    </div>
-    
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    
-
-    
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
-    <ul>
-    
-      <li><code>application/json</code></li>
-    
-    </ul>
-    
-
-    <h3 class="field-label">Responses</h3>
-    
-    <h4 class="field-label">200</h4>
-    Successfully request
-    
-    
-    <h4 class="field-label">404</h4>
-    User_id not found
-    
-    
-    <h4 class="field-label">500</h4>
-    Unexpected error
-    
-    
-  </div> <!-- method -->
-  <hr/>
   
   <div class="method"><a name="appsUserIdApplicationIdDelete"/>
     <div class="method-path">
@@ -366,6 +290,89 @@ font-style: italic;
     
     <h4 class="field-label">200</h4>
     Successfully request
+    
+    
+    <h4 class="field-label">500</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="appsUserIdApplicationIdPatch"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /apps/{user_id}/{application_id}</code></pre></div>
+    <div class="method-summary">Suggest to extension to disable an application presenting the reason for the action (<span class="nickname">appsUserIdApplicationIdPatch</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">user_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; User&#39;s unique identifier </div><div class="param">application_id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Application unique identifier </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">reason (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Reason for this action </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">active (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Activate or deactive extension </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Status">Status</a>
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    Successfully request
+    
+    
+    <h4 class="field-label">404</h4>
+    User_id not found
     
     
     <h4 class="field-label">500</h4>

@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: Browser Extension API
   description: Browser Extension  API
-  version: 0.2.0
+  version: 0.2.1
   contact:
     email: raf@rms.ro
     name : RomSoft
@@ -64,6 +64,12 @@ parameters:
     description: Reason for this action
     schema:
       $ref: '#/definitions/Reason'
+  active: 
+    name: active
+    in: query
+    required: true
+    description: Activate or deactive extension
+    type: boolean
 ################################################################################
 #                                     Paths                                    #
 ################################################################################    
@@ -168,13 +174,14 @@ paths:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'        
-  /apps/disable/{user_id}/{application_id}:
-    put:
+  /apps/{user_id}/{application_id}:
+    patch:
       summary: Suggest to extension to disable an application presenting the reason for the action
       parameters:
         - $ref: "#/parameters/user_id"
         - $ref: "#/parameters/application_id"
         - $ref: "#/parameters/reason"
+        - $ref: "#/parameters/active"
       tags:
         - Browser Apps & Extensions
       responses: 
@@ -190,7 +197,6 @@ paths:
           description: Unexpected error
           schema: 
             $ref: '#/definitions/Error'    
-  /apps/{user_id}/{application_id}:
     delete:
       summary: Suggest to extension to uninstall an application presenting the reason for the action
       parameters:
