@@ -107,11 +107,11 @@ paths:
           schema:
             type: array
             items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/DataUnit'
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.anonymization.yaml#/DataUnit'
         default:
           description: Unexpected error
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.anonymization.yaml#/Error.yaml'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /dataUnit/{dataunit-id}:
     parameters:
       - $ref: '#/parameters/dataunit-id'      
@@ -160,7 +160,7 @@ paths:
             type: object
             properties:
               data:
-                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/DataUnit.yaml'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.anonymization.yaml#/DataUnit'
         default:
           description: Unexpected error
           schema:
@@ -211,11 +211,11 @@ paths:
             type: object
             properties:
               data:
-                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessLevel'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.anonymization.yaml#/AccessLevel'
         default:
           description: Unexpected error
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.anonymization.yaml#/Error.yaml'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
     get:      
       summary: Gets existing access levels.
       description: Gets existing access levels.
@@ -376,7 +376,7 @@ paths:
         schema:
           type: array
           items:
-            $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.anonymization.yaml#/AccessLevel.yaml"
+            $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.anonymization.yaml#/AccessLevel"
       responses:
         "200":
           description: Successful operation
