@@ -47,13 +47,35 @@ tags:
   - name: Privacy Policy
     description: APIs related to management of OSP privacy policies and behaviour.
 
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  user-id:
+    name: user-id
+    in: query
+    description: The user identifier number
+    type: string
+    required: true
+  osp-id:
+    name: osp-id
+    in: path
+    description: The identifier number of an OSP
+    type: string
+    required: true 
+  reg-id:
+    name: reg-id
+    in: path
+    description: The identifier number of a regulation
+    type: string
+    required: true
 
 ################################################################################
 #                                   Paths                                      #
 ################################################################################
 
 paths:
-  /osps/{osp_id}/privacy_settings/:
+  /osps/{osp-id}/privacy_settings/:
     get:
       description: |
         Simple retrieval of an OPERANDO registered OSP's privacy settings.
@@ -68,19 +90,9 @@ paths:
       tags:
         - Privacy Settings
       parameters:
-        - name: osp_id
-          in: path
-          description: The unqiue OPERANDO ID for a given OSP service. Identifies an OSP within OPERANDO.
-          required: true
-          type: integer
-          format: int64
-        - name: user_id
-          in: query
-          description: The unqiue OPERANDO ID for a given user.
-          required: false
-          type: integer
-          format: int64
-      
+        - $ref: '#/parameters/osp-id'
+        - $ref: '#/parameters/user-id'
+
       responses:
         200:
           description: Successful response. The privacy settings information for this user at the given OSP is returned.
@@ -100,18 +112,9 @@ paths:
         - Privacy Settings
 
       parameters:
-        - name: user_id
-          in: query
-          description: The unqiue OPERANDO ID for the individual user. This corresponds to the unqiue ID of the user record stored in the User Account DB. This corresponds to the identifier of the UPP of the user stored in the Policy DB. 
-          required: false
-          type: integer
-          format: int64
-        - name: osp_id
-          in: path
-          description: The unqiue OPERANDO ID for a given OSP service. Identifies an OSP within OPERANDO.
-          required: true
-          type: integer
-          format: int64
+        - $ref: '#/parameters/osp-id'
+        - $ref: '#/parameters/user-id'
+        
         - name: osp_settings
           in: body
           description: The set of settings that have now changed. This is the complete OSP settings list to be compared with the existing stored settings for this OSP for the user.
@@ -129,8 +132,8 @@ paths:
           description: Error response. The user does not exist. Or the OSP does not exist. Or the user is not subscribed to the OSP in OPERANDO.
           
 
-  /osps/{osp_id}/:         
-    post:
+  /osps/{osp-id}/:         
+    put:
       description: |
         Called when a change in an OSP's privacy policy detected by OPERANDO (or a new OSP is registered). OSE computes whether the OSP policy complies with regulations; complies with UPP. It updates UPPs where appropriate and notifies users and OSP if there are issues with the updated privacy policy.
           
@@ -140,12 +143,7 @@ paths:
         - Privacy Policy
         
       parameters:
-        - name: osp_id
-          in: path
-          description: The unqiue OPERANDO ID for the OSP.
-          required: true
-          type: integer
-          format: int64
+        - $ref: '#/parameters/osp-id'
             
         - name: osp_policy
           in: body
@@ -160,7 +158,7 @@ paths:
         404: 
           description: Error response. The OSP does not exist. It has not been registered with OPERANDO.
 
-  /osps/{osp_id}/privacytext/: 
+  /osps/{osp-id}/privacytext/: 
     put:
       description: |
           Notify the OSE of a change in policy text
@@ -169,12 +167,7 @@ paths:
           - Privacy Policy
           
       parameters:
-        - name: osp_id
-          in: path
-          description: The unqiue OPERANDO ID for the registered OSP service.
-          required: true
-          type: integer
-          format: int64
+        - $ref: '#/parameters/osp-id'
             
         - name: osp_privacy_text
           in: query
@@ -189,7 +182,7 @@ paths:
         409:
           description: Error occured. The resource already exists, so a new resource cannot be created.
   
-  /osps/{osp_id}/workflows/: 
+  /osps/{osp-id}/workflows/: 
     put:
       description: |
           Notify the OSE of a change in an OSP's workflow
@@ -198,12 +191,7 @@ paths:
           - Privacy Policy
           
       parameters:
-        - name: osp_id
-          in: path
-          description: The unqiue OPERANDO ID for the registered OSP service.
-          required: true
-          type: integer
-          format: int64
+        - $ref: '#/parameters/osp-id'
             
         - name: osp_workflow
           in: body
@@ -219,7 +207,7 @@ paths:
         409:
           description: Error occured. The resource already exists, so a new resource cannot be created.
               
-  /regulations/{reg_id}/: 
+  /regulations/: 
     post:
       description: |
         Called by the Regulator API. A New regulation is entered into OPERANDO. Existing OSPs are then evaluated to see if they comply with the regulation. If not they are sent a report about how to comply.
@@ -227,14 +215,7 @@ paths:
       tags:
          - Privacy Legislation
           
-      parameters:
-        - name: reg_id
-          in: path
-          description: The unqiue regulation ID for the new regulation created.
-          required: true
-          type: number
-          format: integer32
-            
+      parameters:   
         - name: regulation
           in: body
           description: The description of the new regulation.
@@ -250,6 +231,8 @@ paths:
           description: Successful response. The regulation has been created.
         409:
           description: Error occured. The resource already exists, so a new resource cannot be created.
+        
+  /regulations/{reg-id}/:             
               
     put:
       description: |
@@ -261,12 +244,7 @@ paths:
         - Privacy Legislation
           
       parameters:
-        - name: reg_id
-          in: path
-          description: The unqiue regulation ID for the changed regulation.
-          required: true
-          type: integer
-          format: int64
+        - $ref: '#/parameters/reg-id'
           
         - name: regulation
           in: body
@@ -275,7 +253,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulationInput.yaml#/PrivacyRegulationInput'
 
       # Expected responses for this operation:
       responses:
