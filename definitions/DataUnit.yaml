@@ -1,9 +1,0 @@
-type: object
-properties:
-  id:
-    type: string
-    description: Id of the data unit.
-  description:
-    type: string
-    description: Description of the data unit.
-  

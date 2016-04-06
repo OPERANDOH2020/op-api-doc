@@ -1,8 +1,0 @@
-type: object
-properties:
-  offer_id:
-    type: string
-    description: Id of the Offer.
-  user_id:
-    type: string
-    description: Id of the User.

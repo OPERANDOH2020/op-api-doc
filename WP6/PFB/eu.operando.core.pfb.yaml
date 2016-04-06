@@ -92,7 +92,7 @@ paths:
               data:
                 type: array
                 items:
-                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Offer.yaml'
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/Offer'
         default:
           description: Unexpected error
           schema:
@@ -112,7 +112,7 @@ paths:
           in: body
           description: The offer data in JSON format.
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Offer.yaml'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/Offer'
           required: true
       responses:
         "200":
@@ -123,7 +123,7 @@ paths:
               data:
                 type: object
                 items:
-                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OfferStatus.yaml'
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferStatus'
         default:
           description: Unexpected error
           schema:
@@ -146,7 +146,7 @@ paths:
             type: object
             properties:
               data:
-                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OfferStatus.yaml'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferStatus'
         default:
           description: Unexpected error
           schema:
@@ -166,7 +166,7 @@ paths:
           in: body
           description: The offer data in JSON format.
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Offer.yaml'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/Offer'
           required: true
       responses:
         "200":
@@ -175,7 +175,7 @@ paths:
             type: object
             properties:
               data:
-                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OfferStatus.yaml'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferStatus'
         default:
           description: Unexpected error
           schema:
@@ -207,7 +207,7 @@ paths:
             type: object
             properties:
               data:
-                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/Deal'
         default:
           description: Unexpected error
           schema:
@@ -229,7 +229,7 @@ paths:
             type: object
             properties:
               data:
-                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/Deal'
         default:
           description: Unexpected error
           schema:
@@ -295,7 +295,7 @@ paths:
           in: body
           description: The OSP data in JSON format.
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSP.yaml'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OSP'
           required: true
       responses:
         "200":
@@ -327,7 +327,7 @@ paths:
               data:
                 type: array
                 items:
-                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OfferUser.yaml'
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferUser'
         default:
           description: Unexpected error
           schema:
@@ -364,7 +364,7 @@ paths:
               data:
                 type: array
                 items:
-                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/Deal'
         default:
           description: Unexpected error
           schema:
