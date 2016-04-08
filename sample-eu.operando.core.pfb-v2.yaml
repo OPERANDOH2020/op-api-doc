@@ -31,26 +31,26 @@ tags:
 #                                   Parameters                                 #
 ################################################################################
 parameters:
-  offer-id:
-    name: offer-id
+  offer_id:
+    name: offer_id
     in: path
     description: The offer identifier number
     type: string
     required: true
-  deal-id:
-    name: deal-id
+  deal_id:
+    name: deal_id
     in: path
     description: The unique identifier number of a deal.
     type: string
     required: true
-  user-id:
-    name: user-id
+  user_id:
+    name: user_id
     in: path
-    description: The offer identifier number
+    description: The user identifier number
     type: string
     required: true
-  osp-id:
-    name: osp-id
+  osp_id:
+    name: osp_id
     in: path
     description: The identifier number of an OSP
     type: string
@@ -129,9 +129,9 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /offers/{offer-id}:
+  /offers/{offer_id}:
     parameters:
-      - $ref: '#/parameters/offer-id'
+      - $ref: '#/parameters/offer_id'
     get:      
       summary: Gets the status of a given offer.
       description: Get the status of a given offer.
@@ -213,9 +213,9 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /deals/{deal-id}:
+  /deals/{deal_id}:
     parameters:
-      - $ref: '#/parameters/deal-id'
+      - $ref: '#/parameters/deal_id'
     get:      
       summary: Gets the status of a given deal.
       description: Get the status of a given deal.
@@ -256,9 +256,9 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'   
-  /deals/{deal-id}/acknoledgement:
+  /deals/{deal_id}/acknowledgement:
     parameters:
-      - $ref: '#/parameters/deal-id'
+      - $ref: '#/parameters/deal_id'
     post:
       summary: Acknoledge a deal by OSP.
       description: This API call is used by the OSP to acknowledge a deal and approve that offer was awarded to user
@@ -276,11 +276,6 @@ paths:
         description: Offer Id.
         required: true
         type: string
-      - in: query
-        name: token
-        description: Security token.
-        required: true
-        type: string  
       responses:
         "200":
           description: Successful operation
@@ -290,7 +285,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /osp:
+  /osps:
     post:
       summary: Registers a new OSP.
       description: Request from Administration Console to register a new Online Service Provider.
@@ -310,16 +305,16 @@ paths:
           required: true
       responses:
         "200":
-          description: Successful operation (security token)
+          description: Successful operation.
           schema:
             type: string
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /osp/{osp-id}/deals:
+  /osps/{osp_id}/deals:
     parameters:
-      - $ref: '#/parameters/osp-id'
+      - $ref: '#/parameters/osp_id'
     get:      
       summary: List of all users and their active deals for the OSP.
       description: Request from an OSP to get a list of all users and their active deals for specific OSP (could be also for report) .
@@ -343,9 +338,9 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /users/{user-id}/deals:
+  /users/{user_id}/deals:
     parameters:
-      - $ref: '#/parameters/user-id'
+      - $ref: '#/parameters/user_id'
     get:      
       summary: Returns list of offers accepted by user.
       description: Request from privacy dashboard to get list of offers accepted by user (and acknowledged by OSP).
