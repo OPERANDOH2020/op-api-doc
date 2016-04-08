@@ -59,8 +59,40 @@ parameters:
 #                                   PATHs                                      #
 ################################################################################
 paths:
-  /offers:
-    get:      
+  /offers:    
+    post:
+      summary: Creates a new offer for an OSP .
+      description: Request from Administration Console to create a new offer for an OSP.
+      operationId: createOffer
+      tags:
+        - Offers
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: offer
+          in: body
+          description: The offer data in JSON format.
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferRequest'
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                items:
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferStatus'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
+  /offers/search:
+	get:      
       summary: Search offers in databse
       description: Extension or management console send request to PfB service to get a list of offers by specific search terms (e.g Gets offers related to a website  when signup page is detected)
       tags:
@@ -96,38 +128,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-    post:
-      summary: Creates a new offer for an OSP .
-      description: Request from Administration Console to create a new offer for an OSP.
-      operationId: createOffer
-      tags:
-        - Offers
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: offer
-          in: body
-          description: The offer data in JSON format.
-          schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/Offer'
-          required: true
-      responses:
-        "200":
-          description: Successful operation
-          schema:
-            type: object
-            properties:
-              data:
-                type: object
-                items:
-                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferStatus'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'	
   /offers/{offer_id}:
     parameters:
       - $ref: '#/parameters/offer_id'
@@ -166,7 +167,7 @@ paths:
           in: body
           description: The offer data in JSON format.
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/Offer'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferRequest'
           required: true
       responses:
         "200":
@@ -270,6 +271,11 @@ paths:
         description: Osp Id.
         required: true
         type: string
+      - in: query
+        name: offerId
+        description: Offer Id.
+        required: true
+        type: string
       responses:
         "200":
           description: Successful operation
@@ -295,7 +301,7 @@ paths:
           in: body
           description: The OSP data in JSON format.
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OSP'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OSPRequest'
           required: true
       responses:
         "200":

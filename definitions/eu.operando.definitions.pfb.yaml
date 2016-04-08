@@ -26,6 +26,31 @@ Offer:
       type: string
       format: date-time
       description: Date when the offer expires.
+OfferRequest:
+  type: object
+  properties:    
+    osp_id:
+      type: string
+      description: Id of the OSP to which belongs the offer.
+    title:
+      type: string
+      description: Description of the offer.
+    description:
+      type: string
+      description: Description of the offer.
+    service_website:
+      type: string
+      description: Website of the offering.
+    is_enabled:
+      type: boolean
+      description: Indication whether the offer is enabled or not.
+    osp_callback_url:
+      type: string
+      description: Callback url.
+    expiration_date:
+      type: string
+      format: date-time
+      description: Date when the offer expires.
 OfferStatus:
   type: object
   properties:
@@ -70,6 +95,21 @@ OSP:
     osp_website:
       type: string
       description: Website of the OSP.
+OSPRequest:
+  type: object
+  properties:
+    id:
+      type: string
+      description: Id of the OSP.
+    name:
+      type: string
+      description: Name of the OSP.
+    description:
+      type: string
+      description: Description of the OSP.
+    osp_website:
+      type: string
+      description: Website of the OSP.
 OfferUser:
   type: object
   properties:
@@ -79,6 +119,3 @@ OfferUser:
     user_id:
       type: string
       description: Id of the User.
-  
-  
-  
