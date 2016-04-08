@@ -7,12 +7,24 @@ DataUnit:
     description:
       type: string
       description: Description of the data unit.
+DataUnitRequest:
+  type: object
+  properties:    
+    description:
+      type: string
+      description: Description of the data unit.
 AccessLevel:
   type: object
   properties:
     id:
       type: string
       description: Id of the access level.
+    description:
+      type: string
+      description: Description of the access level.
+AccessLevelRequest:
+  type: object
+  properties:    
     description:
       type: string
       description: Description of the access level.
