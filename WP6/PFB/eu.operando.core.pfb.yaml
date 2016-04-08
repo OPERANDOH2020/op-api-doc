@@ -59,7 +59,7 @@ parameters:
 #                                   PATHs                                      #
 ################################################################################
 paths:
-  /offers:    
+  /offers:
     post:
       summary: Creates a new offer for an OSP .
       description: Request from Administration Console to create a new offer for an OSP.
@@ -92,7 +92,7 @@ paths:
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /offers/search:
-	get:      
+    get:
       summary: Search offers in databse
       description: Extension or management console send request to PfB service to get a list of offers by specific search terms (e.g Gets offers related to a website  when signup page is detected)
       tags:
