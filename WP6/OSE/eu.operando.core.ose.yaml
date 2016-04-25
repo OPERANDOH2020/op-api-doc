@@ -221,8 +221,6 @@ paths:
           description: The description of the new regulation.
           required: true
           schema:
-            type: array
-            items:
               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
               
       responses:
@@ -251,8 +249,6 @@ paths:
           description: The description of the changed regulation.
           required: true
           schema:
-            type: array
-            items:
               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulationInput.yaml#/PrivacyRegulationInput'
 
       # Expected responses for this operation:
