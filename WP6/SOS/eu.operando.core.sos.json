@@ -1,0 +1,161 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.1",
+        "title": "eu.operando.core.sos",
+        "description": "Operando's BDA interfaces for outcomes retrieval",
+        "license": {
+            "name": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:8080",
+    "schemes": [
+        "http"
+    ],
+    "basePath": "/operando/sos",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/component/status": {
+            "get": {
+                "description": "gets the status of a concrete component",
+                "parameters": [
+                    {
+                        "name": "requestHeader",
+                        "in": "body",
+                        "description": "Identification of the requesting end user",
+                        "schema": {
+                            "$ref": "#/definitions/requestHeader"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "componentId",
+                        "in": "query",
+                        "description": "Identification of the job to get the status about",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/component/check": {
+            "get": {
+                "description": "forces the status cheking of a given component",
+                "parameters": [
+                    {
+                        "name": "requestHeader",
+                        "in": "body",
+                        "description": "Identification of the requesting end user",
+                        "schema": {
+                            "$ref": "#/definitions/requestHeader"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "componentId",
+                        "in": "query",
+                        "description": "Identification of the job to get the status about",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/node/status": {
+            "get": {
+                "description": "checks the status of a given computing node and its contained components",
+                "parameters": [
+                    {
+                        "name": "requestHeader",
+                        "in": "body",
+                        "description": "Identification of the requesting end user",
+                        "schema": {
+                            "$ref": "#/definitions/requestHeader"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "nodeId",
+                        "in": "query",
+                        "description": "Identification of the job to get the status about",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/node/check": {
+            "get": {
+                "description": "forces the checking of a given computing node and its contained components",
+                "parameters": [
+                    {
+                        "name": "requestHeader",
+                        "in": "body",
+                        "description": "Identification of the requesting end user",
+                        "schema": {
+                            "$ref": "#/definitions/requestHeader"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "nodeId",
+                        "in": "query",
+                        "description": "Identification of the job to get the status about",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "requestHeader": {
+            "type": "object",
+            "properties": {
+                "requestId": {
+                    "type": "string"
+                },
+                "requesterId": {
+                    "type": "string"
+                },
+                "requesterComponentId": {
+                    "type": "string"
+                },
+                "proxyId": {
+                    "type": "string"
+                },
+                "requestDateTime": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [
+                "requestId",
+                "requesterId"
+            ]
+        }
+    }
+}
