@@ -328,7 +328,7 @@ paths:
         '405':
           description: Error. The document (OSPBehaviour) at this id has previously been created in the database.
   
-  /OSP/{osp-id}/privacy-policy:
+  /OSP/{osp-id}/privacy-policy/:
     get:
       summary: Read the current text policy of an OSP
       description: |
@@ -342,9 +342,11 @@ paths:
       responses:
         '200':
           description: The OSP document requested to be read is returned in full
-          type: String
+          schema:
+            type: string
         '404':
           description: Error - the OSP does not have a text policy stored in the db.
+
     put:
       summary: Update OSP text policy entry in the database.
       description: |
@@ -355,18 +357,19 @@ paths:
         - PUT
       parameters:
         - $ref: '#/parameters/osp-id'
-          
-        - name: osp-policy
+        - name: osp-policy-text
           in: body
           description: The changed instance of this OSPRequest
           required: true
-          type: string
+          schema:
+            type: string
 
       responses:
         '204':
           description: The document (policy text) was successfully updated in the database.
         '404':
           description: Error. No document exists to be updated. 
+          
   /OSP/{osp-id}/:
     get:
       summary: Read a given OSP behaviour policy.
