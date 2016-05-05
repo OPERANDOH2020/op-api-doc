@@ -327,6 +327,48 @@ paths:
           description: The document (OSPBehaviour) was successfully created in the database.
         '405':
           description: Error. The document (OSPBehaviour) at this id has previously been created in the database.
+  
+  /OSP/{osp-id}/privacy-policy/:
+    get:
+      summary: Read the current text policy of an OSP
+      description: |
+        Get the text policy of an OSP. That is the text of the privacy policy stated on a web page.
+      tags:
+        - OSP
+        - GET
+      parameters:
+        - $ref: '#/parameters/osp-id'
+        
+      responses:
+        '200':
+          description: The OSP document requested to be read is returned in full
+          schema:
+            type: string
+        '404':
+          description: Error - the OSP does not have a text policy stored in the db.
+
+    put:
+      summary: Update OSP text policy entry in the database.
+      description: |
+        Called when by the watchdog detects a change in the textual policy and wants
+        to update the current policy.
+      tags:
+        - OSP
+        - PUT
+      parameters:
+        - $ref: '#/parameters/osp-id'
+        - name: osp-policy-text
+          in: body
+          description: The changed instance of this OSPRequest
+          required: true
+          schema:
+            type: string
+
+      responses:
+        '204':
+          description: The document (policy text) was successfully updated in the database.
+        '404':
+          description: Error. No document exists to be updated. 
           
   /OSP/{osp-id}/:
     get:
@@ -345,7 +387,7 @@ paths:
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicy'
         '404':
-          description: Error - the regulation does not exist.
+          description: Error - the osp does not have a policy in the db.
 
     put:
       summary: Update OSPBehaviour entry in the database.
