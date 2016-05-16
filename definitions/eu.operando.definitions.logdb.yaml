@@ -32,4 +32,9 @@ LogRequest:
     description:
       type: string
       description: Description of the event to be logged.
+    keywords:
+      type: array
+      description : Array of keywords to facilitate search
+      items:
+        type: string 
   
