@@ -1,0 +1,65 @@
+swagger: '2.0'
+info:
+  title: eu.operando.core.logdb
+  description: Operando LogDB module.
+  version: "1.0.0"
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+host: localhost:8080
+basePath: /operando/core/logdb
+schemes:
+- http
+- https
+produces:
+- application/json
+################################################################################
+#                                   Tags                                       #
+################################################################################
+tags:
+  - name: Log
+    description: Inserts received data to the database by using Log4j.
+  
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+
+paths:
+  /log/search:
+    get:
+      summary: Search logs in databse
+      description: This allows to get a list of log entries by specific search terms (e.g Gets entries related to a specific requester)
+      tags:
+        - Log
+      operationId: getLogs
+      parameters:
+        - name: website_url
+          in: query
+          description: URL of the website to get offers related to specific URL
+          type: string
+        - name: website_id
+          in: query
+          description: ID of the website to get offers related to specific website ID
+          type: string
+        - name: osp_id
+          in: query
+          description: ID of the OSP to list of all offers created by specific OSP..
+          type: string
+        - name: user_id
+          in: query
+          description: ID of the user to limit offers to those apllicable to specific user.
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.logdb.yaml#/LogResponse'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'

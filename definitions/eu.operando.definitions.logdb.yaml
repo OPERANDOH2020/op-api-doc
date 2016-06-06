@@ -74,4 +74,3 @@ LogResponse:
     description:
       type: string
       description: Description of the logged event.
-  
