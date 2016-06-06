@@ -1,13 +1,13 @@
 swagger: '2.0'
 info:
-  title: eu.operando.core.logdb
-  description: Operando LogDB module.
+  title: eu.operando.core.logdbsearch
+  description: Operando LogDBSearch module.
   version: "1.0.0"
   license:
     name: MIT
     url: http://opensource.org/licenses/MIT
 host: localhost:8080
-basePath: /operando/core/logdb
+basePath: /operando/core/logdbsearch
 schemes:
 - http
 - https
@@ -17,8 +17,8 @@ produces:
 #                                   Tags                                       #
 ################################################################################
 tags:
-  - name: Log
-    description: Inserts received data to the database by using Log4j.
+  - name: LogSearch
+    description: Search logs in database.
   
 ################################################################################
 #                                   Parameters                                 #
@@ -27,28 +27,46 @@ tags:
 paths:
   /log/search:
     get:
-      summary: Search logs in databse
-      description: This allows to get a list of log entries by specific search terms (e.g Gets entries related to a specific requester)
+      summary: Search logs in database
+      description: Search logs in database by specifying a filter.
       tags:
-        - Log
+        - LogSearch
       operationId: getLogs
       parameters:
-        - name: website_url
+        - name: dateFrom
           in: query
-          description: URL of the website to get offers related to specific URL
+          description: Date from which wanted to be recovered the logs.
           type: string
-        - name: website_id
+        - name: dateTo
           in: query
-          description: ID of the website to get offers related to specific website ID
+          description: Date to which wanted to be recovered the logs.
           type: string
-        - name: osp_id
+        - name: logLevel
           in: query
-          description: ID of the OSP to list of all offers created by specific OSP..
+          description: Log level wanted to be recovered.
           type: string
-        - name: user_id
+        - name: requesterType
           in: query
-          description: ID of the user to limit offers to those apllicable to specific user.
+          description: Type of the requester that originated the log entry.
           type: string
+        - name: requesterId
+          in: query
+          description: Id of the requester that originated the log entry.
+          type: string
+        - name: logPriority
+          in: query
+          description: Priority of the log messages to be recovered.
+          type: string
+        - name: title
+          in: query
+          description: Title of the log messages to be recovered.
+          type: string
+        - name: keyWords
+          in: query
+          description: Keywords to perform the search.
+          type: array
+          items:
+            type: string
       responses:
         "200":
           description: Successful operation
