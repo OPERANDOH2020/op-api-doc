@@ -40,7 +40,7 @@ LogRequest:
 LogResponse:
   type: object
   properties:
-     logDate:
+    logDate:
       type: string
       description: Date when the log was generated.
     requesterType:
