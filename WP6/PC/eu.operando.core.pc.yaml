@@ -1,21 +1,36 @@
 swagger: '2.0'
+
 info:
+
   version: 1.0.0
+  
   title: Policy Computation
+  
   description: "Provides a set of functions that provide analysis and computation of privacy policies. The following describe the overall behaviours of the component\n\n1) Evaluate if a particular data request, or sequence of data requests from an OSP complies with the user's privacy policy; \n\n2) Evaluate if the behaviour of an OSP complies with the appropriate privacy regulations;\n\n3) Compute and manage the UPP of a user. Where a new user subscribes to the service, create the new UPP; where an existing user subscribes to a new service, or updates their privacy preferences recompute the UPP.\n"
+  
   termsOfService: 'http://www.operando.eu/terms/'
+  
   contact:
-    name: IT Innovation
+    name: OPERANDO development
     url: 'http://www.operando.eu/support'
     email: support@operando.eu
   license:
     name: MIT
     url: 'http://opensource.org/licenses/MIT'
+    
 schemes:
   - http
   - https
-host: operando.eu
-basePath: /policy_computation
+  
+host: 127.0.0.1:8081
+
+produces:
+  - "application/json"
+consumes:
+  - "application/json"
+
+basePath: /pc
+
 tags:
   - name: Policy Evaluation
     description: |
@@ -25,11 +40,88 @@ tags:
       Evaluation of OSP behaviour against privacy regulations.
   - name: Policy Compute
     description: Methods related to the computation of UPPs of a user.
-  - name: Privacy Legislation
+  - name: Privacy Regulations
     description: |
       Management of privacy legislation.
+
 paths:
-  /evaluate_osp_request:
+  /policy_computer:
+    post:
+      summary: Creates the UPP when the user registers with OPERANDO.
+      description: |
+        This is a computational resource accessed via a REST POST call to carry out a computation
+        on the provided inputs. This results in an resource that is created and stored in the Policy DB and can be accessed by the URL returned as a result of this operation. In OPERANDO, this method is called by the management console when a user registers with OPERANDO. The user simply enters privacy details and answers a general questionnaire. 
+        
+      parameters:
+        - name: user_id
+          in: query
+          description: user unique identifier of the UPP to compute
+          type: string
+          required: true
+        - name: general_preferences
+          in: body
+          description: |
+            The set of privacy preferences. This is a JSON object with the answers to the initial questionnaire. These can be changed and updated. 
+          schema:
+            type: array
+            items:
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml#/UserPreference'
+          required: true
+      tags:
+        - Policy Compute
+        - POST
+      responses:
+        '200':
+          description: |
+            UPP was created. There is no invalid response - if the method is called on the operation with an existing user_id then the server updates the record field (This is not the data storage operation).
+          schema:
+            $ref: '#/definitions/ComputationResult'
+        '400':
+          description: |
+            The client inputs to the operation are incorrect or invalid. The caller should check the inputs are valid based upon the returned error message.
+            
+  /osp_policy_computer:
+    post:
+      summary: Computes the UPP policy for a specific G2C OSP.
+      description: |
+          This is a computational resource accessed via a REST POST call to carry out a computation on the provided inputs. This results in an resource that is created and stored in the Policy DB and can be accessed by the URL returned as a result of this operation. In OPERANDO, this method is called by the management console when a user subscribes to a new OSP service. The user simply enters answers the specific OSP questionnaire. This will create a simple UPP for that OSP and store this policy within the larger UPP record.
+        
+      parameters:
+        - name: user_id
+          in: query
+          description: user unique identifier of the UPP to compute
+          type: string
+          required: true
+          
+        - name: osp_id
+          in: query
+          description: user unique identifier of the UPP to compute
+          type: string
+          required: true
+          
+        - name: osp_prefs
+          in: body
+          description: |
+            The set of privacy preferences. This is a JSON object with the answers to the specific questionnaire. These can be changed and updated. 
+          schema:
+            type: array
+            items:
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml#/UserPreference'
+          required: true
+      tags:
+        - Policy Compute
+        - POST
+      responses:
+        '200':
+          description: |
+            UPP was created. There is no invalid response - if the method is called on the operation with an existing user_id then the server redirects to the PUT behaviour, rather than return an unnecessary error (This is not the data storage operation).
+          schema:
+            $ref: '#/definitions/ComputationResult' 
+        '400':
+          description: |
+            The client inputs to the operation are incorrect or invalid. The caller should check the inputs are valid based upon the returned error message.
+  
+  /osp_policy_evaluator:
     post:
       summary: Evaluate a set of OSP requests against the User Privacy Policy
       description: |
@@ -65,13 +157,15 @@ paths:
             Evaluation was successful and a report is produced. The report indicates if the request(s) is allowed. Where not allowed, the report indicates.
           schema:
             $ref: '#/definitions/PolicyEvaluationReport'
-  
-  /evaluate_osp_policy:
+        '400':
+          description: |
+            The client inputs to the operation are incorrect or invalid. The caller should check the inputs are valid based upon the returned error message.
+            
+  /osp_compliance_checker:
     post:
-      summary: Evaluate a set of OSP requests against the legislation
+      summary: Evaluate a set of OSP requests against the current legislation
       description: |
-        Method to run a new OSP registers with OPERANDO; or a legislation
-        changes.
+        Method to run a new OSP registers with OPERANDO; or a an OSP changes its policy. The computational resource reads the sector information for the OSP (from the policy db) and then finds all the relevant regulations. Given the policy input, it then checks that this against the discovered regulation.
       parameters:
         - name: osp_id
           in: query
@@ -94,50 +188,18 @@ paths:
           description: 'Compliance was successful and a report is produced. The report indicates if the request(s) complies with legislation. Where there is a breach, the report indicates the reason for the breach.'
           schema:
             $ref: '#/definitions/PolicyEvaluationReport'
-            
-  /compute_user_privacy_policy:
-    post:
-      summary: Creates or changes the UPP based on a user subscribing to a new service (enters OSP_ID in query) or simply enters their preferences.
-      description: |
-        Called by the management console when a user subscribes to a new OSP or enters their prefs.
-      parameters:
-        - name: osp_id
-          in: query
-          description: OSP unique identifier of the OSP to compute and add to the UPP
-          type: string
-          required: false
-        - name: user_id
-          in: query
-          description: user unique identifier of the UPP to compute
-          type: string
-          required: true
-        - name: osp_request
-          in: body
+        '400':
           description: |
-            The set of requests that the OSP will carry out on a user's private data. This will likely be stored in the DB, so not needed to pass each time.
-          schema:
-            type: array
-            items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPreference.yaml#/UserPreference'
-          required: false
-      tags:
-        - Policy Compute
-        - POST
-      responses:
-        '200':
-          description: 'UPP update was successful and a report is produced. The report indicates if the request(s) complies matches the subscription. Where there is a mismatch, the report indicates the reason for the mismatch.'
-          schema:
-            $ref: '#/definitions/PolicyEvaluationReport'
-  
+            The client inputs to the operation are incorrect or invalid. The caller should check the inputs are valid based upon the returned error message.
+            
             
   /regulations/{reg_id}/:
     post:
       description: | 
         Called by the Regulator API after a  
-        new regulation is entered into OPERANDO. The regulation is first created and stored by the policy DB. Existing UPPs 
-        are then evaluated to see if they comply with the regulation.
+        new regulation is entered into OPERANDO. The regulation is first created and stored by the policy DB. Existing UPPs are then evaluated to see if they comply with the regulation. The report is then created at /regulations/{reg_id}/report in the policy db and the url is returned to the user in order that they can retrieve this report.
       tags:
-        - Privacy Legislation
+        - Privacy Regulations
       parameters:
         - name: reg_id
           in: path
@@ -145,30 +207,25 @@ paths:
           required: true
           type: number
           format: integer32
-        - name: regulation
-          in: body
-          description: The description of the new regulation.
-          required: true
-          schema:
-            type: array
-            items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
+
       responses:
         '200':
-          description: Successful response. The regulation has been added.
-        '409':
-          description: 'Error occured. The resource already exists, so a new resource cannot be created.'
+          description: Successful response. The regulation has evaluated and report produced.
+          schema:
+            $ref: '#/definitions/ComputationResult'
+        '404':
+          description: |
+            Error occured. The resource resource doesn't exist to evaluate.
     
     put:
       description: |
         Called by the Regulator API. An updated regulation is entered into
         OPERANDO. The regulation is stored in the policy DB. Existing UPPs are
-        then evaluated to see if they comply with the regulation.
-
-
+        then evaluated to see if they comply with the regulation. The report is then updated at /regulations/{reg_id}/report in the policy db and the url is returned to the user in order that they can retrieve this report.
         Pre-condition -- The regulation must have been written to the system.
+        
       tags:
-        - Privacy Legislation
+        - Privacy Regulations
         - PUT
       parameters:
         - name: reg_id
@@ -187,11 +244,28 @@ paths:
               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation'
       responses:
         '200':
-          description: Successful response. The regulation has been added.
+          description: Successful response. The regulation has evaluated and report produced.
+          schema:
+            $ref: '#/definitions/ComputationResult'
         '404':
-          description: Error. The resource does not exist to be updated.
+          description: |
+            Error occured. The resource resource doesn't exist to evaluate.
 
 definitions:
+  ComputationResult:
+    type: object
+    properties:
+      status:
+        type: string
+        description: |
+          {Created, Updated, failed}
+      user:
+        type: string
+        description: The user id of the computation
+      url:
+        type: string
+        description: The URL of the computed/updated URL.
+
   PolicyEvaluationReport:
     type: object
     properties:
