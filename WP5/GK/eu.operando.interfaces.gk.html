@@ -1,0 +1,278 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Gatekeeper</title>
+    <style type="text/css">
+      body { 
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+	display: none;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+    </style>
+  </head>
+  <body>
+  <h1>Gatekeeper</h1>
+    <div class="app-desc">API specification for OPERANDO's Gatekeeper</div>
+    <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="hello@helloreverb.com">hello@helloreverb.com</a></div>
+    <div class="app-desc">Version: 0.0.1</div>
+    <div class="app-desc">BasePath:/gatekeeper</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h2>Table of Contents </h2>
+  <div class="method-summary"></div>
+  <ol>
+  <li><a href="#queryRunInformationPost"><code><span class="http-method">post</span> /queryRunInformation</code></a></li>
+  </ol>
+
+  <div class="method"><a name="queryRunInformationPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /queryRunInformation</code></pre></div>
+    <div class="method-summary">Add a new regulation to the system. (<span class="nickname">queryRunInformationPost</span>)</div>
+    <div class="method-notes">Called by a regulator to ensure that the platform becomes compliant with the new regulation. The regulation that was saved is returned, along with an identifer which should be used to refer to it in later communication. </div>
+
+
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">request object (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#response-object">response-object</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    The caller may run the requested query with the given parameters. Information required to do so is given in the response body.
+        <a href="#response-object">response-object</a>
+    <h4 class="field-label">401</h4>
+    The user is not authenticated with the OPERANDO system. Check that the service ticket provided by the authentication service is correctly included in the message body.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    The user is authenticated with the OPERANDO system, but is not allowed to run the requested query.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+
+  <div class="up"><a href="#__Models">Up</a></div>
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h2>Table of Contents</h2>
+  <ol>
+    <li><a href="#Request object"><code>Request object</code></a></li>
+    <li><a href="#Response-object"><code>Response-object</code></a></li>
+  </ol>
+
+  <div class="model">
+    <h3 class="field-label"><a name="Request object">Request object</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">service_ticket (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> </div>
+<div class="param">osp-id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> </div>
+<div class="param">query-id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> </div>
+<div class="param">user-ids (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">array[Integer]</a></span> </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3 class="field-label"><a name="Response-object">Response-object</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">security-token (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> </div>
+<div class="param">data-access-url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>

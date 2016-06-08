@@ -1,0 +1,81 @@
+swagger: '2.0'
+info:
+  title: Gatekeeper
+  description: API specification for OPERANDO's Gatekeeper
+  version: "0.0.1"
+host: localhost
+schemes:
+  - https
+basePath: /gatekeeper
+produces:
+  - application/json
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  request-object:
+    name: request object
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+        service_ticket:
+          type: string
+        osp-id:
+          type: integer
+          format: int32
+        query-id:
+          type: integer
+          format: int32
+        user-ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+          
+################################################################################
+#                                 Responses                                    #
+################################################################################
+responses:
+  allowed:
+    description: The caller may run the requested query with the given parameters. Information required to do so is given in the response body.
+    schema:
+      $ref: '#/definitions/response-object'
+  unauthorised:
+    description: The user is not authenticated with the OPERANDO system. Check that the service ticket provided by the authentication service is correctly included in the message body.
+  forbidden:
+    description: The user is authenticated with the OPERANDO system, but is not allowed to run the requested query.
+
+################################################################################
+#                                   Paths                                      #
+################################################################################
+paths:
+  /queryRunInformation:
+    post:
+      summary: Add a new regulation to the system.
+      description: |
+        Called by a regulator to ensure that the platform becomes compliant with the new regulation. The regulation that was saved is returned, along with an identifer which should be used to refer to it in later communication.
+      parameters:
+        - $ref: '#/parameters/request-object'
+      tags:
+        - queries
+      responses:
+        200:
+          $ref: '#/responses/allowed'
+        401:
+          $ref: '#/responses/unauthorised'
+        403:
+          $ref: '#/responses/forbidden'
+          
+################################################################################
+#                              Object Definitions                             #
+################################################################################
+definitions:
+  response-object:
+    type: object
+    properties:
+      security-token:
+        type: string
+      data-access-url:
+        type: string
