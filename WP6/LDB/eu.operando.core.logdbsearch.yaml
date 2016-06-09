@@ -64,9 +64,7 @@ paths:
         - name: keyWords
           in: query
           description: Keywords to perform the search.
-          type: array
-          items:
-            type: string
+          type: string
       responses:
         "200":
           description: Successful operation
