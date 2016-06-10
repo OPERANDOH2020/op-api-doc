@@ -80,6 +80,15 @@ Deal:
       type: string
       format: date-time
       description: Date when the deal was canceled.
+DealRequest:
+  type: object
+  properties:
+    offer_id:
+      type: string
+      description: Unique ID of the offer.
+    user_id:
+      type: string
+      description: Unique ID of the user.
 OSP:
   type: object
   properties:
@@ -98,9 +107,6 @@ OSP:
 OSPRequest:
   type: object
   properties:
-    id:
-      type: string
-      description: Id of the OSP.
     name:
       type: string
       description: Name of the OSP.
