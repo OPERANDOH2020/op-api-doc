@@ -8,8 +8,8 @@ LogResponse:
       type: string
       description: Source type from which comes the request.
       enum:
-        - Process
-        - Module
+        - PROCESS
+        - MODULE
     requesterId:
       type: string
       description: Id of the requester (e.g the id of an OSP).
@@ -17,18 +17,18 @@ LogResponse:
       type: string
       description: Priority level of the data to be logged.
       enum:
-        - Low
-        - Normal
-        - High
-        - Critical
+        - LOW
+        - NORMAL
+        - HIGH
+        - CRITICAL
     logLevel:
       type: string
       description: Type of the data to be logged.
       enum:
-        - Info
-        - Warn
-        - Error
-        - Fatal
+        - INFO
+        - WARN
+        - ERROS
+        - FATAL
     title:
       type: string
       description: Subject of the logged event.
@@ -42,8 +42,8 @@ LogRequest:
       type: string
       description: Source type from which comes the request.
       enum:
-        - Process
-        - Module
+        - PROCESS
+        - MODULE
     requesterId:
       type: string
       description: Id of the requester (e.g the id of an OSP).
@@ -51,18 +51,18 @@ LogRequest:
       type: string
       description: Priority level of the data to be logged.
       enum:
-        - Low
-        - Normal
-        - High
-        - Critical
+        - LOW
+        - NORMAL
+        - HIGH
+        - CRITICAL
     logDataType:
       type: string
       description: Type of the data to be logged.
       enum:
-        - Info
-        - Warn
-        - Error
-        - Fatal
+        - INFO
+        - WARN
+        - ERROS
+        - FATAL
     title:
       type: string
       description: Subject of the event to be logged.

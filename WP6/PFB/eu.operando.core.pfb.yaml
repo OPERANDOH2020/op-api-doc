@@ -186,21 +186,17 @@ paths:
       summary: Create a new deal. Indicates the user's acceptance for an offer.
       description: Triggered by the extension to PfB service to indicate that the user has chosen to accept the offer (i.e. initiated login with Social Network button)
       tags:
-        - Offers
-      operationId: requestOffer
+        - Deals
+      operationId: createDeal
       produces:
         - application/json
       parameters:
-        - name: user_id
-          in: query
-          description: User Id.
+        - name: deal
+          in: body
+          description: The deal data in JSON format.
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/DealRequest'
           required: true
-          type: string
-        - name: offer_id
-          in: query
-          description: Offer ID.
-          required: true
-          type: string
       responses:
         "200":
           description: Successful operation

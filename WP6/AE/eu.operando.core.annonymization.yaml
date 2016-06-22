@@ -138,6 +138,8 @@ paths:
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /dataUnit/{dataunit_id}:
+    parameters:
+      - $ref: '#/parameters/dataunit_id'
     put:      
       summary: Updates an existing data unit.
       description: Updates an existing data unit.
@@ -263,6 +265,8 @@ paths:
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /accessLevel/{accessLevel_id}:
+    parameters:
+      - $ref: '#/parameters/accessLevel_id'
     put:      
       summary: Updates an existing access level.
       description: Updates an existing access level.
@@ -339,6 +343,8 @@ paths:
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /dataUnit/{dataunit_id}/accessLevels:
+    parameters:
+      - $ref: '#/parameters/dataunit_id'
     post:
       summary: Sets the available access levels for a specific data unit.
       description: Sets the available access levels for a specific data unit.
@@ -389,7 +395,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /dataUnit/{dataunit-id}/country/{country-id}/accessLevels/search:
+  /dataUnit/{dataunit_id}/country/{country_id}/accessLevels/search:
     parameters:
       - $ref: '#/parameters/dataunit_id'
       - $ref: '#/parameters/country_id'
@@ -466,6 +472,10 @@ paths:
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
   /dataUnit/{dataunit_id}/person/{person_id}/requester/{requester_id}/accessLevel:
+    parameters:
+      - $ref: '#/parameters/dataunit_id'
+      - $ref: '#/parameters/person_id'
+      - $ref: '#/parameters/requester_id'
     post:
       summary: Sets the granted access level for a data unit related to a person and for a specific requester.
       description: Sets the granted access level for a data unit related to a person and for a specific requester.
