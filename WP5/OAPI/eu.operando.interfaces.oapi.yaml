@@ -1,0 +1,327 @@
+swagger: '2.0'
+info:
+  title: OSP API
+  description: API specification for OPERANDO's OSP API
+  version: "0.0.1"
+host: localhost
+schemes:
+  - https
+basePath: /osp
+produces:
+  - application/json
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  offer-id:
+    name: offer_id
+    in: path
+    description: the unique identifier of an offer.
+    type: string
+    required: true
+    
+  osp-id:
+    name: osp_id
+    in: path
+    description: the unique identifier of an OSP.
+    type: string
+    required: true
+    
+  deal-id:
+    name: deal_id
+    in: path
+    description: the unique identifier of a deal.
+    type: string
+    required: true
+    
+  report-id:
+    name: report_id
+    in: path
+    description: the unique identifier of a report.
+    type: string
+    required: true
+    
+  format:
+    name: format
+    in: query
+    description: the requested format of the report (e.g. pdf, html)
+    type: string
+    required: true
+
+################################################################################
+#                                 Responses                                    #
+################################################################################
+responses:
+  unauthorised:
+    description: The user is not authenticated with the OPERANDO system. Check that the service ticket provided by the authentication service is correctly included in the message body.
+  forbidden:
+    description: The user is authenticated with the OPERANDO system, but is not allowed to perform the requested action.
+
+################################################################################
+#                                   Paths                                      #
+################################################################################
+paths:
+  /pfb/offers:
+    post:
+      summary: Creates a new offer for an OSP .
+      description: Request from Administration Console to create a new offer for an OSP.
+      operationId: createOffer
+      tags:
+        - Offers
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: offer
+          in: body
+          description: The offer data in JSON format.
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferRequest'
+          required: true
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                items:
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferStatus'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
+        401:
+          $ref: '#/responses/unauthorised'
+        403:
+          $ref: '#/responses/forbidden'
+            
+  /pfb/offers/{offer_id}:
+    parameters:
+      - $ref: '#/parameters/offer-id'
+    get:      
+      summary: Gets the status of a given offer.
+      description: Get the status of a given offer.
+      tags:
+        - Offers
+      operationId: getOfferStatus
+      produces:
+        - application/json        
+      responses:
+        "200":
+          description: Successful operation (the offer status)
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferStatus'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
+        401:
+          $ref: '#/responses/unauthorised'
+        403:
+          $ref: '#/responses/forbidden'
+    put:
+      summary: Update an offer for an OSP .
+      description: Request from Administration Console to update existing offer. (limited to specific fields - TBD).
+      tags:
+        - Offers
+      operationId: updateOffer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: offer
+          in: body
+          description: The offer data in JSON format.
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferRequest'
+          required: true
+      responses:
+        "200":
+          description: Successful operation (the offer status)
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferStatus'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
+        401:
+          $ref: '#/responses/unauthorised'
+        403:
+          $ref: '#/responses/forbidden'
+            
+  /pfb/osps/{osp_id}/deals:
+    parameters:
+      - $ref: '#/parameters/osp-id'
+    get:      
+      summary: List of all users and their active deals for the OSP.
+      description: Request from an OSP to get a list of all users and their active deals for specific OSP (could be also for report) .
+      tags:
+        - Deals
+        - OSPs
+      operationId: getAcceptedDealsByOSP
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successful operation (list of offers' ids associated with users' ids).
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/OfferUser'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
+        401:
+          $ref: '#/responses/unauthorised'
+        403:
+          $ref: '#/responses/forbidden'
+          
+  /pfb/deals/{deal_id}:
+    parameters:
+      - $ref: '#/parameters/deal-id'
+    get:      
+      summary: Gets the status of a given deal.
+      description: Get the status of a given deal.
+      tags:
+        - Deals
+      produces:
+        - application/json        
+      responses:
+        "200":
+          description: Successful operation (the offer status)
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.pfb.yaml#/Deal'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
+        401:
+          $ref: '#/responses/unauthorised'
+        403:
+          $ref: '#/responses/forbidden'
+    
+  /pfb/deals/{deal_id}/acknowledgement:
+    parameters:
+      - $ref: '#/parameters/deal-id'
+    post:
+      summary: Acknowledge a deal by OSP.
+      description: This API call is used by the OSP to acknowledge a deal and approve that offer was awarded to user
+      tags:
+        - Deals
+      operationId: offerAccepted
+      produces:
+        - application/json
+      parameters:
+      - in: query
+        name: ospId
+        description: Osp Id.
+        required: true
+        type: string
+      - in: query
+        name: offerId
+        description: Offer Id.
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: string
+        default:
+          description: Unexpected error
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
+        401:
+          $ref: '#/responses/unauthorised'
+        403:
+          $ref: '#/responses/forbidden'
+          
+  /bda/reports:
+    get:
+      description:   
+         provides a link to download a report
+      parameters:
+        -
+          name: requestHeader # ACTION REQUIRED TO AGREE ON THIS IN THE PROYECT, MAYBE WE NEED SOMETHIN SUCH AS REQUESTINFO OR REQUEST HEADER
+          in: body
+          description: Identification of the requesting end user
+          schema:
+            $ref: '#/definitions/requestHeader'
+          required: true
+        -
+          name: jobId 
+          in: query
+          description: Identification of the job to get the status about
+          type: string
+          required: true
+      responses:
+        200:
+          description: Successful response
+          # PENDING what happens in case of failure???
+        401:
+          $ref: '#/responses/unauthorised'
+        403:
+          $ref: '#/responses/forbidden'
+  
+  /rg/reports/{report_id}:
+    get:
+      summary: Get a report.
+      description: |
+        Called by a regulator to obtain a report matching the given ID. Intended (at the moment) to return a compliance report relating to an OSP.
+      tags:
+        - reports
+      parameters:
+        - $ref: '#/parameters/report-id'
+        - $ref: '#/parameters/format'
+      responses:
+        200:
+          description: The request was successful. The report is returned in the response body in the requested format.
+          schema:
+            type: string
+        401:
+          $ref: '#/responses/unauthorised'
+        403:
+          $ref: '#/responses/forbidden'
+          
+################################################################################
+#                              Object Definitions                             #
+################################################################################   
+definitions:
+  PrivacyRegulationInput:
+    $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulationInput.yaml#/PrivacyRegulationInput"
+  PrivacyRegulation:
+    $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation"
+  requestHeader:
+    type: object
+    properties:
+      requestId:
+        type: string
+      requesterId:
+        type: string
+      requesterComponentId:
+        type: string
+      proxyId:
+        type: string
+      requestDateTime:
+        type: string
+        format: date-time
+    required:
+    - requestId
+    - requesterId
