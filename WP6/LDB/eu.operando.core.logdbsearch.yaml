@@ -7,7 +7,6 @@ info:
     name: MIT
     url: http://opensource.org/licenses/MIT
 host: localhost:8080
-basePath: /operando/core/logdbsearch
 schemes:
 - http
 - https
@@ -25,7 +24,7 @@ tags:
 ################################################################################
 
 paths:
-  /log/search:
+  /operando/core/logdbsearch/log/search:
     get:
       summary: Search logs in database
       description: Search logs in database by specifying a filter.
