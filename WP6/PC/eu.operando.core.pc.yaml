@@ -134,7 +134,7 @@ paths:
           description: Unique identifier representing a specific user
           type: string
           required: true
-          format: uuid
+          format: string
         - name: osp_id
           in: query
           description: OSP unique identifier
