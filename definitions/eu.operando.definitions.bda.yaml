@@ -15,3 +15,19 @@ RequestHeader:
   required:
     - requestId
     - requesterId
+SubscriberJobs:
+  type: object
+  properties:
+    jobId:
+      type: string
+    jobName:
+      type: string
+    subscribed:
+      type: boolean
+    status:
+      type: string
+    downloadLink:
+      type: string
+    
+   
+ 
