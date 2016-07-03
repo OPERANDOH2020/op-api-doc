@@ -3,14 +3,25 @@ info:
   version: 0.0.1
   title: eu.operando.core.bda
   description: Operando's BDA interfaces for administration console
+
+  termsOfService: 'http://www.operando.eu/terms/'
+  
+  contact:
+    name: OPERANDO development
+    url: 'http://www.operando.eu/support'
+    email: support@operando.eu
   license:
     name: MIT
     url: 'http://opensource.org/licenses/MIT'
+
 host: 'localhost:8080'
 schemes:
   - http
+  - https
 basePath: /operando/bda
 produces:
+  - application/json
+consumes:
   - application/json
 paths:
   /ac/job/status:
@@ -21,7 +32,7 @@ paths:
           in: body
           description: Identification of the requesting end user
           schema:
-            $ref: '#/definitions/requestHeader'
+            $ref: '#/definitions/RequestHeader'
           required: true
         - name: jobId
           in: query
@@ -39,7 +50,7 @@ paths:
           in: body
           description: Identification of the requesting end user
           schema:
-            $ref: '#/definitions/requestHeader'
+            $ref: '#/definitions/RequestHeader'
           required: true
         - name: jobId
           in: query
@@ -59,7 +70,7 @@ paths:
           in: body
           description: Identification of the requesting end user
           schema:
-            $ref: '#/definitions/requestHeader'
+            $ref: '#/definitions/RequestHeader'
           required: true
         - name: jobId
           in: query
@@ -77,7 +88,7 @@ paths:
           in: body
           description: Identification of the requesting end user
           schema:
-            $ref: '#/definitions/requestHeader'
+            $ref: '#/definitions/RequestHeader'
           required: true
         - name: jobId
           in: query
@@ -95,7 +106,7 @@ paths:
           in: body
           description: Identification of the requesting end user
           schema:
-            $ref: '#/definitions/requestHeader'
+            $ref: '#/definitions/RequestHeader'
           required: true
         - name: jobId
           in: query
@@ -113,7 +124,7 @@ paths:
           in: body
           description: Identification of the requesting end user
           schema:
-            $ref: '#/definitions/requestHeader'
+            $ref: '#/definitions/RequestHeader'
           required: true
         - name: jobId
           in: query
@@ -131,7 +142,7 @@ paths:
           in: body
           description: Identification of the requesting end user
           schema:
-            $ref: '#/definitions/requestHeader'
+            $ref: '#/definitions/RequestHeader'
           required: true
         - name: jobId
           in: query
@@ -149,7 +160,7 @@ paths:
           in: body
           description: Identification of the requesting end user
           schema:
-            $ref: '#/definitions/requestHeader'
+            $ref: '#/definitions/RequestHeader'
           required: true
         - name: jobId
           in: query
@@ -167,7 +178,7 @@ paths:
           in: body
           description: Identification of the requesting end user
           schema:
-            $ref: '#/definitions/requestHeader'
+            $ref: '#/definitions/RequestHeader'
           required: true
         - name: jobId
           in: query
@@ -177,6 +188,55 @@ paths:
       responses:
         '200':
           description: Successful response
+  /mc/osp/{osp_id}/jobs:
+    get:
+      description: Function that returns all the jobs avaliable to the requester detailing those suscribed
+      tags:
+        - Management Console
+      parameters:
+        - name: osp_id
+          in: path
+          description: The unqiue regulation ID for the new regulation created.
+          required: true
+          type: number
+          format: integer
+      responses:
+        '200':
+          description: the osp_id exists
+          schema: 
+            $ref: '#/definitions/OSPJobs'
+        '404':
+          description: the osp_id does not exist
+  /mc/osp/{osp_id}/jobs/{job_id}/subscription:
+    get:
+      description: Function that allows to modify the subscription to a job
+      tags:
+        - Management Console
+      parameters:
+        - name: osp_id
+          in: path
+          description: The unique ID for the osp.
+          required: true
+          type: number
+          format: integer
+        - name: job_id
+          in: path
+          description: The unique ID for the job.
+          required: true
+          type: number
+          format: integer
+        - name: oSPJobsSubscriptionRequest
+          in: body
+          description: user to add to the system
+          required: true
+          schema: {
+            "$ref": "#/definitions/OSPJobsSubscriptionRequest"
+          }
+      responses:
+        '200':
+          description: the job subscription added/modified
+        '404':
+          description: the osp_id or job_id does not exist
   /mc/job/subscribe:
     get:
       description: >-
@@ -189,7 +249,7 @@ paths:
           in: body
           description: Identification of the requesting end user
           schema:
-            $ref: '#/definitions/requestHeader'
+            $ref: '#/definitions/RequestHeader'
           required: true
         - name: jobId
           in: query
@@ -223,7 +283,7 @@ paths:
           in: body
           description: Identification of the requesting end user
           schema:
-            $ref: '#/definitions/requestHeader'
+            $ref: '#/definitions/RequestHeader'
           required: true
         - name: jobId
           in: query
@@ -241,7 +301,7 @@ paths:
           in: body
           description: Identification of the requesting end user
           schema:
-            $ref: '#/definitions/requestHeader'
+            $ref: '#/definitions/RequestHeader'
           required: true
         - name: jobId
           in: query
@@ -252,7 +312,7 @@ paths:
         '200':
           description: Successful response
 definitions:
-  requestHeader:
+  RequestHeader:
     type: object
     properties:
       requestId:
@@ -269,3 +329,34 @@ definitions:
     required:
       - requestId
       - requesterId
+  BDAJob:
+    type: object
+    properties:
+      jobId:
+        type: integer
+      jobName:
+        type: string
+      subscribed:
+        type: boolean
+      status:
+        type: string
+      downloadLink:
+        type: string
+  OSPJobs:
+    type: object
+    description: OSP job list
+    properties:
+      jobs: {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/BDAJob"
+            }
+      }
+  OSPJobsSubscriptionRequest:
+    type: object
+    description: job subscription
+    properties:
+      subscribed:
+        type: boolean
+      frequency:
+        type: string
