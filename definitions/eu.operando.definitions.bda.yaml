@@ -1,45 +1,43 @@
-RequestHeader:
-  type: object
-  properties:
-    requestId:
-      type: string
-    requesterId:
-      type: string
-    requesterComponentId:
-      type: string
-    proxyId:
-      type: string
-    requestDateTime:
-      type: string
-      format: date-time
-  required:
-    - requestId
-    - requesterId
-BDAJob:
-  type: object
-  properties:
-    jobId:
-      type: string
-    jobName:
-      type: string
-    subscribed:
-      type: boolean
-    status:
-      type: string
-    downloadLink:
-      type: string
-OSPJobsArray:
-  type: array
-  description: OSP job list
-  items: {
-        "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.bda.yaml#/BDAJob"
-    }
-OSPJobs:
-  type: object
-  description: OSP jpb list
-  properties:
-    jobs: {
-          "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.bda.yaml#/OSPJobsArray"
-      }       
+definitions:
+  RequestHeader:
+    type: object
+    properties:
+      requestId:
+        type: string
+      requesterId:
+        type: string
+      requesterComponentId:
+        type: string
+      proxyId:
+        type: string
+      requestDateTime:
+        type: string
+        format: date-time
+    required:
+      - requestId
+      - requesterId
+  BDAJob:
+    type: object
+    properties:
+      jobId:
+        type: string
+      jobName:
+        type: string
+      subscribed:
+        type: boolean
+      status:
+        type: string
+      downloadLink:
+        type: string
+  OSPJobs:
+    type: object
+    description: OSP jpb list
+    properties:
+      jobs: {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/BDAJob"
+            }
+      }      
    
  
