@@ -28,7 +28,7 @@ BDAJob:
       type: string
     downloadLink:
       type: string
-ospJobs:
+OSPJobs:
   type: array
   description: OSP job list
   items:
