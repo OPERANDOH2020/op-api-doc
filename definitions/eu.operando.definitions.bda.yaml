@@ -15,7 +15,7 @@ RequestHeader:
   required:
     - requestId
     - requesterId
-SubscriberJobs:
+SubscriberJob:
   type: object
   properties:
     jobId:
@@ -28,6 +28,11 @@ SubscriberJobs:
       type: string
     downloadLink:
       type: string
-    
+SubscriberJobs:
+  type: array
+  description: OSP job list
+  items:
+    $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.core.bda.yaml#/SubscriberJobs'
+          
    
  
