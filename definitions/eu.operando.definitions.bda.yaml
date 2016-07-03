@@ -32,14 +32,14 @@ OSPJobsArray:
   type: array
   description: OSP job list
   items: {
-        "$ref": "#/BDAJob"
+        "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.bda.yaml#/BDAJob"
     }
 OSPJobs:
   type: object
   description: OSP jpb list
   properties:
     jobs: {
-          "$ref": "#/OSPJobsArray"
+          "$ref": "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.bda.yaml#/OSPJobsArray"
       }       
    
  
