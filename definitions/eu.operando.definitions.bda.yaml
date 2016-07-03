@@ -28,17 +28,18 @@ BDAJob:
       type: string
     downloadLink:
       type: string
+OSPJobsArray:
+  type: array
+  description: OSP job list
+  items: {
+        "$ref": "#/BDAJob"
+    }
 OSPJobs:
   type: object
   description: OSP jpb list
   properties:
-    jobs:
-      type: OSPJobsArray
-OSPJobsArray:
-  type: array
-  description: OSP job list
-  items:
-    $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.core.bda.yaml#/BDAJob'
-          
+    jobs: {
+          "$ref": "#/OSPJobsArray"
+      }       
    
  
