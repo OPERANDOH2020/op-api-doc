@@ -38,7 +38,7 @@ OSPJobsArray:
   type: array
   description: OSP job list
   items:
-    $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.core.bda.yaml#/SubscriberJobs'
+    $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.core.bda.yaml#/BDAJob'
           
    
  
