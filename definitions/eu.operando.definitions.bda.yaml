@@ -1,0 +1,18 @@
+# definitions for the bda element
+RequestHeader:
+  type: object
+  properties:
+    requestId:
+      type: string
+    requesterId:
+      type: string
+    requesterComponentId:
+      type: string
+    proxyId:
+      type: string
+    requestDateTime:
+      type: string
+      format: date-time
+  required:
+    - requestId
+    - requesterId
