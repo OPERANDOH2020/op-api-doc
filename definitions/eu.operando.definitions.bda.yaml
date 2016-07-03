@@ -29,6 +29,12 @@ BDAJob:
     downloadLink:
       type: string
 OSPJobs:
+  type: object
+  description: OSP jpb list
+  properties:
+    jobs:
+      type: OSPJobsArray
+OSPJobsArray:
   type: array
   description: OSP job list
   items:
