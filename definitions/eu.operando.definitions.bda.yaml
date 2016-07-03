@@ -15,7 +15,7 @@ RequestHeader:
   required:
     - requestId
     - requesterId
-SubscriberJob:
+BDAJob:
   type: object
   properties:
     jobId:
@@ -28,7 +28,7 @@ SubscriberJob:
       type: string
     downloadLink:
       type: string
-SubscriberJobs:
+BDAJobs:
   type: array
   description: OSP job list
   items:
