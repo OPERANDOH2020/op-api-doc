@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "version": "0.0.1",
-        "title": "eu.operando.core.bda.ac",
+        "title": "eu.operando.core.bda",
         "description": "Operando's BDA interfaces for administration console",
         "license": {
             "name": "MIT",
@@ -13,12 +13,12 @@
     "schemes": [
         "http"
     ],
-    "basePath": "/operando/bda/ac",
+    "basePath": "/operando/bda",
     "produces": [
         "application/json"
     ],
     "paths": {
-        "/job/status": {
+        "/ac/job/status": {
             "get": {
                 "description": "Allows to get the status of a job",
                 "parameters": [
@@ -46,7 +46,7 @@
                 }
             }
         },
-        "/job/info/load": {
+        "/ac/job/info/load": {
             "get": {
                 "description": "It forces the information loading for a given job",
                 "parameters": [
@@ -74,7 +74,7 @@
                 }
             }
         },
-        "/job/info/update": {
+        "/ac/job/info/update": {
             "get": {
                 "description": "It forces the information updating for a given job, it only load last updates",
                 "parameters": [
@@ -102,7 +102,7 @@
                 }
             }
         },
-        "/job/list": {
+        "/ac/job/list": {
             "get": {
                 "description": "It returns the list of jobs available for that user",
                 "parameters": [
@@ -130,7 +130,7 @@
                 }
             }
         },
-        "/user/subscribed": {
+        "/ac/user/subscribed": {
             "get": {
                 "description": "It returns the list of jobs subscribed for that user",
                 "parameters": [
@@ -158,7 +158,7 @@
                 }
             }
         },
-        "/user/rights/execution": {
+        "/ac/user/rights/execution": {
             "get": {
                 "description": "It returns the list of jobs subscribed for that user",
                 "parameters": [
@@ -186,7 +186,7 @@
                 }
             }
         },
-        "/user/rights/access": {
+        "/ac/user/rights/access": {
             "get": {
                 "description": "It returns the list of jobs subscribed for that user",
                 "parameters": [
@@ -214,7 +214,7 @@
                 }
             }
         },
-        "/event/change": {
+        "/ac/event/change": {
             "get": {
                 "description": "It returns the list of jobs subscribed for that user",
                 "parameters": [
@@ -242,9 +242,113 @@
                 }
             }
         },
-        "/job/change": {
+        "/ac/job/change": {
             "get": {
                 "description": "It returns the list of jobs subscribed for that user",
+                "parameters": [
+                    {
+                        "name": "requestHeader",
+                        "in": "body",
+                        "description": "Identification of the requesting end user",
+                        "schema": {
+                            "$ref": "#/definitions/requestHeader"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "query",
+                        "description": "Identification of the job to get the status about",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/mc/job/subscribe": {
+            "get": {
+                "description": "Allows to subscribe to a job for its execution. <br> <ul> <li>If no start date is specified it start inmediately. </li> <li>If no end date is specified it executes forever. </li> <li>If no periodicity is specified it executes just one time.  </li> </ul>",
+                "parameters": [
+                    {
+                        "name": "requestHeader",
+                        "in": "body",
+                        "description": "Identification of the requesting end user",
+                        "schema": {
+                            "$ref": "#/definitions/requestHeader"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "query",
+                        "description": "Identification of the job to be subscribed",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "startDate",
+                        "in": "query",
+                        "description": "Identification of the job subscribtion starting date",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    {
+                        "name": "endDate",
+                        "in": "query",
+                        "description": "Identification of the job subscribtion end date",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    {
+                        "name": "period",
+                        "in": "query",
+                        "description": "Identification of job execution periodicity -> yearly, monthly, weekly, ...",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/mc/job/unSubscribe": {
+            "get": {
+                "description": "unSubscribe to a job for its execution. <br>",
+                "parameters": [
+                    {
+                        "name": "requestHeader",
+                        "in": "body",
+                        "description": "Identification of the requesting end user",
+                        "schema": {
+                            "$ref": "#/definitions/requestHeader"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "query",
+                        "description": "Identification of the job to be unSubscribed",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/out/report/download": {
+            "get": {
+                "description": "provides a link to download a report",
                 "parameters": [
                     {
                         "name": "requestHeader",
