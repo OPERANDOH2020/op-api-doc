@@ -208,7 +208,7 @@ paths:
         '404':
           description: the osp_id does not exist
   /mc/osp/{osp_id}/jobs/{job_id}/subscription:
-    get:
+    put:
       description: Function that allows to modify the subscription to a job
       tags:
         - Management Console
@@ -235,6 +235,30 @@ paths:
       responses:
         '200':
           description: the job subscription added/modified
+        '404':
+          description: the osp_id or job_id does not exist
+    get:
+      description: Function that allows to modify the subscription to a job
+      tags:
+        - Management Console
+      parameters:
+        - name: osp_id
+          in: path
+          description: The unique ID for the osp.
+          required: true
+          type: number
+          format: integer
+        - name: job_id
+          in: path
+          description: The unique ID for the job.
+          required: true
+          type: number
+          format: integer
+      responses:
+        '200':
+          description: the job subscription 
+          schema: 
+            $ref: '#/definitions/OSPJobs'          
         '404':
           description: the osp_id or job_id does not exist
   /mc/job/subscribe:
