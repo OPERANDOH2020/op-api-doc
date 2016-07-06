@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
-  title: eu.operando.core.logdbsearch
-  description: Operando LogDBSearch module.
+  title: eu.operando.core.ldbsearch
+  description: Operando ldbsearch module.
   version: "1.0.0"
   license:
     name: MIT
@@ -24,7 +24,7 @@ tags:
 ################################################################################
 
 paths:
-  /operando/core/logdbsearch/log/search:
+  /operando/core/ldbsearch/log/search:
     get:
       summary: Search logs in database
       description: Search logs in database by specifying a filter.
