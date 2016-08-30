@@ -7,7 +7,6 @@ info:
     name: MIT
     url: http://opensource.org/licenses/MIT
 host: localhost:8080
-basePath: /operando/core/pfb
 schemes:
 - http
 - https
@@ -59,7 +58,7 @@ parameters:
 #                                   PATHs                                      #
 ################################################################################
 paths:
-  /offers:
+  /operando/core/pfb/offers:
     post:
       summary: Creates a new offer for an OSP .
       description: Request from Administration Console to create a new offer for an OSP.
@@ -91,7 +90,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /offers/search:
+  /operando/core/pfb/offers/search:
     get:
       summary: Search offers in databse
       description: Extension or management console send request to PfB service to get a list of offers by specific search terms (e.g Gets offers related to a website  when signup page is detected)
@@ -129,7 +128,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'	
-  /offers/{offer_id}:
+  /operando/core/pfb/offers/{offer_id}:
     parameters:
       - $ref: '#/parameters/offer_id'
     get:      
@@ -181,7 +180,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /deals:
+  /operando/core/pfb/deals:
     post:
       summary: Create a new deal. Indicates the user's acceptance for an offer.
       description: Triggered by the extension to PfB service to indicate that the user has chosen to accept the offer (i.e. initiated login with Social Network button)
@@ -209,7 +208,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /deals/{deal_id}:
+  /operando/core/pfb/deals/{deal_id}:
     parameters:
       - $ref: '#/parameters/deal_id'
     get:      
@@ -250,7 +249,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'   
-  /deals/{deal_id}/acknowledgement:
+  /operando/core/pfb/deals/{deal_id}/acknowledgement:
     parameters:
       - $ref: '#/parameters/deal_id'
     post:
@@ -281,7 +280,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /osps:
+  /operando/core/pfb/osps:
     post:
       summary: Registers a new OSP.
       description: Request from Administration Console to register a new Online Service Provider.
@@ -308,7 +307,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /osps/{osp_id}/deals:
+  /operando/core/pfb/osps/{osp_id}/deals:
     parameters:
       - $ref: '#/parameters/osp_id'
     get:      
@@ -334,7 +333,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /users/{user_id}/deals:
+  /operando/core/pfb/users/{user_id}/deals:
     parameters:
       - $ref: '#/parameters/user_id'
     get:      

@@ -1,13 +1,12 @@
 swagger: '2.0'
 info:
-  title: eu.operando.core.anonymization
+  title: eu.operando.core.ae
   description: Operando Anonymization module.
   version: "1.0.0"
   license:
     name: MIT
     url: http://opensource.org/licenses/MIT
 host: localhost:8080
-basePath: /operando/core/anonymization
 schemes:
 - http
 - https
@@ -63,7 +62,7 @@ parameters:
 #                                   PATHs                                      #
 ################################################################################
 paths:
-  /dataUnit:
+  /operando/core/ae/dataUnit:
     post:      
       summary: Creates a new data unit.
       description: Creates a new data unit.
@@ -93,7 +92,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /dataUnit/search:
+  /operando/core/ae/dataUnit/search:
     get:
       summary: Gets existing data units.
       description: Gets existing data units.
@@ -113,7 +112,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /dataUnit/{dataunit_id}/search:
+  /operando/core/ae/dataUnit/{dataunit_id}/search:
     parameters:
       - $ref: '#/parameters/dataunit_id'      
     get:
@@ -137,7 +136,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /dataUnit/{dataunit_id}:
+  /operando/core/ae/dataUnit/{dataunit_id}:
     parameters:
       - $ref: '#/parameters/dataunit_id'
     put:      
@@ -190,7 +189,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /accessLevel:
+  /operando/core/ae/accessLevel:
     post:      
       summary: Creates a new access level.
       description: Creates a new access level.
@@ -220,7 +219,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /accessLevel/search:
+  /operando/core/ae/accessLevel/search:
     get:      
       summary: Gets existing access levels.
       description: Gets existing access levels.
@@ -240,7 +239,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /accessLevel/{accessLevel_id}/search:
+  /operando/core/ae/accessLevel/{accessLevel_id}/search:
     parameters:
       - $ref: '#/parameters/accessLevel_id'      
     get:
@@ -264,7 +263,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /accessLevel/{accessLevel_id}:
+  /operando/core/ae/accessLevel/{accessLevel_id}:
     parameters:
       - $ref: '#/parameters/accessLevel_id'
     put:      
@@ -317,7 +316,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /dataUnit/{dataunit_id}/accessLevels/search:
+  /operando/core/ae/dataUnit/{dataunit_id}/accessLevels/search:
     parameters:
       - $ref: '#/parameters/dataunit_id'      
     get:
@@ -342,7 +341,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /dataUnit/{dataunit_id}/accessLevels:
+  /operando/core/ae/dataUnit/{dataunit_id}/accessLevels:
     parameters:
       - $ref: '#/parameters/dataunit_id'
     post:
@@ -395,7 +394,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /dataUnit/{dataunit_id}/country/{country_id}/accessLevels/search:
+  /operando/core/ae/dataUnit/{dataunit_id}/country/{country_id}/accessLevels/search:
     parameters:
       - $ref: '#/parameters/dataunit_id'
       - $ref: '#/parameters/country_id'
@@ -421,7 +420,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /dataUnit/{dataunit_id}/pa/accessLevels/search:
+  /operando/core/ae/dataUnit/{dataunit_id}/pa/accessLevels/search:
     parameters:
       - $ref: '#/parameters/dataunit_id'
     get:
@@ -446,7 +445,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /dataUnit/{dataunit_id}/person/{person_id}/requester/{requester_id}/accessLevel/search:
+  /operando/core/ae/dataUnit/{dataunit_id}/person/{person_id}/requester/{requester_id}/accessLevel/search:
     parameters:
       - $ref: '#/parameters/dataunit_id'
       - $ref: '#/parameters/person_id'
@@ -471,7 +470,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /dataUnit/{dataunit_id}/person/{person_id}/requester/{requester_id}/accessLevel:
+  /operando/core/ae/dataUnit/{dataunit_id}/person/{person_id}/requester/{requester_id}/accessLevel:
     parameters:
       - $ref: '#/parameters/dataunit_id'
       - $ref: '#/parameters/person_id'
@@ -524,7 +523,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /personaldata/{requester_id}/search:
+  /operando/core/ae/personaldata/{requester_id}/search:
     parameters:
       - $ref: '#/parameters/requester_id'
     get:
