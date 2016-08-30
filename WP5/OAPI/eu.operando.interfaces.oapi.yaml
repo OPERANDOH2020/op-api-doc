@@ -280,7 +280,7 @@ paths:
         403:
           $ref: '#/responses/forbidden'
   
-  /rg/reports/{report_id}:
+  /reports/{report_id}:
     get:
       summary: Get a report.
       description: |
