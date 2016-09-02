@@ -259,7 +259,7 @@ paths:
          provides a link to download a report
       parameters:
         -
-          name: requestHeader # ACTION REQUIRED TO AGREE ON THIS IN THE PROYECT, MAYBE WE NEED SOMETHIN SUCH AS REQUESTINFO OR REQUEST HEADER
+          name: requestHeader # ACTION REQUIRED TO AGREE ON THIS IN THE PROJECT, MAYBE WE NEED SOMETHING SUCH AS REQUESTINFO OR REQUEST HEADER
           in: body
           description: Identification of the requesting end user
           schema:
