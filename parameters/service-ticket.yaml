@@ -1,0 +1,5 @@
+name: service-ticket
+in: header
+description: service-ticket allowing use of the requested service.
+required: true
+type: string
