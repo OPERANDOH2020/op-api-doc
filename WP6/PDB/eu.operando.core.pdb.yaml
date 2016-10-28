@@ -330,9 +330,11 @@ paths:
   
   /OSP/{osp-id}/privacy-policy/:
     get:
-      summary: Read the current text policy of an OSP
+      summary: Get the current set of privacy policy statements about the usage of data for stated reasons. 
       description: |
-        Get the text policy of an OSP. That is the text of the privacy policy stated on a web page.
+        This is a machine readable version of a G2C privacy policy statement entered using the OSP Admin dashboard; and
+        retrieved by both the OSP & PSP analyst dashboard for display purposes and also by the OSE component for checking
+        regulation compliance. 
       tags:
         - OSP
         - GET
@@ -341,11 +343,11 @@ paths:
         
       responses:
         '200':
-          description: The OSP document requested to be read is returned in full
+          description: The list of OSP privacy policy statements are returned as a JSON object.
           schema:
-            type: string
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPReasonPolicy.yaml#/OSPReasonPolicy'
         '404':
-          description: Error - the OSP does not have a text policy stored in the db.
+          description: Error - the OSP does not have a policy stored in the db.
 
     put:
       summary: Update OSP text policy entry in the database.
@@ -357,12 +359,12 @@ paths:
         - PUT
       parameters:
         - $ref: '#/parameters/osp-id'
-        - name: osp-policy-text
+        - name: osp-policy
           in: body
           description: The changed instance of this OSPRequest
           required: true
           schema:
-            type: string
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPReasonPolicyInput.yaml#/OSPReasonPolicyInput'
 
       responses:
         '204':
@@ -431,3 +433,4 @@ paths:
         '404':
           description: Error. No document exists to be deleted.
           
+
