@@ -1,4 +1,4 @@
-AccessPolicy:
+AccessReason:
     type: object
     properties: 
       datauser: 

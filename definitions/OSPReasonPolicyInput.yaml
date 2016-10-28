@@ -6,7 +6,7 @@ OSPReasonPolicyInput:
             The list of access reasons to use a particular data subject types data
         type: array
         items:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/AccessReasons'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessReason.yaml#/AccessReason'
 
 
          
