@@ -1,0 +1,24 @@
+AccessPolicy:
+    type: object
+    properties: 
+      datauser: 
+        type: string
+        description: | 
+            Who is using the data.
+        
+      datasubjecttype: 
+        description: | 
+            What is the type or group of the user this private data concerns e.g. patient, helper etc.
+        type: string
+
+      datatype:
+          description: |
+            What is the type of data this refers to e.g. e-mail address, medical record etc.
+          type: string
+            
+      reason:
+          description: |
+            Usage of this information if for what purpose e.g. marketing, healthcare delivery.
+          type: string
+          
+          
