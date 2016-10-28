@@ -1,4 +1,4 @@
-OSPReasonPolicyInput:
+OSPReasonPolicy:
     type: object
     properties: 
       osp_policy_id:
