@@ -274,5 +274,8 @@ definitions:
         description: Request status success or error
       compliance:
         type: string
-        description: Message stating the reasons any request failed e.g. breaks the user's privacy preferences.
-
+        description: Overall compliance result - three values - NO_POLICY, PREFS_CONFLICT, VALID.
+      evaluations:
+            type: array
+            items:
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/RequestEvaluation.yaml#/RequestEvaluation'
