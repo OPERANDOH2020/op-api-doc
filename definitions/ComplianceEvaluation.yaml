@@ -1,0 +1,29 @@
+ComplianceEvaluation:
+    type: object
+
+    properties: 
+      datauser: 
+        type: string
+        description: | 
+            The user of the data in the request to be evaluated
+        
+      datafield: 
+        description: | 
+            The oData field requested by the data user.
+        type: string
+      
+      action: 
+        description: | 
+            The usage type of the data
+        type: string
+        
+      reason: 
+        description: | 
+            The reason for this privacy policy action
+        type: string  
+      
+      result: 
+        description: | 
+            Whether the request complies with the regulation
+        type: boolean
+

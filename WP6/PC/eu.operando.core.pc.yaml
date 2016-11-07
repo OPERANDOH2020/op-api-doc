@@ -176,8 +176,6 @@ paths:
           in: body
           description: "The set of requests that the OSP will carry out on a user's private data"
           schema:
-            type: object
-            items:
               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPReasonPolicy.yaml#/OSPReasonPolicy'
           required: true
       tags:
@@ -279,3 +277,17 @@ definitions:
             type: array
             items:
               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/RequestEvaluation.yaml#/RequestEvaluation'
+
+  ComplianceReport:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Request status success or error
+      regulation:
+        type: string
+        description: The identifier of the regulation this compliance report is for
+      evaluations:
+            type: array
+            items:
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/ComplianceEvaluation.yaml#/ComplianceEvaluation'
