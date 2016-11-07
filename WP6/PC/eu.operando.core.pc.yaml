@@ -178,7 +178,7 @@ paths:
           schema:
             type: object
             items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicy'
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPReasonPolicy.yaml#/OSPReasonPolicy'
           required: true
       tags:
         - Policy Compliance

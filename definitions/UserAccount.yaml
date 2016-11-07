@@ -1,0 +1,33 @@
+UserAccount:
+    type: object
+    properties:    
+        user_id:
+            type: string
+            description: The unique operando id of the user this policy is about. Each OPERANDO user has one and only one UPP.
+
+        full_name:
+            type: string
+            description: The unique operando id of the user this policy is about. Each OPERANDO user has one and only one UPP.
+        
+        address:
+            type: string
+            description: The unique operando id of the user this policy is about. Each OPERANDO user has one and only one UPP.
+            
+        user_type:
+            type: string
+            description: The unique operando id of the user this policy is about. Each OPERANDO user has one and only one UPP.
+            
+        email_address:
+            type: string
+            description: The unique operando id of the user this policy is about. Each OPERANDO user has one and only one UPP.
+            
+        city:
+            type: string
+            description: The unique operando id of the user this policy is about. Each OPERANDO user has one and only one UPP.
+            
+        country:
+            type: string
+            description: The unique operando id of the user this policy is about. Each OPERANDO user has one and only one UPP.
+            
+        
+               

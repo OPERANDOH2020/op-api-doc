@@ -17,18 +17,11 @@ schemes:
 - https
 produces:
 - application/json
+
 ################################################################################
 #                                   Tags                                       #
 ################################################################################
 tags:
-  - name: Deals
-    description: |
-      Privacy for benefit products that have been accepted by a user
-  - name: Offers
-    description: |
-      Privacy for benefit product, offered by an OSP to consumers
-  - name: OSPs
-    description: APIs related to management of Online Service Providers PfB accounts.
   - name: Users
     description: End users of the Privacy Service Provider.
     
@@ -37,12 +30,6 @@ tags:
 ################################################################################
 parameters:
 
-  deal-id:
-    name: deal-id
-    in: path
-    description: The unique identifier number of a deal.
-    type: string
-    required: true
   user-id:
     name: user-id
     in: path
@@ -54,122 +41,60 @@ parameters:
 #                                   PATHs                                      #
 ################################################################################
 paths:
-  /users/{user-id}/deals/:
-    parameters:
-      - $ref: '#/parameters/user-id'
-    get:      
-      summary: Returns list of offers accepted by user.
-      description: Request from privacy dashboard to get list of offers accepted by user (and acknowledged by OSP).
-      tags:
-        - Users
-        - Deals
-      operationId: getAcceptedDealsByUser
-      produces:
-        - application/json        
-
-      responses:
-        "200":
-          description: Successful operation (list of offers accepted by user).
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-            
-    post:      
-      summary: Create a new deal for the user.
-      description: Add a new deal.
-      tags:
-        - Users
-        - Deals
-      operationId: createUserDeal
-      produces:
-        - application/json        
-      parameters:
-        - name: deal
-          in: body
-          description: Content of new deal
-          schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
-            
-      responses:
-        "201":
-          description: Successful addition of new deal. Return the deal id
-          schema:
-            $ref: '#/definitions/DealID'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-    
-  /users/{user-id}/deals/{deal-id}:
-    parameters:
-      - $ref: '#/parameters/deal-id'
-      - $ref: '#/parameters/user-id'
+  /users/{user-id}/:
     get:
-      summary: Read a given PfB for the user.
+      summary: Read the user account information for the given user id.
       description: |
-        Get a specific deal document via the id. This will return the full deal document in json format.
+        Get the registered account information e.g. name, user type etc.
       tags:
-        - User
-        - Deals
+        - Users
         - GET
-          
+      parameters:
+        - $ref: '#/parameters/user-id'
       responses:
         '200':
-          description: The deal document requested to be read is returned in full
+          description: The UPP document requested to be read is returned in full
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserAccount.yaml#/UserAccount'
         '404':
-          description: Error - the regulation does not exist.
+          description: Error - the user does not exist.
+    
 
     put:
-      summary: Update deal entry in the database.
+      summary: Update user account entry in the database for the user.
       description: |
-        Called by ??
+        Called when a user makes a change to their account information
       tags:
         - Users
-        - Deals
         - PUT
       parameters:
-        - name: deal
+        - $ref: '#/parameters/user-id'
+          
+        - name: upp
           in: body
-          description: The changed instance of this deal
+          description: The changed instance of this user's account information
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Deal.yaml'
-
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserAccount.yaml#/UserAccount'
       responses:
         '204':
-          description: The document (deal) was successfully updated in the database.
+          description: The document (account info) was successfully updated in the database.
         '404':
           description: Error. No document exists to be updated.
+    
     delete:
-      summary: Remove the deal entry in the database.
+      summary: Remove the account entry in the database for the user.
       description: |
-        Called by ??.
+        Called when a user leaves operando. Their privacy preferences and
+        policies are deleted from the database.
       tags:
         - Users
-        - Deal
         - DELETE
-
+      parameters:
+        - $ref: '#/parameters/user-id'
       responses:
         '204':
-          description: The document (deal) was successfully deleted from the database.
+          description: The document (account info) was successfully deleted from the database.
         '404':
           description: Error. No document exists to be deleted.
-        
-         
-definitions:
-  DealID:
-    type: object
-    properties:
-      deal_id:
-        type: string
-        description: The generatred unique id of the deal
+          
