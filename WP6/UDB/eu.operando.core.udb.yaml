@@ -30,8 +30,8 @@ tags:
 ################################################################################
 parameters:
 
-  user-id:
-    name: user-id
+  userid:
+    name: userid
     in: path
     description: The user identifier number
     type: string
@@ -41,7 +41,29 @@ parameters:
 #                                   PATHs                                      #
 ################################################################################
 paths:
-  /users/{user-id}/:
+  /users/:
+    post:
+      summary: | 
+        Create user account entry in the database for the user.
+      description: |
+        Called when a user registers their account information
+      tags:
+        - Users
+        - POST
+      parameters:
+        - name: user
+          in: body
+          description: The instance of this user's account information
+          required: true
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserAccount.yaml#/UserAccount'
+      responses:
+        '201':
+          description: The document (account info) was successfully created in the database.
+        '404':
+          description: Error. No document exists to be updated. 
+    
+  /users/{userid}/:
     get:
       summary: Read the user account information for the given user id.
       description: |
@@ -68,7 +90,7 @@ paths:
         - Users
         - PUT
       parameters:
-        - $ref: '#/parameters/user-id'
+        - $ref: '#/parameters/userid'
           
         - name: upp
           in: body
@@ -91,7 +113,7 @@ paths:
         - Users
         - DELETE
       parameters:
-        - $ref: '#/parameters/user-id'
+        - $ref: '#/parameters/userid'
       responses:
         '204':
           description: The document (account info) was successfully deleted from the database.

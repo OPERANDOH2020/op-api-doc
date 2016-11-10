@@ -169,7 +169,12 @@ paths:
       parameters:
         - name: osp_id
           in: query
-          description: OSP unique identifier
+          description: OSP unique identifier.
+          type: string
+          required: true
+        - name: reg_id
+          in: query
+          description: The regulation to check compliance with.
           type: string
           required: true
         - name: osp_request
@@ -185,7 +190,7 @@ paths:
         '200':
           description: 'Compliance was successful and a report is produced. The report indicates if the request(s) complies with legislation. Where there is a breach, the report indicates the reason for the breach.'
           schema:
-            $ref: '#/definitions/PolicyEvaluationReport'
+            $ref: '#/definitions/ComplianceReport'
         '400':
           description: |
             The client inputs to the operation are incorrect or invalid. The caller should check the inputs are valid based upon the returned error message.
