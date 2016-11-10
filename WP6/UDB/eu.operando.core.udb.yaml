@@ -60,8 +60,8 @@ paths:
       responses:
         '201':
           description: The document (account info) was successfully created in the database.
-        '404':
-          description: Error. No document exists to be updated. 
+        '405':
+          description: User already created. 
     
   /users/{userid}/:
     get:
@@ -75,7 +75,7 @@ paths:
         - $ref: '#/parameters/user-id'
       responses:
         '200':
-          description: The UPP document requested to be read is returned in full
+          description: The User account document requested to be read is returned in full
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserAccount.yaml#/UserAccount'
         '404':
