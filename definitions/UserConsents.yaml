@@ -8,7 +8,7 @@ UserConsents:
 
         consents:
             type: array
-            description: OSP access policies
+            description: Access policies.
             items:
               $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/AccessPolicy'
     
