@@ -38,6 +38,9 @@ LogResponse:
 LogRequest:
   type: object
   properties:
+    userId:
+      type: string
+      description: Id of the user.
     requesterType:
       type: string
       description: Source type from which comes the request.
