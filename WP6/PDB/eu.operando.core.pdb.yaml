@@ -68,6 +68,12 @@ parameters:
     description: The identifier number of an OSP
     type: string
     required: true
+  reason-id:
+    name: reason-id
+    in: path
+    description: The identifier of a statement in a policy, is only unique to the policy.
+    type: string
+    required: true
   reg-id:
     name: reg-id
     in: path
@@ -371,6 +377,88 @@ paths:
           description: The document (policy text) was successfully updated in the database.
         '404':
           description: Error. No document exists to be updated. 
+          
+  /OSP/{osp-id}/privacy-policy/access-reasons:
+    get: 
+      summary: Get the list of access reason policy statements. 
+      description: |
+        List of policy statements. 
+      tags:
+        - OSP
+        - GET
+      parameters:
+        - $ref: '#/parameters/osp-id'
+        
+      responses:
+        '200':
+          description: The list of OSP privacy policy statements are returned as a JSON object.
+          schema:
+            type: array
+            items:
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPReasonPolicy.yaml#/OSPReasonPolicy'
+        '404':
+          description: Error - the OSP does not have a policy stored in the db.
+    
+    post: 
+      summary: Create a new access reason statement in the privacy policy.
+      description: |
+        Called by the UI when OSP updating the policy statements
+      tags:
+        - OSP
+        - POST
+      parameters:
+        - $ref: '#/parameters/osp-id'
+        - name: osp-policy
+          in: body
+          description: The first instance of this new statement.
+          required: true
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessReason.yaml#/AccessReason'
+      responses:
+        '201':
+          description: The statements (OSPBehaviour) was successfully created in the list.
+        '405':
+          description: Error. The document (OSPBehaviour) at this id has previously been created in the list.
+
+  /OSP/{osp-id}/privacy-policy/access-reasons/{reason-id}:
+    put:
+      summary: Update an access reason statement in the privacy policy.
+      description: |
+        Called by the UI when OSP updating the policy statements
+      tags:
+        - OSP
+        - POST
+      parameters:
+        - $ref: '#/parameters/osp-id'
+        - $ref: '#/parameters/reason-id'
+        - name: osp-policy
+          in: body
+          description: The updated instance of this OSP policy statement.
+          required: true
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessReason.yaml#/AccessReason'
+      responses:
+        '204':
+          description: The statements (OSPBehaviour) was successfully updated in the list.
+        '404':
+          description: Error. No statement in list to update, use post.
+
+    delete: 
+      summary: Remove the AccessReason entry in the list.
+      description: |
+          Remove an identified value.
+      tags:
+          - OSP
+          - DELETE
+      parameters:
+          - $ref: '#/parameters/osp-id'
+          - $ref: '#/parameters/reason-id'
+
+      responses:
+        '204':
+          description: The document (OSPBehaviour) was successfully deleted from the database.
+        '404':
+          description: Error. No document exists to be deleted.
           
   /OSP/{osp-id}/:
     get:
