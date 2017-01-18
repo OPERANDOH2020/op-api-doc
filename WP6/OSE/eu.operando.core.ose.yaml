@@ -2,7 +2,7 @@
 swagger: '2.0'
 
 info:
-  version: "0.0.8"
+  version: "0.0.9"
   title: OSP Enforcement (OSE)
 
   description: |
@@ -75,28 +75,7 @@ parameters:
 ################################################################################
 
 paths:
-  /consent/{osp-id}/:
-    get:
-      description: |
-        Retrieve the consent report for an OSP. This is the list of users subscribed
-        to this OSP, and the consents they have given for this service to access
-        their personal data.
-    
-    parameters:
-        - $ref: '#/parameters/osp-id'
-        
-    responses:
-        200:
-          description: Successful response. The consent report is returned.
-          schema:
-            title: Consent Report    
-            type: array
-            items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserConsents.yaml#UserConsents'
-              
-        404: 
-          description: Error response. The OSP does not exist, and a consent report is not available.    
-        
+          
   /osps/{osp-id}/privacy_settings/:
     get:
       description: |
@@ -253,7 +232,6 @@ paths:
           description: Error occured. The resource already exists, so a new resource cannot be created.
         
   /regulations/{reg-id}/:             
-              
     put:
       description: |
         Called by the Regulator API. A change to a regulation is entered into OPERANDO. Existing OSPs are then evaluated to see if they comply with the regulation. If not they are sent a report about how to comply.
@@ -281,5 +259,41 @@ paths:
         404:
           description: Error. The resource does not exist to be updated.
               
+  /consent/{osp-id}/:
+    get:
+      description: |
+        Retrieve the consent report for an OSP. This is the list of users subscribed
+        to this OSP, and the consents they have given for this service to access
+        their personal data.
+    
+      parameters:
+      - $ref: '#/parameters/osp-id'
+        
+      responses:
+        200:
+          description: Successful response. The consent report is returned.
+          schema:
+            title: Consent Report    
+            type: array
+            items:
+              $ref: '#/definitions/UserConsents'
+              
+        404: 
+          description: Error response. The OSP does not exist, and a consent report is not available.
 
-     
+definitions:
+  UserConsents:
+    type: object
+    description: |
+        A list of consents provided by a user to the OSP.
+    properties:
+        userid: 
+            type: string
+            description: | 
+                The unique ID of the OSP user is subscribed to and these consent policies concern. 
+
+        consents:
+            type: array
+            description: Access policies.
+            items:
+              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/AccessPolicy'
