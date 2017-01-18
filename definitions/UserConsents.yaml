@@ -9,9 +9,7 @@ UserConsents:
                 The unique ID of the OSP user is subscribed to and these consent policies concern. 
 
         consents:
-            type: array
+            type: string
             description: Access policies.
-            items:
-              $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessPolicy.yaml#/AccessPolicy'
-    
+            
     
