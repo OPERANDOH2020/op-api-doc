@@ -31,6 +31,9 @@ AccessLevelRequest:
 SearchRequest:
   type: object
   properties:
+    requesterId:
+      type: string
+      description: Id of the requester in order to perform any filter in case it is needed.
     query:
       type: string
       description: Query encapsulating the set of data units and the personal ids of the people whose personal data is wanted to be received.
