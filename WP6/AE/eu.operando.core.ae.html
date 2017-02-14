@@ -1,11 +1,9 @@
-<?xml version="1.0"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html>
   <head>
     <title>eu.operando.core.ae</title>
     <style type="text/css">
-      body { 
+      body {
 	font-family: Trebuchet MS, sans-serif;
 	font-size: 15px;
 	color: #444;
@@ -27,7 +25,6 @@ hr	{
 	border: 0;
 	color: #ddd;
 	background-color: #ddd;
-	display: none;
 }
 
 .app-desc {
@@ -178,6 +175,7 @@ font-style: italic;
   display: inline-block;
   text-decoration: none;
 }
+
     </style>
   </head>
   <body>
@@ -194,14 +192,18 @@ font-style: italic;
   <h2><a name="__Methods">Methods</a></h2>
   [ Jump to <a href="#__Models">Models</a> ]
 
-  <h2>Table of Contents </h2>
+  <h3>Table of Contents </h3>
   <div class="method-summary"></div>
-  <ol>
+  <h4><a href="#AccessLevels">AccessLevels</a></h4>
+  <ul>
   <li><a href="#createAccessLevel"><code><span class="http-method">post</span> /operando/core/ae/accessLevel</code></a></li>
   <li><a href="#deleteAccessLevel"><code><span class="http-method">delete</span> /operando/core/ae/accessLevel/{accessLevel_id}</code></a></li>
   <li><a href="#getAccessLevel"><code><span class="http-method">get</span> /operando/core/ae/accessLevel/{accessLevel_id}/search</code></a></li>
   <li><a href="#getAccessLevels"><code><span class="http-method">get</span> /operando/core/ae/accessLevel/search</code></a></li>
   <li><a href="#updateAccessLevel"><code><span class="http-method">put</span> /operando/core/ae/accessLevel/{accessLevel_id}</code></a></li>
+  </ul>
+  <h4><a href="#DataUnits">DataUnits</a></h4>
+  <ul>
   <li><a href="#addAccessLevelsByDataUnitByPersonAndRequester"><code><span class="http-method">post</span> /operando/core/ae/dataUnit/{dataunit_id}/person/{person_id}/requester/{requester_id}/accessLevel</code></a></li>
   <li><a href="#createDataUnit"><code><span class="http-method">post</span> /operando/core/ae/dataUnit</code></a></li>
   <li><a href="#deleteDataUnit"><code><span class="http-method">delete</span> /operando/core/ae/dataUnit/{dataunit_id}</code></a></li>
@@ -212,12 +214,14 @@ font-style: italic;
   <li><a href="#getDataUnit"><code><span class="http-method">get</span> /operando/core/ae/dataUnit/{dataunit_id}/search</code></a></li>
   <li><a href="#getDataUnits"><code><span class="http-method">get</span> /operando/core/ae/dataUnit/search</code></a></li>
   <li><a href="#getPersonalData"><code><span class="http-method">get</span> /operando/core/ae/personaldata/{requester_id}/search</code></a></li>
+  <li><a href="#getPersonalDataNew"><code><span class="http-method">post</span> /operando/core/ae/personaldata/searchNew</code></a></li>
   <li><a href="#setAccessLevelsByDataUnit"><code><span class="http-method">post</span> /operando/core/ae/dataUnit/{dataunit_id}/accessLevels</code></a></li>
   <li><a href="#updateAccessLevelsByDataUnit"><code><span class="http-method">put</span> /operando/core/ae/dataUnit/{dataunit_id}/accessLevels</code></a></li>
   <li><a href="#updateAccessLevelsByDataUnitByPersonAndRequester"><code><span class="http-method">put</span> /operando/core/ae/dataUnit/{dataunit_id}/person/{person_id}/requester/{requester_id}/accessLevel</code></a></li>
   <li><a href="#updateDataUnit"><code><span class="http-method">put</span> /operando/core/ae/dataUnit/{dataunit_id}</code></a></li>
-  </ol>
+  </ul>
 
+  <h1><a name="AccessLevels">AccessLevels</a></h1>
   <div class="method"><a name="createAccessLevel"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -234,9 +238,10 @@ font-style: italic;
 
     <h3 class="field-label">Request body</h3>
     <div class="field-items">
-      <div class="param">accessLevel (required)</div>
+      <div class="param">accessLevel <a href="#AccessLevelRequest">AccessLevelRequest</a> (required)</div>
 
       <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The Access Level data in JSON format. </div>
+
     </div>  <!-- field-items -->
 
 
@@ -244,12 +249,20 @@ font-style: italic;
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
-      <a href="#inline_response_200">inline_response_200</a>
+      <a href="#inline_response_200_1">inline_response_200_1</a>
       
     </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : {
+    "description" : "aeiou",
+    "id" : "aeiou"
+  }
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -261,7 +274,7 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     Successful operation
-        <a href="#inline_response_200">inline_response_200</a>
+        <a href="#inline_response_200_1">inline_response_200_1</a>
     <h4 class="field-label">0</h4>
     Unexpected error
         <a href="#Error">Error</a>
@@ -370,6 +383,12 @@ font-style: italic;
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "description" : "aeiou",
+  "id" : "aeiou"
+} ]</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -409,9 +428,10 @@ font-style: italic;
 
     <h3 class="field-label">Request body</h3>
     <div class="field-items">
-      <div class="param">accessLevel (required)</div>
+      <div class="param">accessLevel <a href="#AccessLevelRequest">AccessLevelRequest</a> (required)</div>
 
       <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The Access Level data in JSON format. </div>
+
     </div>  <!-- field-items -->
 
 
@@ -419,12 +439,20 @@ font-style: italic;
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
-      <a href="#inline_response_200">inline_response_200</a>
+      <a href="#inline_response_200_1">inline_response_200_1</a>
       
     </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : {
+    "description" : "aeiou",
+    "id" : "aeiou"
+  }
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -436,12 +464,13 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     Successful operation
-        <a href="#inline_response_200">inline_response_200</a>
+        <a href="#inline_response_200_1">inline_response_200_1</a>
     <h4 class="field-label">0</h4>
     Unexpected error
         <a href="#Error">Error</a>
   </div> <!-- method -->
   <hr/>
+  <h1><a name="DataUnits">DataUnits</a></h1>
   <div class="method"><a name="addAccessLevelsByDataUnitByPersonAndRequester"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -468,9 +497,10 @@ font-style: italic;
 
     <h3 class="field-label">Request body</h3>
     <div class="field-items">
-      <div class="param">accessLevel (required)</div>
+      <div class="param">accessLevel <a href="#AccessLevel">AccessLevel</a> (required)</div>
 
       <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The access level data in JSON format. </div>
+
     </div>  <!-- field-items -->
 
 
@@ -512,9 +542,10 @@ font-style: italic;
 
     <h3 class="field-label">Request body</h3>
     <div class="field-items">
-      <div class="param">dataUnit (required)</div>
+      <div class="param">dataUnit <a href="#DataUnitRequest">DataUnitRequest</a> (required)</div>
 
       <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The Data Unit data in JSON format. </div>
+
     </div>  <!-- field-items -->
 
 
@@ -522,12 +553,20 @@ font-style: italic;
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
-      <a href="#inline_response_200_1">inline_response_200_1</a>
+      <a href="#inline_response_200">inline_response_200</a>
       
     </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : {
+    "description" : "aeiou",
+    "id" : "aeiou"
+  }
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -539,7 +578,7 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     Successful operation
-        <a href="#inline_response_200_1">inline_response_200_1</a>
+        <a href="#inline_response_200">inline_response_200</a>
     <h4 class="field-label">0</h4>
     Unexpected error
         <a href="#Error">Error</a>
@@ -613,6 +652,14 @@ font-style: italic;
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : [ {
+    "description" : "aeiou",
+    "id" : "aeiou"
+  } ]
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -659,6 +706,14 @@ font-style: italic;
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : [ {
+    "description" : "aeiou",
+    "id" : "aeiou"
+  } ]
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -703,6 +758,14 @@ font-style: italic;
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : [ {
+    "description" : "aeiou",
+    "id" : "aeiou"
+  } ]
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -745,12 +808,20 @@ font-style: italic;
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
-      <a href="#inline_response_200">inline_response_200</a>
+      <a href="#inline_response_200_1">inline_response_200_1</a>
       
     </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : {
+    "description" : "aeiou",
+    "id" : "aeiou"
+  }
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -762,7 +833,7 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     Successful operation (list of access levels&#39; associated with the data unit).
-        <a href="#inline_response_200">inline_response_200</a>
+        <a href="#inline_response_200_1">inline_response_200_1</a>
     <h4 class="field-label">0</h4>
     Unexpected error
         <a href="#Error">Error</a>
@@ -830,6 +901,12 @@ font-style: italic;
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "description" : "aeiou",
+  "id" : "aeiou"
+} ]</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -861,17 +938,69 @@ font-style: italic;
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The requester identifier number </div>
     </div>  <!-- field-items -->
 
-    <h3 class="field-label">Consumes</h3>
-    This API call consumes the following media types via the <span class="heaader">Content-Type</span> request header:
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">query (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; query encapsulating the set of data units and the personal ids of the people whose personal data is wanted to be received. </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#inline_response_200_3">inline_response_200_3</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : [ {
+    "dataUnitValuesPerAccessLevel" : [ {
+      "accessLevelId" : "aeiou",
+      "dataUnitId" : "aeiou",
+      "value" : "aeiou"
+    } ],
+    "id" : "aeiou"
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
     <ul>
       <li><code>application/json</code></li>
     </ul>
 
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation.
+        <a href="#inline_response_200_3">inline_response_200_3</a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getPersonalDataNew"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /operando/core/ae/personaldata/searchNew</code></pre></div>
+    <div class="method-summary">Invokes the Anonymization module by specifying the needed parameters through the searchRequest object. (<span class="nickname">getPersonalDataNew</span>)</div>
+    <div class="method-notes">Invokes the Anonymization module by specifying the needed parameters through the searchRequest object.</div>
+
+
+
     <h3 class="field-label">Request body</h3>
     <div class="field-items">
-      <div class="param">query (required)</div>
+      <div class="param">searchRequest <a href="#SearchRequest">SearchRequest</a> (required)</div>
 
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; query encapsulating the set of data units and the personal ids of the people whose personal data is wanted to be received. </div>
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The search request in JSON format. </div>
+
     </div>  <!-- field-items -->
 
 
@@ -885,6 +1014,18 @@ font-style: italic;
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : [ {
+    "dataUnitValuesPerAccessLevel" : [ {
+      "accessLevelId" : "aeiou",
+      "dataUnitId" : "aeiou",
+      "value" : "aeiou"
+    } ],
+    "id" : "aeiou"
+  } ]
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -919,9 +1060,10 @@ font-style: italic;
 
     <h3 class="field-label">Request body</h3>
     <div class="field-items">
-      <div class="param">accesslevels (required)</div>
+      <div class="param">accesslevels <a href="#AccessLevel">AccessLevel</a> (required)</div>
 
       <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; List of Access Levels. </div>
+
     </div>  <!-- field-items -->
 
 
@@ -969,9 +1111,10 @@ font-style: italic;
 
     <h3 class="field-label">Request body</h3>
     <div class="field-items">
-      <div class="param">accesslevels (required)</div>
+      <div class="param">accesslevels <a href="#AccessLevel">AccessLevel</a> (required)</div>
 
       <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; List of Access Levels. </div>
+
     </div>  <!-- field-items -->
 
 
@@ -1023,9 +1166,10 @@ font-style: italic;
 
     <h3 class="field-label">Request body</h3>
     <div class="field-items">
-      <div class="param">accessLevel (required)</div>
+      <div class="param">accessLevel <a href="#AccessLevel">AccessLevel</a> (required)</div>
 
       <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The access level data in JSON format. </div>
+
     </div>  <!-- field-items -->
 
 
@@ -1073,9 +1217,10 @@ font-style: italic;
 
     <h3 class="field-label">Request body</h3>
     <div class="field-items">
-      <div class="param">dataUnit (required)</div>
+      <div class="param">dataUnit <a href="#DataUnitRequest">DataUnitRequest</a> (required)</div>
 
       <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The Data Unit data in JSON format. </div>
+
     </div>  <!-- field-items -->
 
 
@@ -1083,12 +1228,20 @@ font-style: italic;
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
-      <a href="#inline_response_200_1">inline_response_200_1</a>
+      <a href="#inline_response_200">inline_response_200</a>
       
     </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : {
+    "description" : "aeiou",
+    "id" : "aeiou"
+  }
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -1100,7 +1253,7 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     Successful operation
-        <a href="#inline_response_200_1">inline_response_200_1</a>
+        <a href="#inline_response_200">inline_response_200</a>
     <h4 class="field-label">0</h4>
     Unexpected error
         <a href="#Error">Error</a>
@@ -1111,7 +1264,7 @@ font-style: italic;
   <h2><a name="__Models">Models</a></h2>
   [ Jump to <a href="#__Methods">Methods</a> ]
 
-  <h2>Table of Contents</h2>
+  <h3>Table of Contents</h3>
   <ol>
     <li><a href="#AccessLevel"><code>AccessLevel</code></a></li>
     <li><a href="#AccessLevelRequest"><code>AccessLevelRequest</code></a></li>
@@ -1119,84 +1272,108 @@ font-style: italic;
     <li><a href="#DataUnitRequest"><code>DataUnitRequest</code></a></li>
     <li><a href="#DataUnitValuePerAccessLevel"><code>DataUnitValuePerAccessLevel</code></a></li>
     <li><a href="#Error"><code>Error</code></a></li>
-    <li><a href="#Inline_response_200"><code>Inline_response_200</code></a></li>
-    <li><a href="#Inline_response_200_1"><code>Inline_response_200_1</code></a></li>
-    <li><a href="#Inline_response_200_2"><code>Inline_response_200_2</code></a></li>
-    <li><a href="#Inline_response_200_3"><code>Inline_response_200_3</code></a></li>
+    <li><a href="#inline_response_200"><code>inline_response_200</code></a></li>
+    <li><a href="#inline_response_200_1"><code>inline_response_200_1</code></a></li>
+    <li><a href="#inline_response_200_2"><code>inline_response_200_2</code></a></li>
+    <li><a href="#inline_response_200_3"><code>inline_response_200_3</code></a></li>
     <li><a href="#PersonalData"><code>PersonalData</code></a></li>
+    <li><a href="#SearchRequest"><code>SearchRequest</code></a></li>
   </ol>
 
   <div class="model">
-    <h3 class="field-label"><a name="AccessLevel">AccessLevel</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="AccessLevel">AccessLevel - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the access level.</div>
-<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the access level.</div>
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the access level. </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the access level. </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3 class="field-label"><a name="AccessLevelRequest">AccessLevelRequest</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="AccessLevelRequest">AccessLevelRequest - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the access level.</div>
+      <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the access level. </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3 class="field-label"><a name="DataUnit">DataUnit</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="DataUnit">DataUnit - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the data unit.</div>
-<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the data unit.</div>
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the data unit. </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the data unit. </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3 class="field-label"><a name="DataUnitRequest">DataUnitRequest</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="DataUnitRequest">DataUnitRequest - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the data unit.</div>
+      <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the data unit. </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3 class="field-label"><a name="DataUnitValuePerAccessLevel">DataUnitValuePerAccessLevel</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="DataUnitValuePerAccessLevel">DataUnitValuePerAccessLevel - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">dataUnitId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the data unit.</div>
-<div class="param">accessLevelId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the access level.</div>
-<div class="param">value (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Value of the data unit per the access level.</div>
+      <div class="param">dataUnitId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the data unit. </div>
+<div class="param">accessLevelId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the access level. </div>
+<div class="param">value (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Value of the data unit per the access level. </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3 class="field-label"><a name="Error">Error</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="Error">Error - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> </div>
-<div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> </div>
-<div class="param">fields (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> </div>
+      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">fields (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3 class="field-label"><a name="Inline_response_200">Inline_response_200</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="inline_response_200">inline_response_200 - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#AccessLevel">AccessLevel</a></span> </div>
+      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#DataUnit">DataUnit</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3 class="field-label"><a name="Inline_response_200_1">Inline_response_200_1</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="inline_response_200_1">inline_response_200_1 - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#DataUnit">DataUnit</a></span> </div>
+      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#AccessLevel">AccessLevel</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3 class="field-label"><a name="Inline_response_200_2">Inline_response_200_2</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="inline_response_200_2">inline_response_200_2 - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#AccessLevel">array[AccessLevel]</a></span> </div>
+      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#AccessLevel">array[AccessLevel]</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3 class="field-label"><a name="Inline_response_200_3">Inline_response_200_3</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="inline_response_200_3">inline_response_200_3 - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#PersonalData">array[PersonalData]</a></span> </div>
+      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#PersonalData">array[PersonalData]</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3 class="field-label"><a name="PersonalData">PersonalData</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="PersonalData">PersonalData - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the person.</div>
-<div class="param">dataUnitValuesPerAccessLevel (optional)</div><div class="param-desc"><span class="param-type"><a href="#DataUnitValuePerAccessLevel">array[DataUnitValuePerAccessLevel]</a></span> </div>
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the person. </div>
+<div class="param">dataUnitValuesPerAccessLevel (optional)</div><div class="param-desc"><span class="param-type"><a href="#DataUnitValuePerAccessLevel">array[DataUnitValuePerAccessLevel]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3 class="field-label"><a name="SearchRequest">SearchRequest - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">requesterId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the requester in order to perform any filter in case it is needed. </div>
+<div class="param">query (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Query encapsulating the set of data units and the personal ids of the people whose personal data is wanted to be received. </div>
+<div class="param">queryName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name of the query to be executed. </div>
+<div class="param">dataTypeMap (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Map containing the data types of the fields referenced in the query (String,Integer,Date...). </div>
+<div class="param">attributeTypeMap (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Map containing the nature of the fields referenced in the query taking into account annonymization needs (Identifying,Sensitive,Quasy Identifying...). </div>
+<div class="param">kAnonymity (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> kAnonymity parameter. </div>
     </div>  <!-- field-items -->
   </div>
   </body>

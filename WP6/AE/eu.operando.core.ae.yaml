@@ -532,16 +532,38 @@ paths:
       operationId: getPersonalData
       tags:
         - DataUnits
-      consumes:
-        - application/json
-      produces:
-        - application/json
       parameters:
         - name: query
-          in: body
+          in: query
           description: query encapsulating the set of data units and the personal ids of the people whose personal data is wanted to be received.
+          type: string
+      responses:
+        "200":
+          description: Successful operation.
           schema:
-            type: string
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.anonymization.yaml#/PersonalData'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
+  /operando/core/ae/personaldata/searchNew:
+    post:
+      summary: Invokes the Anonymization module by specifying the needed parameters through the searchRequest object.
+      description: Invokes the Anonymization module by specifying the needed parameters through the searchRequest object.
+      operationId: getPersonalDataNew
+      tags:
+        - DataUnits
+      parameters:
+        - name: searchRequest
+          in: body
+          description: The search request in JSON format.
+          schema:
+            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.anonymization.yaml#/SearchRequest'
           required: true
       responses:
         "200":
