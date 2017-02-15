@@ -213,8 +213,7 @@ font-style: italic;
   <li><a href="#getAccessLevelsByDataUnitPersonAndRequester"><code><span class="http-method">get</span> /operando/core/ae/dataUnit/{dataunit_id}/person/{person_id}/requester/{requester_id}/accessLevel/search</code></a></li>
   <li><a href="#getDataUnit"><code><span class="http-method">get</span> /operando/core/ae/dataUnit/{dataunit_id}/search</code></a></li>
   <li><a href="#getDataUnits"><code><span class="http-method">get</span> /operando/core/ae/dataUnit/search</code></a></li>
-  <li><a href="#getPersonalData"><code><span class="http-method">get</span> /operando/core/ae/personaldata/{requester_id}/search</code></a></li>
-  <li><a href="#getPersonalDataNew"><code><span class="http-method">post</span> /operando/core/ae/personaldata/searchNew</code></a></li>
+  <li><a href="#getPersonalDataNew"><code><span class="http-method">post</span> /operando/core/ae/personaldata/search</code></a></li>
   <li><a href="#setAccessLevelsByDataUnit"><code><span class="http-method">post</span> /operando/core/ae/dataUnit/{dataunit_id}/accessLevels</code></a></li>
   <li><a href="#updateAccessLevelsByDataUnit"><code><span class="http-method">put</span> /operando/core/ae/dataUnit/{dataunit_id}/accessLevels</code></a></li>
   <li><a href="#updateAccessLevelsByDataUnitByPersonAndRequester"><code><span class="http-method">put</span> /operando/core/ae/dataUnit/{dataunit_id}/person/{person_id}/requester/{requester_id}/accessLevel</code></a></li>
@@ -924,72 +923,10 @@ font-style: italic;
         <a href="#Error">Error</a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="getPersonalData"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /operando/core/ae/personaldata/{requester_id}/search</code></pre></div>
-    <div class="method-summary">Gets individual or colective personal data by receiving as parameter a query especifiyng the data wanted to be recovered and the requester id. (<span class="nickname">getPersonalData</span>)</div>
-    <div class="method-notes">Gets individual or colective personal data by receiving as parameter a query especifiyng the data wanted to be recovered and the requester id.</div>
-
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">requester_id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The requester identifier number </div>
-    </div>  <!-- field-items -->
-
-
-
-
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">query (optional)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; query encapsulating the set of data units and the personal ids of the people whose personal data is wanted to be received. </div>
-    </div>  <!-- field-items -->
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#inline_response_200_3">inline_response_200_3</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "data" : [ {
-    "dataUnitValuesPerAccessLevel" : [ {
-      "accessLevelId" : "aeiou",
-      "dataUnitId" : "aeiou",
-      "value" : "aeiou"
-    } ],
-    "id" : "aeiou"
-  } ]
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    Successful operation.
-        <a href="#inline_response_200_3">inline_response_200_3</a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
-  </div> <!-- method -->
-  <hr/>
   <div class="method"><a name="getPersonalDataNew"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /operando/core/ae/personaldata/searchNew</code></pre></div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /operando/core/ae/personaldata/search</code></pre></div>
     <div class="method-summary">Invokes the Anonymization module by specifying the needed parameters through the searchRequest object. (<span class="nickname">getPersonalDataNew</span>)</div>
     <div class="method-notes">Invokes the Anonymization module by specifying the needed parameters through the searchRequest object.</div>
 

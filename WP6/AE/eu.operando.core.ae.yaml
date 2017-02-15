@@ -523,35 +523,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /operando/core/ae/personaldata/{requester_id}/search:
-    parameters:
-      - $ref: '#/parameters/requester_id'
-    get:
-      summary: Gets individual or colective personal data by receiving as parameter a query especifiyng the data wanted to be recovered and the requester id.
-      description: Gets individual or colective personal data by receiving as parameter a query especifiyng the data wanted to be recovered and the requester id.
-      operationId: getPersonalData
-      tags:
-        - DataUnits
-      parameters:
-        - name: query
-          in: query
-          description: query encapsulating the set of data units and the personal ids of the people whose personal data is wanted to be received.
-          type: string
-      responses:
-        "200":
-          description: Successful operation.
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.anonymization.yaml#/PersonalData'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /operando/core/ae/personaldata/searchNew:
+  /operando/core/ae/personaldata/search:
     post:
       summary: Invokes the Anonymization module by specifying the needed parameters through the searchRequest object.
       description: Invokes the Anonymization module by specifying the needed parameters through the searchRequest object.
