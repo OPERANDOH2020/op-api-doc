@@ -58,6 +58,48 @@ LogRequest:
         - NORMAL
         - HIGH
         - CRITICAL
+    logDataType:
+      type: string
+      description: Type of the data to be logged.
+      enum:
+        - INFO
+        - WARN
+        - ERROS
+        - FATAL
+    title:
+      type: string
+      description: Subject of the event to be logged.
+    description:
+      type: string
+      description: Description of the event to be logged.
+    keywords:
+      type: array
+      description : Array of keywords to facilitate search
+      items:
+        type: string
+LogRequestTicket:
+  type: object
+  properties:
+    userId:
+      type: string
+      description: Id of the user.
+    requesterType:
+      type: string
+      description: Source type from which comes the request.
+      enum:
+        - PROCESS
+        - MODULE
+    requesterId:
+      type: string
+      description: Id of the requester (e.g the id of an OSP).
+    logPriority:
+      type: string
+      description: Priority level of the data to be logged.
+      enum:
+        - LOW
+        - NORMAL
+        - HIGH
+        - CRITICAL
     logLevel:
       type: string
       description: Logging level.
