@@ -41,6 +41,7 @@ LogRequest:
     userId:
       type: string
       description: Id of the user.
+      required: true
     requesterType:
       type: string
       description: Source type from which comes the request.
