@@ -45,10 +45,10 @@ LogRequest:
     requesterType:
       type: string
       description: Source type from which comes the request.
-      required: true
       enum:
         - PROCESS
         - MODULE
+      required: true
     requesterId:
       type: string
       description: Id of the requester (e.g the id of an OSP).
@@ -56,21 +56,21 @@ LogRequest:
     logPriority:
       type: string
       description: Priority level of the data to be logged.
-      required: true
       enum:
         - LOW
         - NORMAL
         - HIGH
         - CRITICAL
+      required: true
     logLevel:
       type: string
       description: Logging level.
-      required: true
       enum:
         - INFO
         - WARN
         - ERROS
         - FATAL
+      required: true
     title:
       type: string
       description: Subject of the event to be logged.
