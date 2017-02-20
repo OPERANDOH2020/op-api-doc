@@ -128,7 +128,9 @@ paths:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/UserPrivacyPolicy.yaml#/UserPrivacyPolicy'
       responses:
         '201':
-          description: The document (UPP) was successfully created in the database.
+          description: The document (UPP) was successfully created in the database. The Operando user-id is returned as a string parameter
+          schema:
+              type: string
         '405':
           description: Error. The document (UPP) at this id has previously been created in the database.
     
@@ -330,7 +332,9 @@ paths:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicyInput.yaml#/OSPPrivacyPolicyInput'
       responses:
         '201':
-          description: The document (OSPBehaviour) was successfully created in the database.
+          description: The document (OSPBehaviour) was successfully created in the database. The Operando user-id is returned as a string parameter
+          schema:
+              type: string
         '405':
           description: Error. The document (OSPBehaviour) at this id has previously been created in the database.
   
@@ -416,9 +420,9 @@ paths:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/AccessReason.yaml#/AccessReason'
       responses:
         '201':
-          description: The statements (OSPBehaviour) was successfully created in the list.
+          description: The statements (AccessReason) was successfully created in the list.
         '405':
-          description: Error. The document (OSPBehaviour) at this id has previously been created in the list.
+          description: Error. The document (AccessReason) at this id has previously been created in the list.
 
   /OSP/{osp-id}/privacy-policy/access-reasons/{reason-id}:
     put:
