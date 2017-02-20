@@ -51,3 +51,35 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
+  /operando/core/ldbTicket:
+    post:
+      summary: Inserts received data to the database.
+      description: Inserts received data to the database by using Log4j.
+      tags:
+        - Log
+      operationId: ldbTicket
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: request
+        in: body
+        description: The request data in JSON format to be inserted in the database by using Log4j
+        schema:
+          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/eu.operando.definitions.logdb.yaml#/LogRequestTicket'
+        required: true
+      responses:
+        "200":
+          description: |
+            Succesful operation.
+        '400':
+          description: |
+            The client inputs to the operation are incorrect or invalid. The caller should check the inputs are valid based upon the returned error message.
+        '403':
+          description: |
+            Error. The service ticket failed to validate.
+        '415':
+          description: |
+            The operation consumes json messages. Please, check that the sent message is in json format.
+        
