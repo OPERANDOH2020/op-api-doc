@@ -41,18 +41,15 @@ LogRequest:
     userId:
       type: string
       description: Id of the user.
-      required: true
     requesterType:
       type: string
       description: Source type from which comes the request.
       enum:
         - PROCESS
         - MODULE
-      required: true
     requesterId:
       type: string
       description: Id of the requester (e.g the id of an OSP).
-      required: true
     logPriority:
       type: string
       description: Priority level of the data to be logged.
@@ -61,7 +58,6 @@ LogRequest:
         - NORMAL
         - HIGH
         - CRITICAL
-      required: true
     logLevel:
       type: string
       description: Logging level.
@@ -70,15 +66,12 @@ LogRequest:
         - WARN
         - ERROS
         - FATAL
-      required: true
     title:
       type: string
       description: Subject of the event to be logged.
-      required: true
     description:
       type: string
       description: Description of the event to be logged.
-      required: true
     keywords:
       type: array
       description : Array of keywords to facilitate search
