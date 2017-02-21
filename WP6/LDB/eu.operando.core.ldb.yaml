@@ -30,7 +30,7 @@ paths:
       description: Inserts received data to the database by using Log4j.
       tags:
         - Log
-      operationId: lodDB
+      operationId: log
       consumes:
         - application/json
       produces:
@@ -57,7 +57,7 @@ paths:
       description: Inserts received data to the database by using Log4j.
       tags:
         - Log
-      operationId: ldbTicket
+      operationId: logTicket
       consumes:
         - application/json
       produces:
