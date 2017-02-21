@@ -51,7 +51,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/Error.yaml'
-  /operando/core/ldbTicket:
+  /operando/core/ldb/log:
     post:
       summary: Inserts received data to the database.
       description: Inserts received data to the database by using Log4j.

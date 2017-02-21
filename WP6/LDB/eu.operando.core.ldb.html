@@ -196,16 +196,69 @@ font-style: italic;
   <div class="method-summary"></div>
   <h4><a href="#Log">Log</a></h4>
   <ul>
-  <li><a href="#ldbTicket"><code><span class="http-method">post</span> /operando/core/ldbTicket</code></a></li>
-  <li><a href="#lodDB"><code><span class="http-method">post</span> /operando/core/ldb</code></a></li>
+  <li><a href="#log"><code><span class="http-method">post</span> /operando/core/ldb</code></a></li>
+  <li><a href="#logTicket"><code><span class="http-method">post</span> /operando/core/ldb/log</code></a></li>
   </ul>
 
   <h1><a name="Log">Log</a></h1>
-  <div class="method"><a name="ldbTicket"/>
+  <div class="method"><a name="log"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /operando/core/ldbTicket</code></pre></div>
-    <div class="method-summary">Inserts received data to the database. (<span class="nickname">ldbTicket</span>)</div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /operando/core/ldb</code></pre></div>
+    <div class="method-summary">Inserts received data to the database. (<span class="nickname">log</span>)</div>
+    <div class="method-notes">Inserts received data to the database by using Log4j.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="heaader">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">request <a href="#LogRequest">LogRequest</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The request data in JSON format to be inserted in the database by using Log4j </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>"aeiou"</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful operation
+        <a href="#String">String</a>
+    <h4 class="field-label">0</h4>
+    Unexpected error
+        <a href="#Error">Error</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="logTicket"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /operando/core/ldb/log</code></pre></div>
+    <div class="method-summary">Inserts received data to the database. (<span class="nickname">logTicket</span>)</div>
     <div class="method-notes">Inserts received data to the database by using Log4j.</div>
 
 
@@ -256,59 +309,6 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="lodDB"/>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /operando/core/ldb</code></pre></div>
-    <div class="method-summary">Inserts received data to the database. (<span class="nickname">lodDB</span>)</div>
-    <div class="method-notes">Inserts received data to the database by using Log4j.</div>
-
-
-    <h3 class="field-label">Consumes</h3>
-    This API call consumes the following media types via the <span class="heaader">Content-Type</span> request header:
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Request body</h3>
-    <div class="field-items">
-      <div class="param">request <a href="#LogRequest">LogRequest</a> (required)</div>
-
-      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The request data in JSON format to be inserted in the database by using Log4j </div>
-
-    </div>  <!-- field-items -->
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      
-      String
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>"aeiou"</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    Successful operation
-        <a href="#String">String</a>
-    <h4 class="field-label">0</h4>
-    Unexpected error
-        <a href="#Error">Error</a>
-  </div> <!-- method -->
-  <hr/>
 
   <div class="up"><a href="#__Models">Up</a></div>
   <h2><a name="__Models">Models</a></h2>
@@ -334,19 +334,19 @@ font-style: italic;
     <h3 class="field-label"><a name="LogRequest">LogRequest - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">userId (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the user. </div>
-<div class="param">requesterType (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Source type from which comes the request. </div>
+      <div class="param">userId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the user. </div>
+<div class="param">requesterType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Source type from which comes the request. </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">PROCESS</div><div class="param-enum">MODULE</div>
-<div class="param">requesterId (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the requester (e.g the id of an OSP). </div>
-<div class="param">logPriority (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Priority level of the data to be logged. </div>
+<div class="param">requesterId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the requester (e.g the id of an OSP). </div>
+<div class="param">logPriority (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Priority level of the data to be logged. </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">LOW</div><div class="param-enum">NORMAL</div><div class="param-enum">HIGH</div><div class="param-enum">CRITICAL</div>
-<div class="param">logDataType (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Type of the data to be logged. </div>
+<div class="param">logDataType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Type of the data to be logged. </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">INFO</div><div class="param-enum">WARN</div><div class="param-enum">ERROS</div><div class="param-enum">FATAL</div>
-<div class="param">title (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Subject of the event to be logged. </div>
-<div class="param">description (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the event to be logged. </div>
+<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Subject of the event to be logged. </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the event to be logged. </div>
 <div class="param">keywords (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span> Array of keywords to facilitate search </div>
     </div>  <!-- field-items -->
   </div>
@@ -354,19 +354,19 @@ font-style: italic;
     <h3 class="field-label"><a name="LogRequestTicket">LogRequestTicket - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">userId (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the user. </div>
-<div class="param">requesterType (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Source type from which comes the request. </div>
+      <div class="param">userId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the user. </div>
+<div class="param">requesterType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Source type from which comes the request. </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">PROCESS</div><div class="param-enum">MODULE</div>
-<div class="param">requesterId (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the requester (e.g the id of an OSP). </div>
-<div class="param">logPriority (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Priority level of the data to be logged. </div>
+<div class="param">requesterId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the requester (e.g the id of an OSP). </div>
+<div class="param">logPriority (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Priority level of the data to be logged. </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">LOW</div><div class="param-enum">NORMAL</div><div class="param-enum">HIGH</div><div class="param-enum">CRITICAL</div>
-<div class="param">logLevel (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Logging level. </div>
+<div class="param">logLevel (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Logging level. </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">INFO</div><div class="param-enum">WARN</div><div class="param-enum">ERROS</div><div class="param-enum">FATAL</div>
-<div class="param">title (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Subject of the event to be logged. </div>
-<div class="param">description (required)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the event to be logged. </div>
+<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Subject of the event to be logged. </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the event to be logged. </div>
 <div class="param">keywords (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span> Array of keywords to facilitate search </div>
     </div>  <!-- field-items -->
   </div>
