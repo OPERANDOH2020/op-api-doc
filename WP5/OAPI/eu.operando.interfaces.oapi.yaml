@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: OSP API
   description: API specification for OPERANDO's OSP API
-  version: "0.0.1"
+  version: "0.0.2"
 host: localhost
 schemes:
   - https
@@ -37,8 +37,10 @@ parameters:
 responses:
   unauthorised:
     description: The user is not authenticated with the OPERANDO system. Check that the service ticket provided by the authentication service is correctly included in the message body.
-  forbidden:
-    description: The user is authenticated with the OPERANDO system, but is not allowed to perform the requested action.
+  invalid:
+    description: The request was invalid, e.g. an invalid document format.
+  not-found:
+    description: The report with the requested report id could not be found
 
 ################################################################################
 #                                   Paths                                      #
@@ -69,10 +71,12 @@ paths:
         200:
           description: Successful response
           # PENDING what happens in case of failure???
+        400:
+          $ref: '#/responses/invalid'
         401:
           $ref: '#/responses/unauthorised'
-        403:
-          $ref: '#/responses/forbidden'
+        404:
+          $ref: '#/responses/not-found'
   
   /reports/{report_id}:
     get:
@@ -90,10 +94,12 @@ paths:
           description: The request was successful. The report is returned in the response body in the requested format.
           schema:
             type: string
+        400:
+          $ref: '#/responses/invalid'
         401:
           $ref: '#/responses/unauthorised'
-        403:
-          $ref: '#/responses/forbidden'
+        404:
+          $ref: '#/responses/not-found'
           
 ################################################################################
 #                              Object Definitions                             #
