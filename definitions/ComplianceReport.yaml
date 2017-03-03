@@ -4,4 +4,4 @@ ComplianceReport:
         An OSP's compliance report
     properties: 
         privacypolicy:
-          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicy'
+          $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPReasonPolicy'
