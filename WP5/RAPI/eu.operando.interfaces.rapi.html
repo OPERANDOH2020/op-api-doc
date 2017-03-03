@@ -182,7 +182,7 @@ font-style: italic;
   <h1>Regulator API</h1>
     <div class="app-desc">API specification for OPERANDO's Regulator API</div>
     <div class="app-desc">More information: <a href="https://helloreverb.com/">https://helloreverb.com</a></div>
-    <div class="app-desc">Contact Info: <a href="file:///C:/Users/william.frankish/AppData/Local/Temp/Temp1_html-client-generated.zip/html-client/hello@helloreverb.com">hello@helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="file:///C:/Users/william.frankish/AppData/Local/Temp/Temp1_html-client-generated-1.zip/html-client/hello@helloreverb.com">hello@helloreverb.com</a></div>
     <div class="app-desc">Version: 0.0.1</div>
     <div class="app-desc">BasePath:/regulator</div>
     <div class="license-info">All rights reserved</div>
@@ -383,26 +383,14 @@ included in the message body.
     <div class="example-data-content-type">Content-Type: application/json</div>
     <pre class="example"><code>{
   "privacypolicy" : {
-    "policy_url" : "aeiou",
-    "workflow" : [ {
-      "subject" : "aeiou",
-      "action" : "aeiou",
-      "requested_url" : "aeiou",
-      "attributes" : [ {
-        "attribute_name" : "aeiou",
-        "attribute_value" : "aeiou"
-      } ],
-      "requester_id" : "aeiou"
-    } ],
     "policies" : [ {
-      "resource" : "aeiou",
-      "subject" : "aeiou",
-      "action" : "aeiou",
-      "permission" : true,
-      "attributes" : [ "" ]
+      "reason" : "aeiou",
+      "datauser" : "aeiou",
+      "reasonid" : "aeiou",
+      "datatype" : "aeiou",
+      "datasubjecttype" : "aeiou"
     } ],
-    "osp_policy_id" : "aeiou",
-    "policy_text" : "aeiou"
+    "osp_policy_id" : "aeiou"
   }
 }</code></pre>
 
@@ -434,31 +422,31 @@ included in the message body.
 
   <h3>Table of Contents</h3>
   <ol>
-    <li><a href="#AccessPolicy"><code>AccessPolicy</code></a></li>
+    <li><a href="#AccessReason"><code>AccessReason</code></a></li>
     <li><a href="#ComplianceReport"><code>ComplianceReport</code></a></li>
-    <li><a href="#OSPDataRequest"><code>OSPDataRequest</code></a></li>
-    <li><a href="#OSPPrivacyPolicy"><code>OSPPrivacyPolicy</code></a></li>
-    <li><a href="#PolicyAttribute"><code>PolicyAttribute</code></a></li>
+    <li><a href="#OSPReasonPolicy"><code>OSPReasonPolicy</code></a></li>
     <li><a href="#PrivacyRegulation"><code>PrivacyRegulation</code></a></li>
     <li><a href="#PrivacyRegulationInput"><code>PrivacyRegulationInput</code></a></li>
     <li><a href="#regulation%20body"><code>regulation body</code></a></li>
   </ol>
 
   <div class="model">
-    <h3 class="field-label"><a name="AccessPolicy">AccessPolicy - </a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="AccessReason">AccessReason - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class="model-description"></div>
     <div class="field-items">
-      <div class="param">subject (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A description of the subject who the policies grants/doesn't grant to carry out.
+      <div class="param">reasonid (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>
+ An identifier within this privacy policy e.g osp_reason1. This is not 
+globally unique and is defined by the OSP. However, OSP must ensure that
+ 
+identifiers are unique within the policy list.
  </div>
-<div class="param">permission (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Grant or deny the subject access to the resource via the operation defined in this policy
+<div class="param">datauser (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Who is using the data.
  </div>
-<div class="param">action (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The action being carried out on the private date e.g. accessing, disclosing to a third party. 
+<div class="param">datasubjecttype (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> What is the type or group of the user this private data concerns e.g. patient, helper etc.
  </div>
-        <div class="param-enum-header">Enum:</div>
-        <div class="param-enum">Collect</div><div class="param-enum">Access</div><div class="param-enum">Use</div><div class="param-enum">Disclose</div><div class="param-enum">Archive</div>
-<div class="param">resource (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The identifier of the resource that the policy concerns (e.g. URL)
+<div class="param">datatype (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> What is the type of data this refers to e.g. e-mail address, medical record etc.
  </div>
-<div class="param">attributes (optional)</div><div class="param-desc"><span class="param-type"><a href="#PolicyAttribute">array[PolicyAttribute]</a></span> The set of context attributes attached to the policy (e.g. subject role, subject purpose)
+<div class="param">reason (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Usage of this information if for what purpose e.g. marketing, healthcare delivery.
  </div>
     </div>  <!-- field-items -->
   </div>
@@ -467,52 +455,16 @@ included in the message body.
     <div class="model-description">An OSP's compliance report
 </div>
     <div class="field-items">
-      <div class="param">privacypolicy (optional)</div><div class="param-desc"><span class="param-type"><a href="#OSPPrivacyPolicy">OSPPrivacyPolicy</a></span>  </div>
+      <div class="param">privacypolicy (optional)</div><div class="param-desc"><span class="param-type"><a href="#OSPReasonPolicy">OSPReasonPolicy</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3 class="field-label"><a name="OSPDataRequest">OSPDataRequest - </a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="model-description"></div>
-    <div class="field-items">
-      <div class="param">requester_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the requester (typically the id of an OSP). </div>
-<div class="param">subject (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A description of the subject who the policies grants/doesn't grant to carry out.
- </div>
-<div class="param">requested_url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The Requested URL of the data.
- </div>
-<div class="param">action (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The action being carried out on the private date e.g. accessing, disclosing to a third party. 
- </div>
-        <div class="param-enum-header">Enum:</div>
-        <div class="param-enum">Collect</div><div class="param-enum">Access</div><div class="param-enum">Use</div><div class="param-enum">Disclose</div><div class="param-enum">Archive</div>
-<div class="param">attributes (optional)</div><div class="param-desc"><span class="param-type"><a href="#PolicyAttribute">array[PolicyAttribute]</a></span> The set of context attributes attached to the policy (e.g. subject role, subject purpose)
- </div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3 class="field-label"><a name="OSPPrivacyPolicy">OSPPrivacyPolicy - </a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="OSPReasonPolicy">OSPReasonPolicy - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class="model-description"></div>
     <div class="field-items">
       <div class="param">osp_policy_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">policy_text (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The content of the OSP privacy policy, textually described and published. It is
-a the full text adverstised by the OSP.
+<div class="param">policies (optional)</div><div class="param-desc"><span class="param-type"><a href="#AccessReason">array[AccessReason]</a></span> The list of access reasons to use a particular data subject types data
  </div>
-<div class="param">policy_url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The url location of the privacy policy of the OSP
- </div>
-<div class="param">workflow (optional)</div><div class="param-desc"><span class="param-type"><a href="#OSPDataRequest">array[OSPDataRequest]</a></span> The sequence of requests that this OSP makes (simple ordered array list
-in this version). The requests describes the operations that the OSP may
-carry out on the data. This can be used for compliance checking and computation
-of user policies.
- </div>
-<div class="param">policies (optional)</div><div class="param-desc"><span class="param-type"><a href="#AccessPolicy">array[AccessPolicy]</a></span> The list of rights that the OSP intends to follow e.g. give X access to Y data for Z purpose. This
-information can then be used in calculation of the policy and in compliance checking.
- </div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3 class="field-label"><a name="PolicyAttribute">PolicyAttribute - </a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="model-description"></div>
-    <div class="field-items">
-      <div class="param">attribute_name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">attribute_value (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
