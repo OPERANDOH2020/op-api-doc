@@ -1,35 +1,49 @@
 swagger: '2.0'
 info:
-  title: OSP API
-  description: API specification for OPERANDO's OSP API
+  title: Regulator API
+  description: API specification for OPERANDO's Regulator API
   version: "0.0.1"
 host: localhost
 schemes:
   - https
-basePath: /osp
+basePath: /regulator
 produces:
   - application/json
 ################################################################################
 #                                   Parameters                                 #
 ################################################################################
 parameters:
+  regulation-body:
+    name: regulation body
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+        service_ticket:
+          type: string
+        regulation:
+          $ref: '#/definitions/PrivacyRegulationInput'
+  reg-id:
+    name: reg-id
+    in: path
+    description: the unique identifier of a regulation.
+    type: string
+    required: true
     
   report-id:
-    name: report_id
+    name: report-id
     in: path
     description: the unique identifier of a report.
     type: string
     required: true
     
-  report-format:
-    name: report_format
+  format:
+    name: format
     in: query
-    description: the requested format of the report (e.g. pdf, html).
+    description: the requested format of the report (e.g. pdf, html)
     type: string
     required: true
-    
-  service-ticket:
-    $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/parameters/service-ticket.yaml'
 
 ################################################################################
 #                                 Responses                                    #
@@ -44,47 +58,55 @@ responses:
 #                                   Paths                                      #
 ################################################################################
 paths:
-  /bda/reports:
-    get:
-      description:   
-         provides a link to download a report
-      tags:
-        - big data
+  /regulations:
+    post:
+      summary: Add a new regulation to the system.
+      description: |
+        Called by a regulator to ensure that the platform becomes compliant with the new regulation. The regulation that was saved is returned, along with an identifer which should be used to refer to it in later communication.
       parameters:
-        - $ref: '#/parameters/service-ticket'
-        -
-          name: requestHeader # ACTION REQUIRED TO AGREE ON THIS IN THE PROJECT, MAYBE WE NEED SOMETHING SUCH AS REQUESTINFO OR REQUEST HEADER
-          in: body
-          description: Identification of the requesting end user
-          schema:
-            $ref: '#/definitions/requestHeader'
-          required: true
-        -
-          name: jobId 
-          in: query
-          description: Identification of the job to get the status about
-          type: string
-          required: true
+        - $ref: '#/parameters/regulation-body'
+      tags:
+        - regulations
       responses:
-        200:
-          description: Successful response
-          # PENDING what happens in case of failure???
+        201:
+          description: The regulation was successfully created, and the platform has been made compliant with it.
+          schema:
+            $ref: '#/definitions/PrivacyRegulation'
         401:
           $ref: '#/responses/unauthorised'
         403:
           $ref: '#/responses/forbidden'
-  
-  /reports/{report_id}:
+            
+  /regulations/{reg-id}:
+    put:
+      summary: Update an exisiting regulation.
+      description: |
+        Called by a regulator to ensure that the platform becomes compliant with the new terms of the regulation. The regulation that was saved is returned, along with an identifer which should be used to refer to it in later communication.
+      parameters:
+        - $ref: '#/parameters/regulation-body'
+        - $ref: '#/parameters/reg-id'
+      tags:
+        - regulations
+      responses:
+        204:
+          description: The regulation was successfully updated, and the platform has been made compliant with it.
+          schema:
+            $ref: '#/definitions/PrivacyRegulationInput'
+        401:
+          $ref: '#/responses/unauthorised'
+        403:
+          $ref: '#/responses/forbidden'
+            
+  /reports/{report-id}:
     get:
       summary: Get a report.
       description: |
         Called by a regulator to obtain a report matching the given ID. Intended (at the moment) to return a compliance report relating to an OSP.
+      parameters:
+        - $ref: '#/parameters/report-id'
+        - $ref: '#/parameters/format'
       tags:
         - reports
-      parameters:
-        - $ref: '#/parameters/service-ticket'
-        - $ref: '#/parameters/report-id'
-        - $ref: '#/parameters/report-format'
       responses:
         200:
           description: The request was successful. The report is returned in the response body in the requested format.
@@ -99,20 +121,7 @@ paths:
 #                              Object Definitions                             #
 ################################################################################   
 definitions:
-  requestHeader:
-    type: object
-    properties:
-      requestId:
-        type: string
-      requesterId:
-        type: string
-      requesterComponentId:
-        type: string
-      proxyId:
-        type: string
-      requestDateTime:
-        type: string
-        format: date-time
-    required:
-    - requestId
-    - requesterId
+  PrivacyRegulationInput:
+    $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulationInput.yaml#/PrivacyRegulationInput"
+  PrivacyRegulation:
+    $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation"
