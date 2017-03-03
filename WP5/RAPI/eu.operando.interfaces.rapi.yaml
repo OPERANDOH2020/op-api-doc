@@ -125,4 +125,4 @@ definitions:
   PrivacyRegulation:
     $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation"
   ComplianceReport:
-    $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/ComplianceReport.yaml"
+    $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/ComplianceReport.yaml#/ComplianceReport"
