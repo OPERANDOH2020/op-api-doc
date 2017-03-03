@@ -13,6 +13,11 @@ produces:
 #                                   Parameters                                 #
 ################################################################################
 parameters:
+  service-ticket:
+    name: service ticket
+    in: header
+    required: true
+    type: string
   regulation-body:
     name: regulation body
     in: body
@@ -20,8 +25,6 @@ parameters:
     schema:
       type: object
       properties:
-        service_ticket:
-          type: string
         regulation:
           $ref: '#/definitions/PrivacyRegulationInput'
   reg-id:
@@ -31,19 +34,13 @@ parameters:
     type: string
     required: true
     
-  report-id:
-    name: report-id
+  osp-id:
+    name: osp-id
     in: path
-    description: the unique identifier of a report.
+    description: the unique identifier of an online service provider
     type: string
     required: true
-    
-  format:
-    name: format
-    in: query
-    description: the requested format of the report (e.g. pdf, html)
-    type: string
-    required: true
+
 
 ################################################################################
 #                                 Responses                                    #
@@ -64,6 +61,7 @@ paths:
       description: |
         Called by a regulator to ensure that the platform becomes compliant with the new regulation. The regulation that was saved is returned, along with an identifer which should be used to refer to it in later communication.
       parameters:
+        - $ref: '#/parameters/service-ticket'
         - $ref: '#/parameters/regulation-body'
       tags:
         - regulations
@@ -83,6 +81,7 @@ paths:
       description: |
         Called by a regulator to ensure that the platform becomes compliant with the new terms of the regulation. The regulation that was saved is returned, along with an identifer which should be used to refer to it in later communication.
       parameters:
+        - $ref: '#/parameters/service-ticket'
         - $ref: '#/parameters/regulation-body'
         - $ref: '#/parameters/reg-id'
       tags:
@@ -97,21 +96,21 @@ paths:
         403:
           $ref: '#/responses/forbidden'
             
-  /reports/{report-id}:
+  /osps/{osp-id}/compliance-report:
     get:
       summary: Get a report.
       description: |
-        Called by a regulator to obtain a report matching the given ID. Intended (at the moment) to return a compliance report relating to an OSP.
+        Called by a regulator to obtain a compliance report relating to the specified OSP.
       parameters:
-        - $ref: '#/parameters/report-id'
-        - $ref: '#/parameters/format'
+        - $ref: '#/parameters/service-ticket'
+        - $ref: '#/parameters/osp-id'
       tags:
         - reports
       responses:
         200:
           description: The request was successful. The report is returned in the response body in the requested format.
           schema:
-            type: string
+            $ref: '#/definitions/ComplianceReport'
         401:
           $ref: '#/responses/unauthorised'
         403:
@@ -125,3 +124,5 @@ definitions:
     $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulationInput.yaml#/PrivacyRegulationInput"
   PrivacyRegulation:
     $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/PrivacyRegulation.yaml#/PrivacyRegulation"
+  ComplianceReport:
+    $ref: "https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/ComplianceReport.yaml"

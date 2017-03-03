@@ -1,0 +1,7 @@
+ComplianceReport:
+    description: |
+        An OSP's compliance report
+    type: object
+    properties: 
+      privacypolicy: 
+        $ref: 'https://raw.githubusercontent.com/OPERANDOH2020/op-api-doc/master/definitions/OSPPrivacyPolicy.yaml#/OSPPrivacyPolicy'
