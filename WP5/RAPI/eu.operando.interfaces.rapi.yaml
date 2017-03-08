@@ -14,7 +14,7 @@ produces:
 ################################################################################
 parameters:
   service-ticket:
-    name: service ticket
+    name: service-ticket
     in: header
     required: true
     type: string
