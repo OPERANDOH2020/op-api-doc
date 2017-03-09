@@ -182,7 +182,7 @@ font-style: italic;
   <h1>OSP API</h1>
     <div class="app-desc">API specification for OPERANDO's OSP API</div>
     <div class="app-desc">More information: <a href="https://helloreverb.com/">https://helloreverb.com</a></div>
-    <div class="app-desc">Contact Info: <a href="file:///C:/Users/william.frankish/AppData/Local/Temp/Temp1_html-client-generated-3.zip/html-client/hello@helloreverb.com">hello@helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="file:///C:/Users/william.frankish/AppData/Local/Temp/Temp1_html-client-generated-4.zip/html-client/hello@helloreverb.com">hello@helloreverb.com</a></div>
     <div class="app-desc">Version: 0.0.2</div>
     <div class="app-desc">BasePath:/osp</div>
     <div class="license-info">All rights reserved</div>
@@ -196,7 +196,7 @@ font-style: italic;
   <div class="method-summary"></div>
   <h4><a href="#BigData">BigData</a></h4>
   <ul>
-  <li><a href="#bdaReportsGet"><code><span class="http-method">get</span> /bda/reports</code></a></li>
+  <li><a href="#bdaJobsJobIdReportsLatestGet"><code><span class="http-method">get</span> /bda/jobs/{job-id}/reports/latest</code></a></li>
   </ul>
   <h4><a href="#Reports">Reports</a></h4>
   <ul>
@@ -204,13 +204,19 @@ font-style: italic;
   </ul>
 
   <h1><a name="BigData">BigData</a></h1>
-  <div class="method"><a name="bdaReportsGet">
-    </a><div class="method-path"><a name="bdaReportsGet">
+  <div class="method"><a name="bdaJobsJobIdReportsLatestGet">
+    </a><div class="method-path"><a name="bdaJobsJobIdReportsLatestGet">
     </a><a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /bda/reports</code></pre></div>
-    <div class="method-summary"> (<span class="nickname">bdaReportsGet</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /bda/jobs/{job-id}/reports/latest</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">bdaJobsJobIdReportsLatestGet</span>)</div>
     <div class="method-notes">provides a link to download a report</div>
 
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">job-id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> — Identification of the job to get the status about </div>
+    </div>  <!-- field-items -->
 
 
 
@@ -219,12 +225,6 @@ font-style: italic;
       
     </div>  <!-- field-items -->
 
-    <h3 class="field-label">Query parameters</h3>
-    <div class="field-items">
-      <div class="param">jobId (required)</div>
-
-      <div class="param-desc"><span class="param-type">Query Parameter</span> — Identification of the job to get the status about </div>
-    </div>  <!-- field-items -->
 
 
 

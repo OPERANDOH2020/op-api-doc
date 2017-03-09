@@ -46,7 +46,7 @@ responses:
 #                                   Paths                                      #
 ################################################################################
 paths:
-  /bda/reports:
+  /bda/jobs/{job-id}/reports/latest:
     get:
       description:   
          provides a link to download a report
@@ -55,8 +55,8 @@ paths:
       parameters:
         - $ref: '#/parameters/service-ticket'
         -
-          name: jobId 
-          in: query
+          name: job-id 
+          in: path
           description: Identification of the job to get the status about
           type: string
           required: true
