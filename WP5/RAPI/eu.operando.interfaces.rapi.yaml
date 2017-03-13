@@ -105,7 +105,7 @@ paths:
         - $ref: '#/parameters/service-ticket'
         - $ref: '#/parameters/osp-id'
       tags:
-        - reports
+        - compliance reports
       responses:
         200:
           description: The request was successful. The report is returned in the response body in the requested format.

@@ -182,7 +182,7 @@ font-style: italic;
   <h1>Regulator API</h1>
     <div class="app-desc">API specification for OPERANDO's Regulator API</div>
     <div class="app-desc">More information: <a href="https://helloreverb.com/">https://helloreverb.com</a></div>
-    <div class="app-desc">Contact Info: <a href="file:///C:/Users/william.frankish/AppData/Local/Temp/Temp1_html-client-generated-2.zip/html-client/hello@helloreverb.com">hello@helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="file:///C:/Users/william.frankish/AppData/Local/Temp/Temp1_html-client-generated-5.zip/html-client/hello@helloreverb.com">hello@helloreverb.com</a></div>
     <div class="app-desc">Version: 0.0.1</div>
     <div class="app-desc">BasePath:/regulator</div>
     <div class="license-info">All rights reserved</div>
@@ -194,16 +194,85 @@ font-style: italic;
 
   <h3>Table of Contents </h3>
   <div class="method-summary"></div>
+  <h4><a href="#ComplianceReports">ComplianceReports</a></h4>
+  <ul>
+  <li><a href="#ospsOspIdComplianceReportGet"><code><span class="http-method">get</span> /osps/{osp-id}/compliance-report</code></a></li>
+  </ul>
   <h4><a href="#Regulations">Regulations</a></h4>
   <ul>
   <li><a href="#regulationsPost"><code><span class="http-method">post</span> /regulations</code></a></li>
   <li><a href="#regulationsRegIdPut"><code><span class="http-method">put</span> /regulations/{reg-id}</code></a></li>
   </ul>
-  <h4><a href="#Reports">Reports</a></h4>
-  <ul>
-  <li><a href="#ospsOspIdComplianceReportGet"><code><span class="http-method">get</span> /osps/{osp-id}/compliance-report</code></a></li>
-  </ul>
 
+  <h1><a name="ComplianceReports">ComplianceReports</a></h1>
+  <div class="method"><a name="ospsOspIdComplianceReportGet">
+    </a><div class="method-path"><a name="ospsOspIdComplianceReportGet">
+    </a><a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /osps/{osp-id}/compliance-report</code></pre></div>
+    <div class="method-summary">Get a report. (<span class="nickname">ospsOspIdComplianceReportGet</span>)</div>
+    <div class="method-notes">Called by a regulator to obtain a compliance report relating to the specified OSP.
+</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">osp-id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> — the unique identifier of an online service provider </div>
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Request headers</h3>
+    <div class="field-items">
+      
+    </div>  <!-- field-items -->
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#ComplianceReport">ComplianceReport</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "privacypolicy" : {
+    "policies" : [ {
+      "reason" : "aeiou",
+      "datauser" : "aeiou",
+      "reasonid" : "aeiou",
+      "datatype" : "aeiou",
+      "datasubjecttype" : "aeiou"
+    } ],
+    "osp_policy_id" : "aeiou"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    The request was successful. The report is returned in the response body in the requested format.
+        <a href="#ComplianceReport">ComplianceReport</a>
+    <h4 class="field-label">401</h4>
+    The user is not authenticated with the OPERANDO system. Check that 
+the service ticket provided by the authentication service is correctly 
+included in the message body.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    The user is authenticated with the OPERANDO system, but is not allowed to perform the requested action.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr>
   <h1><a name="Regulations">Regulations</a></h1>
   <div class="method"><a name="regulationsPost">
     </a><div class="method-path"><a name="regulationsPost">
@@ -336,75 +405,6 @@ should be used to refer to it in later communication.
     <h4 class="field-label">204</h4>
     The regulation was successfully updated, and the platform has been made compliant with it.
         <a href="#PrivacyRegulationInput">PrivacyRegulationInput</a>
-    <h4 class="field-label">401</h4>
-    The user is not authenticated with the OPERANDO system. Check that 
-the service ticket provided by the authentication service is correctly 
-included in the message body.
-        <a href="#"></a>
-    <h4 class="field-label">403</h4>
-    The user is authenticated with the OPERANDO system, but is not allowed to perform the requested action.
-        <a href="#"></a>
-  </div> <!-- method -->
-  <hr>
-  <h1><a name="Reports">Reports</a></h1>
-  <div class="method"><a name="ospsOspIdComplianceReportGet">
-    </a><div class="method-path"><a name="ospsOspIdComplianceReportGet">
-    </a><a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /osps/{osp-id}/compliance-report</code></pre></div>
-    <div class="method-summary">Get a report. (<span class="nickname">ospsOspIdComplianceReportGet</span>)</div>
-    <div class="method-notes">Called by a regulator to obtain a compliance report relating to the specified OSP.
-</div>
-
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">osp-id (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> — the unique identifier of an online service provider </div>
-    </div>  <!-- field-items -->
-
-
-
-    <h3 class="field-label">Request headers</h3>
-    <div class="field-items">
-      
-    </div>  <!-- field-items -->
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#ComplianceReport">ComplianceReport</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "privacypolicy" : {
-    "policies" : [ {
-      "reason" : "aeiou",
-      "datauser" : "aeiou",
-      "reasonid" : "aeiou",
-      "datatype" : "aeiou",
-      "datasubjecttype" : "aeiou"
-    } ],
-    "osp_policy_id" : "aeiou"
-  }
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    The request was successful. The report is returned in the response body in the requested format.
-        <a href="#ComplianceReport">ComplianceReport</a>
     <h4 class="field-label">401</h4>
     The user is not authenticated with the OPERANDO system. Check that 
 the service ticket provided by the authentication service is correctly 
