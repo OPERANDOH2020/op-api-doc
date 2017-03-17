@@ -35,6 +35,17 @@ LogResponse:
     description:
       type: string
       description: Description of the logged event.
+    logType:
+      type: string
+      description: Type of the data logged.
+      enum:
+        - DATA_ACCESS
+        - SYSTEM
+        - NOTIFICATION
+        - OTHER
+    affectedUserId:
+      type: string
+      description: Id of the affected user.
 LogRequest:
   type: object
   properties:
@@ -77,6 +88,17 @@ LogRequest:
       description : Array of keywords to facilitate search
       items:
         type: string
+    logType:
+      type: string
+      description: Type of the data logged.
+      enum:
+        - DATA_ACCESS
+        - SYSTEM
+        - NOTIFICATION
+        - OTHER
+    affectedUserId:
+      type: string
+      description: Id of the affected user.
 LogRequestTicket:
   type: object
   properties:
@@ -119,3 +141,14 @@ LogRequestTicket:
       description : Array of keywords to facilitate search
       items:
         type: string
+    logType:
+      type: string
+      description: Type of the data logged.
+      enum:
+        - DATA_ACCESS
+        - SYSTEM
+        - NOTIFICATION
+        - OTHER
+    affectedUserId:
+      type: string
+      description: Id of the affected user.
