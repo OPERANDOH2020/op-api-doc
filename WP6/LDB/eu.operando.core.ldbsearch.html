@@ -1,11 +1,9 @@
-<?xml version="1.0"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html>
   <head>
     <title>eu.operando.core.ldbsearch</title>
     <style type="text/css">
-      body { 
+      body {
 	font-family: Trebuchet MS, sans-serif;
 	font-size: 15px;
 	color: #444;
@@ -27,7 +25,6 @@ hr	{
 	border: 0;
 	color: #ddd;
 	background-color: #ddd;
-	display: none;
 }
 
 .app-desc {
@@ -178,6 +175,7 @@ font-style: italic;
   display: inline-block;
   text-decoration: none;
 }
+
     </style>
   </head>
   <body>
@@ -194,12 +192,14 @@ font-style: italic;
   <h2><a name="__Methods">Methods</a></h2>
   [ Jump to <a href="#__Models">Models</a> ]
 
-  <h2>Table of Contents </h2>
+  <h3>Table of Contents </h3>
   <div class="method-summary"></div>
-  <ol>
+  <h4><a href="#LogSearch">LogSearch</a></h4>
+  <ul>
   <li><a href="#getLogs"><code><span class="http-method">get</span> /operando/core/ldbsearch/log/search</code></a></li>
-  </ol>
+  </ul>
 
+  <h1><a name="LogSearch">LogSearch</a></h1>
   <div class="method"><a name="getLogs"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -229,7 +229,11 @@ font-style: italic;
 
       <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Title of the log messages to be recovered. </div><div class="param">keyWords (optional)</div>
 
-      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Keywords to perform the search. </div>
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Keywords to perform the search. </div><div class="param">logType (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Type of the data logged. </div><div class="param">affectedUserId (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Id of the affected user. </div>
     </div>  <!-- field-items -->
 
 
@@ -241,6 +245,21 @@ font-style: italic;
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : [ {
+    "logType" : "aeiou",
+    "requesterType" : "aeiou",
+    "requesterId" : "aeiou",
+    "logDate" : "aeiou",
+    "logLevel" : "aeiou",
+    "affectedUserId" : "aeiou",
+    "logPriority" : "aeiou",
+    "description" : "aeiou",
+    "title" : "aeiou"
+  } ]
+}</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
@@ -263,43 +282,50 @@ font-style: italic;
   <h2><a name="__Models">Models</a></h2>
   [ Jump to <a href="#__Methods">Methods</a> ]
 
-  <h2>Table of Contents</h2>
+  <h3>Table of Contents</h3>
   <ol>
     <li><a href="#Error"><code>Error</code></a></li>
-    <li><a href="#Inline_response_200"><code>Inline_response_200</code></a></li>
+    <li><a href="#inline_response_200"><code>inline_response_200</code></a></li>
     <li><a href="#LogResponse"><code>LogResponse</code></a></li>
   </ol>
 
   <div class="model">
-    <h3 class="field-label"><a name="Error">Error</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="Error">Error - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> </div>
-<div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> </div>
-<div class="param">fields (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> </div>
+      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">fields (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3 class="field-label"><a name="Inline_response_200">Inline_response_200</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="inline_response_200">inline_response_200 - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#LogResponse">array[LogResponse]</a></span> </div>
+      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#LogResponse">array[LogResponse]</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
-    <h3 class="field-label"><a name="LogResponse">LogResponse</a> <a class="up" href="#__Models">Up</a></h3>
+    <h3 class="field-label"><a name="LogResponse">LogResponse - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">logDate (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Date when the log was generated.</div>
-<div class="param">requesterType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Source type from which comes the request.</div>
+      <div class="param">logDate (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Date when the log was generated. </div>
+<div class="param">requesterType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Source type from which comes the request. </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">PROCESS</div><div class="param-enum">MODULE</div>
-<div class="param">requesterId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the requester (e.g the id of an OSP).</div>
-<div class="param">logPriority (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Priority level of the data to be logged.</div>
+<div class="param">requesterId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the requester (e.g the id of an OSP). </div>
+<div class="param">logPriority (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Priority level of the data to be logged. </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">LOW</div><div class="param-enum">NORMAL</div><div class="param-enum">HIGH</div><div class="param-enum">CRITICAL</div>
-<div class="param">logLevel (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Type of the data to be logged.</div>
+<div class="param">logLevel (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Type of the data to be logged. </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">INFO</div><div class="param-enum">WARN</div><div class="param-enum">ERROS</div><div class="param-enum">FATAL</div>
-<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Subject of the logged event.</div>
-<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the logged event.</div>
+<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Subject of the logged event. </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the logged event. </div>
+<div class="param">logType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Type of the data logged. </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">DATA_ACCESS</div><div class="param-enum">SYSTEM</div><div class="param-enum">NOTIFICATION</div><div class="param-enum">OTHER</div>
+<div class="param">affectedUserId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the affected user. </div>
     </div>  <!-- field-items -->
   </div>
   </body>

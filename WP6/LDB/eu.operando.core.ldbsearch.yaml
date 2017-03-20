@@ -64,6 +64,14 @@ paths:
           in: query
           description: Keywords to perform the search.
           type: string
+        - name: logType
+          in: query
+          description: Type of the data logged.
+          type: string
+        - name: affectedUserId
+          in: query
+          description: Id of the affected user.
+          type: string
       responses:
         "200":
           description: Successful operation

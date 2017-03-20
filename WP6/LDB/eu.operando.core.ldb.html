@@ -334,20 +334,24 @@ font-style: italic;
     <h3 class="field-label"><a name="LogRequest">LogRequest - </a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'></div>
     <div class="field-items">
-      <div class="param">userId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the user. </div>
-<div class="param">requesterType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Source type from which comes the request. </div>
+      <div class="param">userId (mandatory)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the user. </div>
+<div class="param">requesterType (mandatory)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Source type from which comes the request. </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">PROCESS</div><div class="param-enum">MODULE</div>
-<div class="param">requesterId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the requester (e.g the id of an OSP). </div>
-<div class="param">logPriority (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Priority level of the data to be logged. </div>
+<div class="param">requesterId (mandatory)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the requester (e.g the id of an OSP). </div>
+<div class="param">logPriority (mandatory)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Priority level of the data to be logged. </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">LOW</div><div class="param-enum">NORMAL</div><div class="param-enum">HIGH</div><div class="param-enum">CRITICAL</div>
-<div class="param">logDataType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Type of the data to be logged. </div>
+<div class="param">logLevel (mandatory)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Logging level. </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">INFO</div><div class="param-enum">WARN</div><div class="param-enum">ERROS</div><div class="param-enum">FATAL</div>
-<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Subject of the event to be logged. </div>
-<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the event to be logged. </div>
-<div class="param">keywords (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span> Array of keywords to facilitate search </div>
+<div class="param">title (mandatory)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Subject of the event to be logged. </div>
+<div class="param">description (mandatory)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the event to be logged. </div>
+<div class="param">keywords (mandatory)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span> Array of keywords to facilitate search </div>
+<div class="param">logType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Type of the data logged. </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">DATA_ACCESS</div><div class="param-enum">SYSTEM</div><div class="param-enum">NOTIFICATION</div><div class="param-enum">OTHER</div>
+<div class="param">affectedUserId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the affected user. </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
@@ -368,6 +372,10 @@ font-style: italic;
 <div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Subject of the event to be logged. </div>
 <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the event to be logged. </div>
 <div class="param">keywords (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span> Array of keywords to facilitate search </div>
+<div class="param">logType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Type of the data logged. </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">DATA_ACCESS</div><div class="param-enum">SYSTEM</div><div class="param-enum">NOTIFICATION</div><div class="param-enum">OTHER</div>
+<div class="param">affectedUserId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the affected user. </div>
     </div>  <!-- field-items -->
   </div>
   </body>
