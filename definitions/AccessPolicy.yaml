@@ -23,7 +23,9 @@ AccessPolicy:
         enum: 
           - Collect 
           - Access
-          - Use
+          - Create
+          - Update
+          - Delete
           - Disclose
           - Archive
       
