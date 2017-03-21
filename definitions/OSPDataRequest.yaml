@@ -22,9 +22,13 @@ OSPDataRequest:
             enum: 
               - Collect 
               - Access
-              - Use
               - Disclose
               - Archive
+              - Select
+              - Update
+              - Insert
+              - Delete
+              - Create
 
         attributes:
             description: |
