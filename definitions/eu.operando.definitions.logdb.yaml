@@ -6,29 +6,16 @@ LogResponse:
       description: Date when the log was generated.
     requesterType:
       type: string
-      description: Source type from which comes the request.
-      enum:
-        - PROCESS
-        - MODULE
+      description: Source type from which comes the request.      
     requesterId:
       type: string
       description: Id of the requester (e.g the id of an OSP).
     logPriority:
       type: string
-      description: Priority level of the data to be logged.
-      enum:
-        - LOW
-        - NORMAL
-        - HIGH
-        - CRITICAL
+      description: Priority level of the data to be logged.     
     logLevel:
       type: string
-      description: Type of the data to be logged.
-      enum:
-        - INFO
-        - WARN
-        - ERROS
-        - FATAL
+      description: Type of the data to be logged.      
     title:
       type: string
       description: Subject of the logged event.
@@ -37,12 +24,7 @@ LogResponse:
       description: Description of the logged event.
     logType:
       type: string
-      description: Type of the data logged.
-      enum:
-        - DATA_ACCESS
-        - SYSTEM
-        - NOTIFICATION
-        - OTHER
+      description: Type of the data logged.      
     affectedUserId:
       type: string
       description: Id of the affected user.
