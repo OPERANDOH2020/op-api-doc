@@ -57,7 +57,7 @@ LogRequest:
       enum:
         - INFO
         - WARN
-        - ERROS
+        - ERROR
         - FATAL
     title:
       type: string
@@ -110,7 +110,7 @@ LogRequestTicket:
       enum:
         - INFO
         - WARN
-        - ERROS
+        - ERROR
         - FATAL
     title:
       type: string

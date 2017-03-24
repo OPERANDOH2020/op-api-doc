@@ -44,10 +44,18 @@ paths:
           in: query
           description: Log level wanted to be recovered.
           type: string
+          enum:
+          - INFO
+          - WARN
+          - ERROR
+          - FATAL
         - name: requesterType
           in: query
           description: Type of the requester that originated the log entry.
           type: string
+          enum:
+          - PROCESS
+          - MODULE
         - name: requesterId
           in: query
           description: Id of the requester that originated the log entry.
@@ -56,6 +64,11 @@ paths:
           in: query
           description: Priority of the log messages to be recovered.
           type: string
+          enum:
+          - LOW
+          - NORMAL
+          - HIGH
+          - CRITICAL
         - name: title
           in: query
           description: Title of the log messages to be recovered.
@@ -68,6 +81,11 @@ paths:
           in: query
           description: Type of the data logged.
           type: string
+          enum:
+          - DATA_ACCESS
+          - SYSTEM
+          - NOTIFICATION
+          - OTHER
         - name: affectedUserId
           in: query
           description: Id of the affected user.
