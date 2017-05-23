@@ -121,20 +121,15 @@ paths:
           description: |
             The client inputs to the operation are incorrect or invalid. The caller should check the inputs are valid based upon the returned error message.
   
-  /osp_policy_evaluator:
+  
+  /osp_policy_batch_evaluator:
     post:
-      summary: Evaluate a set of OSP requests against the User Privacy Policy
+      summary: Evaluate a set of OSP requests against the complete user set for the identified OSP.
       description: |
-        Called by the Rights Management Component when evaluating if an OSP
-        request or set of requests matches the user preferences stored in the
-        user's UPP.
+        Called by the Rights Management Component to evaluate the OSPs database of UPPs. Note it
+        only considers registered Operando users. If there are other users in the database these
+        would not be evaluated.
       parameters:
-        - name: user_id
-          in: query
-          description: Unique identifier representing a specific user
-          type: string
-          required: true
-          format: string
         - name: osp_id
           in: query
           description: OSP unique identifier
@@ -154,7 +149,7 @@ paths:
       responses:
         '200':
           description: |
-            Evaluation was successful and a report is produced. The report indicates if the request(s) is allowed. Where not allowed, the report indicates.
+            Evaluation was successful and a report is produced. The report the evaluated fields accross the database.
           schema:
             $ref: '#/definitions/PolicyEvaluationReport'
         '400':
