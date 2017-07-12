@@ -1,0 +1,171 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Privacy Questionairre API
+  description: |
+    A set of methods to manage privacy quesions. 
+    
+    Privacy questions are generated to form a questionairre that can be displayed
+    to the user. The answers to these questions form a privacy sensitivity index.
+    
+    For an individual service (OSP)
+    a set of questions can be generated 
+    
+  termsOfService: 'http://www.operando.eu/terms/'
+  contact:
+    name: IT Innovation
+    url: 'http://www.operando.eu/support'
+    email: support@operando.eu
+  license:
+    name: MIT
+    url: 'http://opensource.org/licenses/MIT'
+    
+schemes:
+  - http
+  - https
+  
+host: operando.eu
+basePath: /pq
+
+
+################################################################################
+#                                   Tags                                       #
+################################################################################
+tags:
+  - name: Questions
+    description: |
+      Storage and management of questions.
+  - name: Sensitivity
+    description: Processing of question answers to produce sensitivity index.
+
+      
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  user-id:
+    name: user-id
+    in: path
+    description: The user identifier number
+    type: string
+    required: true
+  osp-id:
+    name: osp-id
+    in: path
+    description: The identifier number of an OSP
+    type: string
+    required: true
+  language:
+    name: language
+    in: query
+    description: The language for the question (EN, IT, FR etc.) 
+    type: string
+    required: true  
+
+################################################################################
+#                                   paths                                      #
+################################################################################
+paths:
+  /questions/{user-id}/{osp-id}:
+    get:
+      summary: Obtain a set of 9 questions related to privacy and the specified OSP.
+      description: |
+        The query contains a json object (names, values) and the request returns the list of documents (UPPs) where the filter matches i.e. each document contains fields with those values.
+      tags:
+        - Questions
+    
+      parameters:
+        - $ref: '#/parameters/user-id'
+        - $ref: '#/parameters/osp-id'
+        - $ref: '#/parameters/language'
+      responses:
+        '200':
+          description: The list of 9 generated questions for this OSP-ID.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/questionobject'
+        '404':
+          description: The user/osp-id does not exist in the platform.
+          
+    post:
+      summary: Enter the answers to the questionnaire.
+      description: |
+        Once the questions have been answered by the user they are pushed to be 
+        processed and the user preferences calculated and stored in the UPP.
+      tags:
+        - Questions
+      parameters:
+        - name: upp
+          in: body
+          description: The answers to the questions
+          required: true
+          schema:
+            $ref: '#/definitions/questionobject'
+      responses:
+        '200':
+          description: The set of questions successfully returned for the user.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/answerobject'
+        '404':
+          description: .
+
+definitions:
+  questionobject:
+    type: object
+    properties:
+        question: 
+          type: string
+          description: | 
+            The text to display to the user for this question. 
+
+        category:
+          type: string
+          description: | 
+            The type of data this question refers to - general, medical, OSP, etc.
+
+        meta: 
+          type: string
+          description: | 
+            Additional helper (tooltip) information to display to the user. 
+           
+        weight:    
+          type: string
+          description: | 
+            The importance of this question to an overal ranking 0..1 with 1 the greatest importance. 
+            
+        score:    
+          type: string
+          description: | 
+            The score field to be entered by the user. 
+ 
+  answerobject:
+    type: object
+    properties:
+        category: 
+          type: string
+          description: | 
+            The data category this relates to 
+
+        score:
+          type: string
+          description: | 
+            The result between 1 and 4 (strongly disagree, disagree, agree, strongly agree)
+
+        roles: 
+          type: string
+          description: | 
+            The role of the person this relates to 
+           
+        action:    
+          type: string
+          description: | 
+            The importance of this question to an overal ranking 0..1 with 1 the greatest importance.         
+        
+
+     
+
+  
+          
