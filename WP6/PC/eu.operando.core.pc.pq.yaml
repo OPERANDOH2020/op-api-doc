@@ -101,7 +101,9 @@ paths:
           description: The answers to the questions
           required: true
           schema:
-            $ref: '#/definitions/questionobject'
+            type: array
+            items: 
+              $ref: '#/definitions/questionobject'
       responses:
         '200':
           description: The set of questions successfully returned for the user.
